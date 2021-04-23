@@ -3,6 +3,9 @@ import React from "react";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
 import "./Chapitrefive.css";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+
 const Chapitrefive = () => {
   const initialState = {
     vision: "",
@@ -14,6 +17,7 @@ const Chapitrefive = () => {
   const [show, setShow] = React.useState(false);
   const [mission, setMission] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
+  const [idDoc, setIdDoc] = React.useState("");
   
   const handleChange = (e) => {
     var { name, value } = e.target;

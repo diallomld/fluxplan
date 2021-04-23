@@ -1,8 +1,11 @@
-import { Button, TextField } from "@material-ui/core";
 import React from "react";
+import { Button, TextField } from "@material-ui/core";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
 import "./Chapitreseven.css";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+
 const Chapitreseven = () => {
   const initialState = {
     action: "",
@@ -14,6 +17,7 @@ const Chapitreseven = () => {
   const [show, setShow] = React.useState(false);
   const [avancement, setAvancement] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
+  const [idDoc, setIdDoc] = React.useState("");
   
   const handleChange = (e) => {
     var { name, value } = e.target;

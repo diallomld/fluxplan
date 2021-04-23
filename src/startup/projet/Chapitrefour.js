@@ -122,8 +122,7 @@ const Chapitrefour = () => {
           <table>
             <thead>
             <tr>
-              <th>nom service</th>
-              <th>Description Produit/service</th>
+              <th>Historique succinct du projet</th>
               <th>Action </th>
             </tr>
             </thead>
@@ -175,11 +174,10 @@ const Chapitrefour = () => {
           className={`${!show && "show"}`}
           onSubmit={editHistorique}
         >
-          <div className="chapitreone">
                 <div className="chapitreone-title">
                   <h1>Historique succinct du projet</h1>
                 </div>
-                <div className="textarea-div">
+                <div className="input">
                   <TextareaAutosize
                     variant="outlined"
                     margin="normal"
@@ -205,7 +203,7 @@ const Chapitrefour = () => {
                     Modifier
                   </Button>
               </div>
-          </div>
+        
         </form>
         ): (
           <form
@@ -213,11 +211,10 @@ const Chapitrefour = () => {
             className={`${!show && "show"}`}
             onSubmit={handleSubmit}
           >
-              <div className="chapitreone">
                   <div className="chapitreone-title">
                     <h1>Historique succinct du projet</h1>
                   </div>
-                  <div className="textarea-div">
+                  <div className="input">
                     <TextareaAutosize
                       variant="outlined"
                       margin="normal"
@@ -243,7 +240,7 @@ const Chapitrefour = () => {
                       Ajouter
                     </Button>
                 </div>
-            </div>
+            
           </form>
         )}
         

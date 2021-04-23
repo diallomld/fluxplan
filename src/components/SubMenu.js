@@ -30,7 +30,7 @@ const DropdownLink = styled(Link)`
   font-size: 18px;
 
   &:hover {
-    background: #632cd4;
+    background: #18A4F6;
   }
 `;
 const ContainSubmenu = styled.div`

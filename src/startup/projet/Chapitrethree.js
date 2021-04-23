@@ -3,6 +3,9 @@ import React from "react";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
 import "./Chapitrethree.css";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+
 const Chapitrethree = () => {
   const initialState = {
     produit: "",
