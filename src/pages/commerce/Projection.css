@@ -1,0 +1,102 @@
+.justification{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    margin-left: 300px;
+    height: 90vh;
+    width:80%;
+    margin-left: 90%;
+ 
+    
+    
+}
+.btn {
+    align-self: center !important;
+    background-color:#42a5f5 !important;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}
+.plus{
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    
+    
+    
+}
+.plus-icon{
+    font-size: 12px;
+    background-color: #42a5f5 !important;
+    width: 200px !important;
+    height: 40px !important;
+    align-self: center;
+}
+.plus{
+    font-size: 12px !important;
+    color: #42a5f5;
+}
+.text-h{
+    font-size: 18px;
+}
+.text-p{
+    font-size: 15px !important;
+    margin-top: 12px;
+    
+}
+.show{
+    display: none !important;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 30px;
+    
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  
+ 
+@media screen and (max-width:900px){
+    
+    .justification{
+        margin-left: 30px;
+    }
+    .text-h{
+        font-size: 15px;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 300px;
+        
+      }
+    
+}

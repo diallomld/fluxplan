@@ -1,0 +1,13 @@
+.drawer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.drawer-main{
+ background-color: aqua;
+ margin-left: 20%;
+ width:100vw;
+}

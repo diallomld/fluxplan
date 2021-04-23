@@ -1,0 +1,48 @@
+@media screen and (min-width:900px){
+    .menu{
+        display:none !important;
+    }
+    .wrap{
+        left: 0 !important;
+    }
+    .close{
+        display:none !important;
+       
+    }
+    .nav{
+        width: 334px !important;
+        top: 0;
+        left: 0;
+        position: sticky;
+        height: 100%;
+        z-index: 0;
+        position: absolute;
+        
+    }
+    .logout{
+        margin-left: 30px;
+        color:white !important;
+        margin-top: 8px;
+    }
+    .logout:hover{
+        cursor: pointer;
+    }
+    
+    
+    
+}
+@media screen and (max-width:900px){
+   .title{
+       font-size: 14px !important;
+   }
+   /* .logout{
+    margin-left: 50px;
+    color:brown !important;
+    margin-top: 8px;
+} */
+
+  
+    
+    
+}
+

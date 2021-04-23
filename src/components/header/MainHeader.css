@@ -1,0 +1,73 @@
+.appBar{
+    background-color:black !important;
+    height: 110px !important;
+}
+.btn-tittle{
+    color:#FFFFFF !important;
+}
+h2{
+    
+    font-size: 1.4rem;
+    font-weight: bold;
+    width: 200px;
+    color: #FFFFFF ;
+    font-family: CenturyGothicFett;
+}
+.btn{
+    color:  #5DADE2 !important;
+    font-size: 0.9rem !important;
+    font-weight:500 !important;
+}
+.logo{
+    width: 379px;
+    height: 6%;
+    border-radius: 50%;
+    object-fit:contain;
+    
+}
+.logo:hover{
+    cursor: pointer;
+}
+.menu{
+    display: none !important;
+    
+}
+@media screen and (max-width: 900px) {
+    .appBar{
+        display: flex !important;
+        justify-content: space-between ;
+        align-items: center;
+    }
+    .btn{
+        display:none;
+    }
+    h2{
+        font-size: 1rem;
+        font-weight: bold;
+        width: 200px;
+        color:#5DADE2 ;
+        
+    }
+    .btn-container{
+        display:none !important;
+        
+    }
+    .logo{
+        width:20%;
+        height:20%;object-fit: contain;
+    }
+    .menu{
+        display: flex !important;
+        margin-left: 60% !important;
+        
+    }
+    .menu-icon{
+        font-size: 3rem !important;
+        font-weight: bold;
+    }
+    
+    
+}
+@media screen and (max-width: 901px) {
+    
+}
