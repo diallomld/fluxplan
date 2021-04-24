@@ -61,7 +61,7 @@ export default function ButtonAppBar({ draw, setDrawer }) {
               className="logo"
               alt="Remy Sharp"
               /*style={{borderRadius:51 + "%"}}*/
-              src={require("../../assets/lg.jpeg").default}
+              src={require("../../assets/le-logo.jpeg").default}
             />
             {/* <Container className="menu">
               {!draw ? (

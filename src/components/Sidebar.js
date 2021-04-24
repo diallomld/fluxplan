@@ -74,7 +74,7 @@ const Sidebar = ({ navigation }) => {
     <ContainDiv>
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav className="nav">
-            <img style={{ width: 270+'px' }} src={require("../assets/lg.jpeg").default} />
+            <img style={{ width: 270+'px' }} src={require("../assets/le-logo.jpeg").default} />
           
             
             <ExitToAppIcon className="logout" onClick={() => handleClick()} />

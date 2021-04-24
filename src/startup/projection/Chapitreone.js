@@ -7,28 +7,24 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const Chapitretwo = () => {
+const Chapitreone = () => {
   const initialState = {
-    produit: "",
-    prix: "",
-    distribution: "",
-    communication: "",
+    elements: "",
+    montant: "",
   };
   const editObject = {
-    produit: "",
-    prix: "",
-    distribution: "",
-    communication: "",
+    elements: "",
+    montant: "",
   };
   const { userId } = useGlobalContext();
-  let [credentital, setCredentital] = React.useState(initialState);
+  const [credentital, setCredentital] = React.useState(initialState);
   const [show, setShow] = React.useState(false);
-  const [mix, setMix] = React.useState([]);
+  const [cout, setCout] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-
+  
   const handleChange = (e) => {
     var { name, value } = e.target;
     setCredentital({
@@ -40,8 +36,8 @@ const Chapitretwo = () => {
       [name]: value,
     });
   };
-  const handleModif = (id, index) => {
-    setEditTable(mix[index])
+  const handleModif = (id,index) => {
+    setEditTable(cout[index])
     setShow(!show);
     if(show){
       setIdDoc("");
@@ -49,22 +45,17 @@ const Chapitretwo = () => {
       setIdDoc(id);
     }
   };
-  const add = () => {
-    setShow(!show)
-  }
-  const editMix = (e) => {
+  const editCout = (e) => {
     e.preventDefault();
     setLoad(true)
     firebasee
       .firestore()
-      .collection("mix-marketing")
+      .collection("cout-projet")
       .doc(idDoc)
       .set(
         {
-          produit: editTable.produit,
-          prix: editTable.prix,
-          distribution: editTable.distribution,
-          communication: editTable.communication,
+          elements: editTable.elements,
+          montant: editTable.montant,
           userId: userId,
         },
         { merge: true }
@@ -77,11 +68,11 @@ const Chapitretwo = () => {
     setToggle(!toggle);
     setIdDoc("");
   };
-  const deleteMix = (id) => {
+  const deleteCout = (id) => {
     setLoad(true)
     firebasee
       .firestore()
-      .collection("mix-marketing")
+      .collection("cout-projet")
       .doc(id)
       .delete()
       .then(() => {
@@ -96,12 +87,10 @@ const Chapitretwo = () => {
     e.preventDefault();
     firebasee
       .firestore()
-      .collection("mix-marketing")
+      .collection("cout-projet")
       .add({
-          produit: credentital.produit,
-          prix: credentital.prix,
-          distribution: credentital.distribution,
-          communication: credentital.communication,
+          elements: credentital.elements,
+          montant: credentital.montant,
           userId: userId,
       })
       .then(() => {
@@ -116,22 +105,20 @@ const Chapitretwo = () => {
     //setLoad(true)
     return firebasee
       .firestore()
-      .collection("mix-marketing")
+      .collection("cout-projet")
       .where("userId", "==", userId)
       .get()
       .then((data) => {
         let dat = [];
         data.forEach((doc) => {
           dat.push({
-            produit: doc.data().produit,
-            prix: doc.data().prix,
-            distribution: doc.data().distribution,
-            communication: doc.data().communication,
+            elements: doc.data().elements,
+            montant: doc.data().montant,
             id: doc.data().userId,
             docIdd: doc.id,
           });
         });
-        setMix(dat);
+        setStrategy(dat);
         //setLoad(false)
       })
       .catch((err) => console.log(err));
@@ -144,34 +131,30 @@ const Chapitretwo = () => {
   //console.log(mission);
   return (
     <div className="chapitretwo">
-      {mix.length > 0 ? (
+      {strategy.length > 0 ? (
         <div className="tab">
           <table>
             <thead>
               <tr>
-                <th>Politique de produit</th>
-                <th>Politique de prix</th>
-                <th>Politique de distribution</th>
-                <th>Politique de communication</th>
+                <th>Elements </th>
+                <th>Montant</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-            {mix.map((item, index) => {
+            {strategy.map((item, index) => {
               return (
                 <>
                     <tr key={index}>
-                      <td>{item.produit}</td>
-                      <td>{item.prix}</td>
-                      <td>{item.distribution}</td>
-                      <td>{item.communication}</td>
+                      <td>{item.elements}</td>
+                      <td>{item.montant}</td>
                       <td>
                         <div className="delete">
                             <div className="edit">
                               <EditIcon onClick={() => handleModif(item.docIdd, index)} />
                             </div>
                             <div className="delet">
-                              <DeleteIcon onClick={() => deleteMix(item.docIdd)} />
+                              <DeleteIcon onClick={() => deleteCout(item.docIdd)} />
                             </div>
                           </div>
                       </td>
@@ -184,14 +167,12 @@ const Chapitretwo = () => {
         </div>
       ) : (
         <div className="tab">
-          <h3>Nos mixs</h3>
+          <h3>Cout total du projet</h3>
           <table>
             <thead>
               <tr>
-                <th>Politique de produit</th>
-                <th>Politique de prix</th>
-                <th>Politique de distribution</th>
-                <th>Politique de communication</th>
+                <th>montant</th>
+                <th>elements </th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -200,17 +181,17 @@ const Chapitretwo = () => {
                 <td>...............</td>
                 <td>...............</td>
                 <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
               </tr>
               <tr>
                 <td>...............</td>
                 <td>...............</td>
                 <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
               </tr>
             </tbody>
+            <tfoot>
+              <th>Total Investissements</th>
+              <th>1000000 FCA</th>
+            </tfoot>
           </table>
         </div>
       )}
@@ -218,16 +199,16 @@ const Chapitretwo = () => {
       {load ? (<CircularProgress variant="indeterminate" />): (
         <>
         <div className="chapitretwo-title">
-          {mix.length <= 0 ? (
-              <p>Cette partie est vide </p>
+          {strategy.length <= 0 ? (
+              <p>Cette partie n'a pas encore été remplit </p>
               ) :(
-                <p>Notre strategie de Marketing MIX </p>
+                <p>Cout du Projet </p>
               )
           }
         </div>
         <div className="plus">
           {!show && (
-            <Button className="plus-icon" onClick={add}>
+            <Button className="plus-icon" onClick={() => setShow(!show)}>
               Ajouter
             </Button>
           )}
@@ -239,65 +220,42 @@ const Chapitretwo = () => {
         <form
           noValidate
           className={`${!show && "show"}`}
-          onSubmit={editMix}
+          onSubmit={editCout}
         >
           <div className="input">
+            
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="produit"
-              label="Politique de produit"
-              name="produit"
-              autoComplete="produit"
+              id="elements"
+              label="elements"
+              name="elements"
               autoFocus
               multiline
-              value={editTable.produit}
+              rows="5"
+              value={editTable.elements}
               onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
+              style={{ width: 200, marginRight: 10 }}
             />
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="prix"
-              label="Politique de prix"
-              name="prix"
+              id="montant"
+              label="montant"
+              name="montant"
+              autoComplete="montant"
+              type="number"
+              InputLabelProps= {{
+                shrink: true,
+              }}
               autoFocus
-              multiline
-              value={editTable.prix}
+              value={editTable.montant}
               onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="distribution"
-              label="Politique de distribution"
-              name="distribution"
-              autoFocus
-              multiline
-              value={editTable.distribution}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="communication"
-              label="ploitique decommunication"
-              name="communication"
-              autoFocus
-              multiline
-              value={editTable.communication}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
+              style={{ width: 200, marginRight: 10 }}
             />
             <Button
               type="submit"
@@ -318,63 +276,40 @@ const Chapitretwo = () => {
         >
           <div className="input">
             
-            <TextField
+          <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="produit"
-              label="Politique de produit"
-              name="produit"
-              autoComplete="produit"
+              id="elements"
+              label="elements"
+              name="elements"
               autoFocus
               multiline
-              value={credentital.produit}
+              rows="4"
+              value={credentital.elements}
               onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
+              style={{ width: 200, marginRight: 10 }}
             />
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="prix"
-              label="Politique de prix"
-              name="prix"
+              id="montant"
+              label="montant"
+              name="montant"
+              autoComplete="montant"
+              type="number"
+              InputLabelProps= {{
+                shrink: true,
+              }}
               autoFocus
-              multiline
-              value={credentital.prix}
+              value={credentital.montant}
               onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
+              style={{ width: 200, marginRight: 10 }}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="distribution"
-              label="Politique de distribution"
-              name="distribution"
-              autoFocus
-              multiline
-              value={credentital.distribution}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="communication"
-              label="politique decommunication"
-              name="communication"
-              autoFocus
-              multiline
-              value={credentital.communication}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
+            
             <Button
                 type="submit"
                 className="btn"
@@ -391,4 +326,4 @@ const Chapitretwo = () => {
   );
 };
 
-export default Chapitretwo
+export default Chapitreone

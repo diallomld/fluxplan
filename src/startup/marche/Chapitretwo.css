@@ -38,7 +38,7 @@ table {
   }
   .btn{
       color:white;
-      background-color: rgb(116, 116, 173) !important;
+      background-color: rgb(0, 225, 255) !important;
       width: 150px !important;
   }
   @media (max-width: 900px){
