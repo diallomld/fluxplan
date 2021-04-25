@@ -41,6 +41,7 @@ import Chapitresixm from "./startup/marche/Chapitresix";
 import Chapitreones from "./startup/strategie/Chapitreone";
 import Chapitretwos from "./startup/strategie/Chapitretwo";
 import Chapitrethrees from "./startup/strategie/Chapitrethree";
+import Chapitreonep from "./startup/projection/Chapitreone";
 
 function App() {
   var id = localStorage.getItem("userId");
@@ -123,6 +124,9 @@ function App() {
             </Route>
             <Route exact path="/strategie/action">
               <Chapitrethrees />
+            </Route>
+            <Route exact path="/projection/cout">
+              <Chapitreonep />
             </Route>
             <Route exact path="/download">
               <LandingPage />

@@ -15,7 +15,9 @@
     font-size:1rem;
 
 }
-
+.tab{
+  margin-top: 30px;
+}
 
 table {
     font-family: arial, sans-serif;
@@ -37,8 +39,9 @@ table {
     background-color: #dddddd;
   }
   .btn{
-      color:white;
-      background-color: rgb(8, 214, 204) !important;
+      color: #fff;
+      font-size: 20px;
+      background-color: #08d6cc !important;
       width: 150px !important;
   }
   @media (max-width: 900px){

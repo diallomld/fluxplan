@@ -7,7 +7,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const Chapitreone = () => {
+const Chapitreonep = () => {
   const initialState = {
     elements: "",
     montant: "",
@@ -24,6 +24,8 @@ const Chapitreone = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
+  const [total, setTotal] = React.useState(0);
+  let test = 0;
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -63,6 +65,10 @@ const Chapitreone = () => {
       .then((data) => {
         console.log("data" + data);
         setLoad(false)
+        setCredentital({
+          elements:"",
+          montant:"",
+        })
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
@@ -96,13 +102,17 @@ const Chapitreone = () => {
       .then(() => {
         console.log("add");
         setLoad(false)
+        setCredentital({
+          elements:"",
+          montant:"",
+        })
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
     //alert("segment marché Ajouté");
   };
   const getDate = () => {
-    //setLoad(true)
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("cout-projet")
@@ -117,21 +127,25 @@ const Chapitreone = () => {
             id: doc.data().userId,
             docIdd: doc.id,
           });
+          //console.log("montant "+ Number(doc.data().montant) + total)
+          test = test + Number(doc.data().montant)
         });
-        setStrategy(dat);
-        //setLoad(false)
+        setCout(dat);
+        setTotal(test)
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
 
   React.useEffect(() => {
     getDate();
+    //setTotal(0)
   }, [toggle]);
   //console.log("pro");
   //console.log(mission);
   return (
     <div className="chapitretwo">
-      {strategy.length > 0 ? (
+      {cout.length > 0 ? (
         <div className="tab">
           <table>
             <thead>
@@ -142,7 +156,7 @@ const Chapitreone = () => {
               </tr>
             </thead>
             <tbody>
-            {strategy.map((item, index) => {
+            {cout.map((item, index) => {
               return (
                 <>
                     <tr key={index}>
@@ -162,6 +176,11 @@ const Chapitreone = () => {
                 </>
               );
             })}
+            <tr>
+              <td>Total Investissements</td>
+              <td colSpan="3">{total} FCFA</td>
+
+            </tr>
             </tbody>
           </table>
         </div>
@@ -190,7 +209,7 @@ const Chapitreone = () => {
             </tbody>
             <tfoot>
               <th>Total Investissements</th>
-              <th>1000000 FCA</th>
+              <th colSpan="2">1000000 FCA</th>
             </tfoot>
           </table>
         </div>
@@ -199,7 +218,7 @@ const Chapitreone = () => {
       {load ? (<CircularProgress variant="indeterminate" />): (
         <>
         <div className="chapitretwo-title">
-          {strategy.length <= 0 ? (
+          {cout.length <= 0 ? (
               <p>Cette partie n'a pas encore été remplit </p>
               ) :(
                 <p>Cout du Projet </p>
@@ -235,6 +254,7 @@ const Chapitreone = () => {
               autoFocus
               multiline
               rows="5"
+              
               value={editTable.elements}
               onChange={handleChange}
               style={{ width: 200, marginRight: 10 }}
@@ -326,4 +346,4 @@ const Chapitreone = () => {
   );
 };
 
-export default Chapitreone
+export default Chapitreonep
