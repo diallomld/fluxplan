@@ -310,9 +310,9 @@ const Chapitreonep = () => {
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{ minWidth: 200 }}>Elements</TableCell>
-                    <TableCell style={{ minWidth: 100 }}>Montant</TableCell>
-                    <TableCell style={{ minWidth: 100 }}>Action</TableCell> 
+                    <StyledTableCell style={{ minWidth: 200 }}>Elements</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Montant</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell> 
                   </TableRow>
                 </TableHead>
                 <TableBody>
