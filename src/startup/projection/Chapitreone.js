@@ -25,9 +25,36 @@ import { useTheme } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 
+const useStyles = makeStyles({
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    
+    fontSize: 20,
+  },
+}))(TableCell);
 
 const Chapitreonep = () => {
   const initialState = {
@@ -52,6 +79,8 @@ const Chapitreonep = () => {
   const [editTable, setEditTable] = React.useState(editObject);
   const [total, setTotal] = React.useState(0);
   let test = 0;
+
+  const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -180,13 +209,8 @@ const Chapitreonep = () => {
   })
   const onSubmit = (values, props) => {
     setShow(!show)
-    /*setTimeout(() => {
-        props.resetForm()
-        props.setSubmitting(false)
-    }, 2000)*/
 
     setLoad(true)
-    //e.preventDefault();
     firebasee
       .firestore()
       .collection("cout-projet")
@@ -196,12 +220,6 @@ const Chapitreonep = () => {
           userId: userId,
       })
       .then(() => {
-        /*console.log("add");
-        setLoad(false)
-        setCredentital({
-          elements:"",
-          montant:"",
-        })*/
         props.resetForm()
         setOpen(true)
       })
@@ -243,74 +261,75 @@ const Chapitreonep = () => {
       </Dialog>
       {cout.length > 0 ? (
         <div className="tab">
-          <table>
-            <thead>
-              <tr>
-                <th>Elements </th>
-                <th>Montant</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            {cout.map((item, index) => {
-              return (
-                <>
-                    <tr key={index}>
-                      <td>{item.elements}</td>
-                      <td>{item.montant}</td>
-                      <td>
-                        <div className="delete">
+          
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{ maxWidth: 300}}>Elements</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 50 }}>Montant</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell> 
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {cout.map((item, index) => {
+                      return (
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                           
-                            <div className="edit">
-                              <EditIcon onClick={() => handleModif(item.docIdd, index)} />
-                            </div>
-                            <div className="delet">
-                              <DeleteIcon onClick={() => deleteCout(item.docIdd)} />
-                            </div>
-                          </div>
-                      </td>
-                    </tr>
-                </>
-              );
-            })}
-            <tr>
-              <td>Total Investissements</td>
-              <td colSpan="3">{total} FCFA</td>
-
-            </tr>
-            </tbody>
-          </table>
+                              <TableCell>{item.elements}</TableCell>
+                              <TableCell>{item.montant}</TableCell>
+                              <TableCell>
+                                <div className="delete">
+                                  <div className="edit">
+                                    <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                  </div>
+                                  <div className="delet">
+                                    <DeleteIcon onClick={() => deleteCout(item.docIdd)} />
+                                  </div>
+                                </div>
+                              </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                    <TableRow>
+                      <TableCell>Total Investissements</TableCell>
+                      <TableCell colSpan="3">{total} FCFA</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
         </div>
       ) : (
         <div className="tab">
           <h3>Cout total du projet</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>montant</th>
-                <th>elements </th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
-              </tr>
-              <tr>
-                <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-              <th>Total Investissements</th>
-              <th colSpan="2">1000000 FCA</th>
-              </tr>
-            </tfoot>
-          </table>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ minWidth: 200 }}>Elements</TableCell>
+                    <TableCell style={{ minWidth: 100 }}>Montant</TableCell>
+                    <TableCell style={{ minWidth: 100 }}>Action</TableCell> 
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                      
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Total Investissements</TableCell>
+                      <TableCell colSpan="3">{total} FCFA</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </div>
       )}
 
@@ -327,7 +346,7 @@ const Chapitreonep = () => {
         <div className="plus">
           {!show && (
             <Button className="plus-icon" 
-              style={{color: 'white', background:'#18A4F6;'}} 
+              style={{color: 'white', background:'#18A4F6'}} 
               onClick={() => setShow(!show)} 
               endIcon={<Add/>}>
               Ajouter
@@ -356,7 +375,6 @@ const Chapitreonep = () => {
               autoFocus
               multiline
               rows="5"
-              
               value={editTable.elements}
               onChange={handleChange}
               style={{ width: 200, marginRight: 10 }}
@@ -385,7 +403,7 @@ const Chapitreonep = () => {
               className="plus-icon"
               onClick={() => setShow(!show)}
               endIcon={<Edit/>}
-              style={{color: 'white', background:'#18A4F6;'}} 
+              style={{color: 'white', background:'#18A4F6'}} 
             >
               Modifier
             </Button>
@@ -413,7 +431,7 @@ const Chapitreonep = () => {
                     rowsMax={4}
                     style={{ width: 200, marginRight: 10 }}
                     helperText={<ErrorMessage name="elements" />}
-                    error={!props.values.elements}
+                    error={props.errors.elements&&props.touched.elements}
                   />
                   <Field as={TextField}
                     variant="outlined"
@@ -434,14 +452,14 @@ const Chapitreonep = () => {
                     //onChange={handleChange}
                     style={{ width: 200, margin: 30 }}
                     helperText={<ErrorMessage name="montant" />}
-                    error={!props.values.montant}
+                    error={props.errors.montant&&props.touched.elements}
                   />
                    <Button
                     type="submit"
                     className="plus-icon"
                     style={{ width: 300}}
                     endIcon={<SaveIcon/>}
-                    style={{color: 'white', background:'#18A4F6;'}} 
+                    style={{color: 'white', background:'#18A4F6'}} 
                     
                   >
                     Enregistrer
