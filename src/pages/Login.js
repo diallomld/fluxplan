@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import SendIcon from '@material-ui/icons/Send';
+import SaveIcon from '@material-ui/icons/Save';
 
 import { useHistory } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     
     background: "#18A4F6",
     color: "white",
-    fontSize:20
+    fontSize:15
   },
   circle: {
     alignSelf: "center",
@@ -161,6 +163,7 @@ export default function Login() {
                 variant="contained"
                 color="#616A6B"
                 className={classes.submit}
+                endIcon={<SendIcon />}
               >
                 Se connecter
               </Button>

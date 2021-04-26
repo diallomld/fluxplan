@@ -2,10 +2,30 @@ import React, { useState } from "react";
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
+
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import SendIcon from '@material-ui/icons/Send';
+
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useHistory } from "react-router-dom";
 import MainHeader from "../components/header/MainHeader";
 import { useGlobalContext } from "../context/context";
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="/">
+        fluxplan
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 const useStyles = makeStyles((theme) => ({
   conatin: {
     flex: 1,
@@ -26,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    marginBottom: 10,
-    marginTop: 100,
+    marginBottom: 5,
+    marginTop: 110,
   },
   form: {
     display: "flex",
@@ -36,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
 
-    padding: 30,
+    padding: 10,
   },
   submit: {
     width: 150,
@@ -44,11 +64,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 15,
     background: "#18A4F6",
     color: "white",
-    fontSize: 20,
+    fontSize: 15,
   },
   circle: {
     alignSelf: "center",
-    marginLeft: 100,
   },
   acc: {
     display: "flex",
@@ -76,6 +95,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     fontWeight: "bold",
     marginTop: 30,
+  },
+  avatar: {
+    margin: theme.spacing(2,0,0),
+    backgroundColor: theme.palette.secondary.main,
   },
 }));
 const Inscription = () => {
@@ -113,10 +136,13 @@ const Inscription = () => {
   const handleClick = () => {
     history.push("/");
   };
-  let errorr, text, textt;
+  let errorr, text, textn, textp, textpp;
   if (err) {
     errorr = true;
     text = "L'email existe  déja";
+    textn ="Renvoyer le nom";
+    textp ="Renvoyer le prenom";
+    textpp ="Renvoyer le mot de passe";
   }
   return (
     <div className={classes.contain}>
@@ -128,13 +154,17 @@ const Inscription = () => {
       </div> */}
       <MainHeader />
       <div className={classes.formContainer}>
-        <h4 className={classes.hh}>
-          {/* creer un compte pour pouvoir utiliser le logiciel */}
-        </h4>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          S'inscrire
+        </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
+            error={errorr}
             required
             fullWidth
             id="nom"
@@ -144,8 +174,10 @@ const Inscription = () => {
             autoFocus
             onChange={handleChange}
             value={credentital.nom}
+            helperText = {textn}
           />
           <TextField
+            error={errorr}
             variant="outlined"
             margin="normal"
             required
@@ -154,9 +186,9 @@ const Inscription = () => {
             label="prenom"
             name="prenom"
             autoComplete="prenom"
-            autoFocus
             onChange={handleChange}
             value={credentital.prenom}
+            helperText = {textp}
           />
           <TextField
             error={errorr}
@@ -168,7 +200,6 @@ const Inscription = () => {
             label="email"
             name="email"
             autoComplete="email"
-            autoFocus
             onChange={handleChange}
             value={credentital.email}
             helperText={text}
@@ -176,6 +207,7 @@ const Inscription = () => {
           <TextField
             variant="outlined"
             margin="normal"
+            error={errorr}
             required
             fullWidth
             name="password"
@@ -185,6 +217,7 @@ const Inscription = () => {
             autoComplete="current-password"
             onChange={handleChange}
             value={credentital.password}
+            helperText = {textpp}
           />
 
           {load ? (
@@ -208,6 +241,7 @@ const Inscription = () => {
               variant="contained"
               color="#616A6B"
               className={classes.submit}
+              endIcon={<SendIcon />}
             >
               S'enregistrer
             </Button>
@@ -215,6 +249,9 @@ const Inscription = () => {
         </form>
         <Link to="/" style={{fontSize : 20+"px"}}>{"Vous avez deja un compte? Se connecter"}</Link>
       </div>
+      <Box mt={2}>
+        <Copyright />
+      </Box>
     </div>
   );
 };

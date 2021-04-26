@@ -7,8 +7,34 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import SaveIcon from '@material-ui/icons/Save';
+import Edit from '@material-ui/icons/Edit';
+import Add from '@material-ui/icons/Add';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
+
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormHelperText from '@material-ui/core/FormHelperText';
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from 'yup';
+
+
 const Chapitreonep = () => {
   const initialState = {
+    elements: "",
+    montant: "",
+  };
+  const initialvalues = {
     elements: "",
     montant: "",
   };
@@ -26,6 +52,14 @@ const Chapitreonep = () => {
   const [editTable, setEditTable] = React.useState(editObject);
   const [total, setTotal] = React.useState(0);
   let test = 0;
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -69,6 +103,7 @@ const Chapitreonep = () => {
           elements:"",
           montant:"",
         })
+        setOpen(true)
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
@@ -84,6 +119,7 @@ const Chapitreonep = () => {
       .then(() => {
         console.log("deleted")
         setLoad(false)
+        setOpen(true)
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
@@ -106,10 +142,11 @@ const Chapitreonep = () => {
           elements:"",
           montant:"",
         })
+        setOpen(true)
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
-    //alert("segment marché Ajouté");
+    //<ResponsiveDialog/>
   };
   const getDate = () => {
     setLoad(true)
@@ -137,6 +174,41 @@ const Chapitreonep = () => {
       .catch((err) => console.log(err));
   };
 
+  const validationSchema = Yup.object().shape({
+    elements: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    montant: Yup.number('Entrer un nombre').required("veuillez saisir ce champ")
+  })
+  const onSubmit = (values, props) => {
+    setShow(!show)
+    /*setTimeout(() => {
+        props.resetForm()
+        props.setSubmitting(false)
+    }, 2000)*/
+
+    setLoad(true)
+    //e.preventDefault();
+    firebasee
+      .firestore()
+      .collection("cout-projet")
+      .add({
+          elements: values.elements,
+          montant: values.montant,
+          userId: userId,
+      })
+      .then(() => {
+        /*console.log("add");
+        setLoad(false)
+        setCredentital({
+          elements:"",
+          montant:"",
+        })*/
+        props.resetForm()
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle(!toggle);
+  }
+
   React.useEffect(() => {
     getDate();
     //setTotal(0)
@@ -145,6 +217,30 @@ const Chapitreonep = () => {
   //console.log(mission);
   return (
     <div className="chapitretwo">
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+            <h3><p>L'opperation a eté effectué avec success </p></h3>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
       {cout.length > 0 ? (
         <div className="tab">
           <table>
@@ -164,6 +260,7 @@ const Chapitreonep = () => {
                       <td>{item.montant}</td>
                       <td>
                         <div className="delete">
+                          
                             <div className="edit">
                               <EditIcon onClick={() => handleModif(item.docIdd, index)} />
                             </div>
@@ -208,8 +305,10 @@ const Chapitreonep = () => {
               </tr>
             </tbody>
             <tfoot>
+              <tr>
               <th>Total Investissements</th>
               <th colSpan="2">1000000 FCA</th>
+              </tr>
             </tfoot>
           </table>
         </div>
@@ -227,7 +326,10 @@ const Chapitreonep = () => {
         </div>
         <div className="plus">
           {!show && (
-            <Button className="plus-icon" onClick={() => setShow(!show)}>
+            <Button className="plus-icon" 
+              style={{color: 'white', background:'#18A4F6;'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
               Ajouter
             </Button>
           )}
@@ -268,19 +370,22 @@ const Chapitreonep = () => {
               label="montant"
               name="montant"
               autoComplete="montant"
-              type="number"
               InputLabelProps= {{
                 shrink: true,
               }}
-              autoFocus
               value={editTable.montant}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              style={{ width: 200, margin: 30 }}
+              InputProps={{
+                startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+              }}
             />
             <Button
               type="submit"
-              className="btn"
+              className="plus-icon"
               onClick={() => setShow(!show)}
+              endIcon={<Edit/>}
+              style={{color: 'white', background:'#18A4F6;'}} 
             >
               Modifier
             </Button>
@@ -288,58 +393,64 @@ const Chapitreonep = () => {
         </form>
           
         ): (
-
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={handleSubmit}
-        >
-          <div className="input">
+          <>
+          <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
             
-          <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="elements"
-              label="elements"
-              name="elements"
-              autoFocus
-              multiline
-              rows="4"
-              value={credentital.elements}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="montant"
-              label="montant"
-              name="montant"
-              autoComplete="montant"
-              type="number"
-              InputLabelProps= {{
-                shrink: true,
-              }}
-              autoFocus
-              value={credentital.montant}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            
-            <Button
-                type="submit"
-                className="btn"
-                style={{ width: 300}}
-                onClick={() => setShow(!show)}
-              >
-                Ajouter
-            </Button>
-          </div>
-        </form>
+          >
+            {(props) => (
+              <Form className={`${!show && "show"}`}>
+                <div className="input">
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    required
+                    id="elements"
+                    label="elements"
+                    name="elements"
+                    autoFocus
+                    multiline
+                    rowsMax={4}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="elements" />}
+                    error={!props.values.elements}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="montant"
+                    label="montant"
+                    name="montant"
+                    autoComplete="montant"
+                    type="number"
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                    InputLabelProps= {{
+                      shrink: true,
+                    }}
+                    //onChange={handleChange}
+                    style={{ width: 200, margin: 30 }}
+                    helperText={<ErrorMessage name="montant" />}
+                    error={!props.values.montant}
+                  />
+                   <Button
+                    type="submit"
+                    className="plus-icon"
+                    style={{ width: 300}}
+                    endIcon={<SaveIcon/>}
+                    style={{color: 'white', background:'#18A4F6;'}} 
+                    
+                  >
+                    Enregistrer
+                </Button>
+                </div>
+              </Form>
+              )}
+          </Formik>
+        </>
         )}
       </div>
     </div>
