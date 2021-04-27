@@ -7,6 +7,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
 import SaveIcon from '@material-ui/icons/Save';
 import Edit from '@material-ui/icons/Edit';
 import Add from '@material-ui/icons/Add';
@@ -78,6 +81,8 @@ const Chapitreonep = () => {
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
   const [total, setTotal] = React.useState(0);
+  const [errorMontant, seterrorMontant] = React.useState(false);
+  const [errorElements, seterrorElements] = React.useState(false);
   let test = 0;
 
   const classes = useStyles();
@@ -92,14 +97,38 @@ const Chapitreonep = () => {
   
   const handleChange = (e) => {
     var { name, value } = e.target;
-    setCredentital({
+    /*setCredentital({
       ...credentital,
       [name]: value,
-    });
+    });*/
     setEditTable({
       ...editTable,
       [name]: value,
     });
+    switch (name) {
+      case 'elements':
+          if (value.length >=3) {
+            //console.log("elements " + value);
+            seterrorElements(true)
+          } else {
+            //console.error("elements non valide");
+            seterrorElements(false)
+          }
+          break;
+          
+          case 'montant':
+            if (value.match(/^[0-9\b]{3,10}$/)) {
+              //console.log("montant" + value);
+              seterrorMontant(true)
+            } else {
+              //console.error("montant non valide "); 
+              seterrorMontant(false)
+          }
+        break;
+    
+      default:
+        break;
+    }
   };
   const handleModif = (id,index) => {
     setEditTable(cout[index])
@@ -113,6 +142,7 @@ const Chapitreonep = () => {
   const editCout = (e) => {
     e.preventDefault();
     setLoad(true)
+    //setShow(!show)
     firebasee
       .firestore()
       .collection("cout-projet")
@@ -127,8 +157,8 @@ const Chapitreonep = () => {
       )
       .then((data) => {
         console.log("data" + data);
-        setLoad(false)
-        setCredentital({
+        //setLoad(false)
+        setEditTable({
           elements:"",
           montant:"",
         })
@@ -205,11 +235,10 @@ const Chapitreonep = () => {
 
   const validationSchema = Yup.object().shape({
     elements: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    montant: Yup.number('Entrer un nombre').required("veuillez saisir ce champ")
+    montant: Yup.number().positive('Entrer un montant valide').required("Veuillez saisir ce champ")
   })
   const onSubmit = (values, props) => {
     setShow(!show)
-
     setLoad(true)
     firebasee
       .firestore()
@@ -244,7 +273,7 @@ const Chapitreonep = () => {
       >
         <DialogContent>
           <DialogContentText>
-            <h3><p>L'opperation a eté effectué avec success </p></h3>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
           </DialogContentText>
           <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
             <VerifiedUserRoundedIcon/>
@@ -265,6 +294,7 @@ const Chapitreonep = () => {
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}}>Cout total du projet</caption>
                 <TableHead>
                   <TableRow>
                     <StyledTableCell style={{ maxWidth: 300}}>Elements</StyledTableCell>
@@ -293,8 +323,8 @@ const Chapitreonep = () => {
                       );
                     })}
                     <TableRow>
-                      <TableCell>Total Investissements</TableCell>
-                      <TableCell colSpan="3">{total} FCFA</TableCell>
+                      <TableCell style={{color: 'black', fontSize:30}}>Total Investissements</TableCell>
+                      <TableCell colSpan="3" style={{color: 'black', fontSize:30}}>{total} FCFA</TableCell>
                     </TableRow>
                 </TableBody>
               </Table>
@@ -304,10 +334,10 @@ const Chapitreonep = () => {
         </div>
       ) : (
         <div className="tab">
-          <h3>Cout total du projet</h3>
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
                 <TableHead>
                   <TableRow>
                     <StyledTableCell style={{ minWidth: 200 }}>Elements</StyledTableCell>
@@ -333,20 +363,12 @@ const Chapitreonep = () => {
         </div>
       )}
 
-      {load ? (<CircularProgress variant="indeterminate" />): (
+      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
         <>
-        <div className="chapitretwo-title">
-          {cout.length <= 0 ? (
-              <p>Cette partie n'a pas encore été remplit </p>
-              ) :(
-                <p>Cout du Projet </p>
-              )
-          }
-        </div>
         <div className="plus">
           {!show && (
             <Button className="plus-icon" 
-              style={{color: 'white', background:'#18A4F6'}} 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
               onClick={() => setShow(!show)} 
               endIcon={<Add/>}>
               Ajouter
@@ -357,62 +379,77 @@ const Chapitreonep = () => {
         )}
       <div>
         { idDoc ? (
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={editCout}
-        >
-          <div className="input">
-            
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="elements"
-              label="elements"
-              name="elements"
-              autoFocus
-              multiline
-              rows="5"
-              value={editTable.elements}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="montant"
-              label="montant"
-              name="montant"
-              autoComplete="montant"
-              InputLabelProps= {{
-                shrink: true,
-              }}
-              value={editTable.montant}
-              onChange={handleChange}
-              style={{ width: 200, margin: 30 }}
-              InputProps={{
-                startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-              }}
-            />
-            <Button
-              type="submit"
-              className="plus-icon"
-              onClick={() => setShow(!show)}
-              endIcon={<Edit/>}
-              style={{color: 'white', background:'#18A4F6'}} 
+          <>
+        <Card>
+          <CardContent>
+
+            <form
+              noValidate
+              className={`${!show && "show"}`}
+              onSubmit={editCout}
             >
-              Modifier
-            </Button>
-          </div>
-        </form>
-          
+              <div className="input">
+                
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="elements"
+                  label="elements"
+                  name="elements"
+                  autoFocus
+                  multiline
+                  rows="5"
+                  value={editTable.elements}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorElements? false: true}
+                  helperText={!errorElements? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="montant"
+                  label="montant"
+                  name="montant"
+                  autoComplete="montant"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.montant}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorMontant? false: true}
+                  helperText={!errorMontant? 'Entrer un montant valide':''}
+                />
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
+                  disabled ={errorMontant|| errorElements ? false: true}
+
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
+            
+        </CardContent>
+        </Card>
+        </>
         ): (
           <>
-          <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
+          <Card variant="outlined">
+            <CardContent>
+               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
             
           >
             {(props) => (
@@ -460,6 +497,7 @@ const Chapitreonep = () => {
                     style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
+                    disabled ={props.errors.montant|| props.errors.elements ? true: false}
                     
                   >
                     Enregistrer
@@ -468,6 +506,8 @@ const Chapitreonep = () => {
               </Form>
               )}
           </Formik>
+            </CardContent>
+          </Card>
         </>
         )}
       </div>
