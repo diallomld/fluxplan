@@ -7,41 +7,134 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const Chapitretwo = () => {
-  const initialState = {
-    produit: "",
-    prix: "",
-    distribution: "",
-    communication: "",
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
+import SaveIcon from '@material-ui/icons/Save';
+import Edit from '@material-ui/icons/Edit';
+import Add from '@material-ui/icons/Add';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
+
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormHelperText from '@material-ui/core/FormHelperText';
+
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import MenuItem from "@material-ui/core/MenuItem";
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from 'yup';
+
+const useStyles = makeStyles({
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    fontSize: 20,
+  },
+}))(TableCell);
+
+const Chapitretwop = () => {
+  const initialvalues = {
+    elements: "",
+    montant: "",
+    typeFinancement: "",
   };
   const editObject = {
-    produit: "",
-    prix: "",
-    distribution: "",
-    communication: "",
+    elements: "",
+    montant: "",
+    typeFinancement: "",
   };
   const { userId } = useGlobalContext();
-  let [credentital, setCredentital] = React.useState(initialState);
   const [show, setShow] = React.useState(false);
-  const [mix, setMix] = React.useState([]);
+  const [finance, setFinance] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
+  const [total, setTotal] = React.useState(0);
+  const [errorMontant, seterrorMontant] = React.useState(true);
+  const [errorElements, seterrorElements] = React.useState(true);
+  const [errorTypeFinancement, seterrorTypeFinancement] = React.useState(true);
+  let test = 0;
 
+  const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
   const handleChange = (e) => {
     var { name, value } = e.target;
-    setCredentital({
-      ...credentital,
-      [name]: value,
-    });
     setEditTable({
       ...editTable,
       [name]: value,
     });
+    switch (name) {
+      case 'elements':
+          if (value.length >=3) {
+            //console.log("elements " + value);
+            seterrorElements(true)
+          } else {
+            //console.error("elements non valide");
+            seterrorElements(false)
+          }
+          break;
+          
+          case 'montant':
+            if (value.match(/^[0-9\b]{3,10}$/)) {
+              //console.log("montant" + value);
+              seterrorMontant(true)
+            } else {
+              //console.error("montant non valide "); 
+              seterrorMontant(false)
+          }
+        break;
+          case 'typeFinancement':
+            if (value.match(/^(interne|exterieur)$/)) {
+              console.log("type " + value);
+              seterrorTypeFinancement(true)
+            } else {
+              console.error("type non valide " +value); 
+              seterrorTypeFinancement(false)
+          }
+        break;
+    
+      default:
+        break;
+    }
   };
-  const handleModif = (id, index) => {
-    setEditTable(mix[index])
+  const handleModif = (id,index) => {
+    setEditTable(finance[index])
     setShow(!show);
     if(show){
       setIdDoc("");
@@ -49,185 +142,279 @@ const Chapitretwo = () => {
       setIdDoc(id);
     }
   };
-  const add = () => {
-    setShow(!show)
-  }
-  const editMix = (e) => {
+  const editFinance = (e) => {
     e.preventDefault();
     setLoad(true)
+    //setShow(!show)
     firebasee
       .firestore()
-      .collection("mix-marketing")
+      .collection("financement")
       .doc(idDoc)
       .set(
         {
-          produit: editTable.produit,
-          prix: editTable.prix,
-          distribution: editTable.distribution,
-          communication: editTable.communication,
+          elements: editTable.elements,
+          montant: editTable.montant,
+          typeFinancement: editTable.typeFinancement,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
         console.log("data" + data);
+        setEditTable({
+          elements:"",
+          montant:"",
+        })
         setLoad(false)
+        setOpen(true)
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
     setIdDoc("");
   };
-  const deleteMix = (id) => {
+  const deleteFinance = (id) => {
     setLoad(true)
     firebasee
       .firestore()
-      .collection("mix-marketing")
+      .collection("financement")
       .doc(id)
       .delete()
       .then(() => {
         console.log("deleted")
         setLoad(false)
+        setOpen(true)
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
-  };
-  const handleSubmit = (e) => {
-    setLoad(true)
-    e.preventDefault();
-    firebasee
-      .firestore()
-      .collection("mix-marketing")
-      .add({
-          produit: credentital.produit,
-          prix: credentital.prix,
-          distribution: credentital.distribution,
-          communication: credentital.communication,
-          userId: userId,
-      })
-      .then(() => {
-        console.log("add");
-        setLoad(false)
-      })
-      .catch((err) => console.log(err));
-    setToggle(!toggle);
-    //alert("segment marché Ajouté");
   };
   const getDate = () => {
-    //setLoad(true)
+    setLoad(true)
     return firebasee
       .firestore()
-      .collection("mix-marketing")
+      .collection("financement")
       .where("userId", "==", userId)
       .get()
       .then((data) => {
         let dat = [];
         data.forEach((doc) => {
           dat.push({
-            produit: doc.data().produit,
-            prix: doc.data().prix,
-            distribution: doc.data().distribution,
-            communication: doc.data().communication,
+            elements: doc.data().elements,
+            montant: doc.data().montant,
+            typeFinancement: doc.data().typeFinancement,
             id: doc.data().userId,
             docIdd: doc.id,
           });
+          //console.log("montant "+ Number(doc.data().montant) + total)
+          test = test + Number(doc.data().montant)
         });
-        setMix(dat);
-        //setLoad(false)
+        setFinance(dat);
+        setTotal(test)
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
 
+  const validationSchema = Yup.object().shape({
+    elements: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    montant: Yup.string().required("Entrer un montant valide").matches(/^[0-9\b]{3,10}$/,"Entrer un montant valide"),
+    typeFinancement: Yup.string().required('Veuillez selectionner ce champ').matches(/^(interne|exterieur)$/,"Faite un choix sur la liste deroulante")
+  })
+  const onSubmit = (values, props) => {
+    setShow(!show)
+    setLoad(true)
+    firebasee
+      .firestore()
+      .collection("financement")
+      .add({
+          elements: values.elements,
+          montant: values.montant,
+          typeFinancement: values.typeFinancement,
+          userId: userId,
+      })
+      .then(() => {
+        props.resetForm()
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle(!toggle);
+  }
+
   React.useEffect(() => {
     getDate();
+    //setTotal(0)
   }, [toggle]);
   //console.log("pro");
   //console.log(mission);
   return (
     <div className="chapitretwo">
-      {mix.length > 0 ? (
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {finance.length > 0 ? (
         <div className="tab">
-          <table>
-            <thead>
-              <tr>
-                <th>Politique de produit</th>
-                <th>Politique de prix</th>
-                <th>Politique de distribution</th>
-                <th>Politique de communication</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            {mix.map((item, index) => {
-              return (
-                <>
-                    <tr key={index}>
-                      <td>{item.produit}</td>
-                      <td>{item.prix}</td>
-                      <td>{item.distribution}</td>
-                      <td>{item.communication}</td>
-                      <td>
-                        <div className="delete">
-                            <div className="edit">
-                              <EditIcon onClick={() => handleModif(item.docIdd, index)} />
-                            </div>
-                            <div className="delet">
-                              <DeleteIcon onClick={() => deleteMix(item.docIdd)} />
-                            </div>
-                          </div>
-                      </td>
-                    </tr>
-                </>
-              );
-            })}
-            </tbody>
-          </table>
+          
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}}>Schéma de financement du projet</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{ maxWidth: 300}}>Elements</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 50 }}>Montant</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 50 }}>%</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell> 
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell style={{fontSize:20}}><b>Financement interne</b></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                  {finance.map((item, index) => {
+                      if (item.typeFinancement=="interne") {
+                        
+                        return (
+                          <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                            
+                                <TableCell>{item.elements}</TableCell>
+                                <TableCell>{item.montant}</TableCell>
+                                <TableCell>x%</TableCell>
+                                <TableCell>
+                                  <div className="delete">
+                                    <div className="edit">
+                                      <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                    </div>
+                                    <div className="delet">
+                                      <DeleteIcon onClick={() => deleteFinance(item.docIdd)} />
+                                    </div>
+                                  </div>
+                                </TableCell>
+                          </TableRow>
+                        );
+                      }
+                    })}
+                  <TableRow>
+                    <TableCell style={{fontSize:20}}><b>Financement exterieur</b></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                  {finance.map((item, index) => {
+                      if (item.typeFinancement=="exterieur") {
+                        
+                        return (
+                          <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                            
+                                <TableCell>{item.elements}</TableCell>
+                                <TableCell>{item.montant}</TableCell>
+                                <TableCell>x%</TableCell>
+                                <TableCell>
+                                  <div className="delete">
+                                    <div className="edit">
+                                      <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                    </div>
+                                    <div className="delet">
+                                      <DeleteIcon onClick={() => deleteFinance(item.docIdd)} />
+                                    </div>
+                                  </div>
+                                </TableCell>
+                          </TableRow>
+                        );
+                      }
+                    })}
+                    <TableRow>
+                      <TableCell style={{color: 'black', fontSize:20}}>TOTAL</TableCell>
+                      <TableCell style={{color: 'black', fontSize:20}}>{total} FCFA</TableCell>
+                      <TableCell colSpan="2" style={{color: 'black', fontSize:20}}>100%</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
         </div>
       ) : (
         <div className="tab">
-          <h3>Nos mixs</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Politique de produit</th>
-                <th>Politique de prix</th>
-                <th>Politique de distribution</th>
-                <th>Politique de communication</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
-              </tr>
-              <tr>
-                <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
-                <td>...............</td>
-              </tr>
-            </tbody>
-          </table>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{ minWidth: 200 }}>Elements</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Montant</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>%</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell> 
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell><b>Financement interne</b></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>   
+                      <TableCell>.....promoteurs.......</TableCell>
+                      <TableCell>......10000......</TableCell>
+                      <TableCell>......x%......</TableCell>
+                      <TableCell>............</TableCell>
+                    </TableRow>
+                  <TableRow>
+                    <TableCell><b>Financement externe</b></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                      <TableCell>.....promoteurs.......</TableCell>
+                      <TableCell>......10000......</TableCell>
+                      <TableCell>......x%......</TableCell>
+                      <TableCell>............</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Total Investissements</TableCell>
+                      <TableCell>{total} FCFA</TableCell>
+                      <TableCell colSpan="2">100%</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </div>
       )}
 
-      {load ? (<CircularProgress variant="indeterminate" />): (
+      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
         <>
-        <div className="chapitretwo-title">
-          {mix.length <= 0 ? (
-              <p>Cette partie est vide </p>
-              ) :(
-                <p>Notre strategie de Marketing MIX </p>
-              )
-          }
-        </div>
         <div className="plus">
           {!show && (
-            <Button className="plus-icon" onClick={add}>
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
               Ajouter
             </Button>
           )}
@@ -236,159 +423,173 @@ const Chapitretwo = () => {
         )}
       <div>
         { idDoc ? (
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={editMix}
-        >
-          <div className="input">
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="produit"
-              label="Politique de produit"
-              name="produit"
-              autoComplete="produit"
-              autoFocus
-              multiline
-              value={editTable.produit}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="prix"
-              label="Politique de prix"
-              name="prix"
-              autoFocus
-              multiline
-              value={editTable.prix}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="distribution"
-              label="Politique de distribution"
-              name="distribution"
-              autoFocus
-              multiline
-              value={editTable.distribution}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="communication"
-              label="ploitique decommunication"
-              name="communication"
-              autoFocus
-              multiline
-              value={editTable.communication}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
-            >
-              Modifier
-            </Button>
-          </div>
-        </form>
-          
-        ): (
+          <>
+        <Card>
+          <CardContent>
 
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={handleSubmit}
-        >
-          <div className="input">
+            <form
+              noValidate
+              className={`${!show && "show"}`}
+              onSubmit={editFinance}
+            >
+              <div className="input">
+                
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  select
+                  required
+                  fullWidth
+                  id="typefinance"
+                  label="Type finance"
+                  name="typeFinancement"
+                  value={editTable.typeFinancement}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorTypeFinancement? false: true}
+                  helperText={!errorTypeFinancement? 'Selectionner le champ':''}
+                >
+                  <MenuItem value="interne">Financement Interne</MenuItem>
+                  <MenuItem value="exterieur">Financement Extérieur</MenuItem>
+                </TextField>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="elements"
+                  label="elements"
+                  name="elements"
+                  autoFocus
+                  multiline
+                  rows="5"
+                  value={editTable.elements}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorElements? false: true}
+                  helperText={!errorElements? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="montant"
+                  label="montant"
+                  name="montant"
+                  autoComplete="montant"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.montant}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorMontant? false: true}
+                  helperText={!errorMontant? 'Entrer un montant valide':''}
+                />
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
+                  disabled ={errorMontant|| errorElements ? false: true}
+
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
             
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="produit"
-              label="Politique de produit"
-              name="produit"
-              autoComplete="produit"
-              autoFocus
-              multiline
-              value={credentital.produit}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="prix"
-              label="Politique de prix"
-              name="prix"
-              autoFocus
-              multiline
-              value={credentital.prix}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="distribution"
-              label="Politique de distribution"
-              name="distribution"
-              autoFocus
-              multiline
-              value={credentital.distribution}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="communication"
-              label="politique decommunication"
-              name="communication"
-              autoFocus
-              multiline
-              value={credentital.communication}
-              onChange={handleChange}
-              style={{ width: 250, marginRight: 10 }}
-            />
-            <Button
-                type="submit"
-                className="btn"
-                style={{ width: 300}}
-                onClick={() => setShow(!show)}
-              >
-                Ajouter
-            </Button>
-          </div>
-        </form>
+        </CardContent>
+        </Card>
+        </>
+        ): (
+          <>
+          <Card variant="outlined">
+            <CardContent>
+               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
+            
+          >
+            {(props) => (
+              <Form className={`${!show && "show"}`}>
+                <div className="input">
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  select
+                  required
+                  id="typefinance"
+                  label="Quel Type de financement ?"
+                  name="typeFinancement"
+                  style={{ width: 200, marginRight: 10 }}
+                  helperText={<ErrorMessage name="typeFinancement" />}
+                  error={props.errors.typeFinancement&&props.touched.typeFinancement}
+                >
+                  <MenuItem value="interne">Selectionner Financement Interne</MenuItem>
+                  <MenuItem value="exterieur">Selectionner Financement Extérieur</MenuItem>
+                </Field>
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    required
+                    id="elements"
+                    label="elements"
+                    name="elements"
+                    autoFocus
+                    multiline
+                    rowsMax={4}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="elements" />}
+                    error={props.errors.elements&&props.touched.elements}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="montant"
+                    label="montant"
+                    name="montant"
+                    autoComplete="montant"
+                    type="number"
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                    InputLabelProps= {{
+                      shrink: true,
+                    }}
+                    //onChange={handleChange}
+                    style={{ width: 200, margin: 30 }}
+                    helperText={<ErrorMessage name="montant" />}
+                    error={props.errors.montant&&props.touched.elements}
+                  />
+                   <Button
+                    type="submit"
+                    className="plus-icon"
+                    style={{ width: 300}}
+                    endIcon={<SaveIcon/>}
+                    style={{color: 'white', background:'#18A4F6'}} 
+                    disabled ={props.errors.montant|| props.errors.elements || props.errors.typeFinancement ? true: false}
+                    
+                  >
+                    Enregistrer
+                </Button>
+                </div>
+              </Form>
+              )}
+          </Formik>
+            </CardContent>
+          </Card>
+        </>
         )}
       </div>
     </div>
   );
 };
 
-export default Chapitretwo
+export default Chapitretwop

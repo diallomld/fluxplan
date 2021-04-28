@@ -60,10 +60,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitreonep = () => {
-  const initialState = {
-    elements: "",
-    montant: "",
-  };
   const initialvalues = {
     elements: "",
     montant: "",
@@ -73,7 +69,6 @@ const Chapitreonep = () => {
     montant: "",
   };
   const { userId } = useGlobalContext();
-  const [credentital, setCredentital] = React.useState(initialState);
   const [show, setShow] = React.useState(false);
   const [cout, setCout] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
@@ -81,8 +76,8 @@ const Chapitreonep = () => {
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
   const [total, setTotal] = React.useState(0);
-  const [errorMontant, seterrorMontant] = React.useState(false);
-  const [errorElements, seterrorElements] = React.useState(false);
+  const [errorMontant, seterrorMontant] = React.useState(true);
+  const [errorElements, seterrorElements] = React.useState(true);
   let test = 0;
 
   const classes = useStyles();
@@ -97,10 +92,6 @@ const Chapitreonep = () => {
   
   const handleChange = (e) => {
     var { name, value } = e.target;
-    /*setCredentital({
-      ...credentital,
-      [name]: value,
-    });*/
     setEditTable({
       ...editTable,
       [name]: value,
@@ -183,30 +174,6 @@ const Chapitreonep = () => {
       .catch((err) => console.log(err));
     setToggle(!toggle);
   };
-  const handleSubmit = (e) => {
-    setLoad(true)
-    e.preventDefault();
-    firebasee
-      .firestore()
-      .collection("cout-projet")
-      .add({
-          elements: credentital.elements,
-          montant: credentital.montant,
-          userId: userId,
-      })
-      .then(() => {
-        console.log("add");
-        setLoad(false)
-        setCredentital({
-          elements:"",
-          montant:"",
-        })
-        setOpen(true)
-      })
-      .catch((err) => console.log(err));
-    setToggle(!toggle);
-    //<ResponsiveDialog/>
-  };
   const getDate = () => {
     setLoad(true)
     return firebasee
@@ -235,7 +202,7 @@ const Chapitreonep = () => {
 
   const validationSchema = Yup.object().shape({
     elements: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    montant: Yup.number().positive('Entrer un montant valide').required("Veuillez saisir ce champ")
+    montant: Yup.string().required("Entrer un montant valide").matches(/^[0-9\b]{3,10}$/,"Entrer un montant valide"),
   })
   const onSubmit = (values, props) => {
     setShow(!show)
