@@ -6,6 +6,34 @@ import "./Chapitreone.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
+
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+const useStyles = makeStyles({
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    
+    fontSize: 20,
+  },
+}))(TableCell);
+
 const Chapitretwo = () => {
   const initialState = {
     nom: "",
@@ -19,6 +47,8 @@ const Chapitretwo = () => {
   const [equipe, setEquipe] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+
+  const classes = useStyles();
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -122,76 +152,84 @@ const Chapitretwo = () => {
     <div className="chapitretwo">
       {equipe.length > 0 ? (
         <div className="tab">
-          <table>
-            <thead>
-              <th>Nom et prénoms</th>
-              <th>Diplômes</th>
-              <th>Expériences</th>
-              <th>Poste</th>
-              <th>Action</th>
-            </thead>
-            {equipe.map((item, index) => {
-              return (
-                <>
-                  <tbody>
-                    <tr>
-                      <td>{item.nom}</td>
-                      <td>{item.diplome}</td>
-                      <td>{item.experience}</td>
-                      <td>{item.poste}</td>
-                      <td>
-                        <div className="delete">
-                            <div className="edit">
-                              <EditIcon onClick={() => handleModif(item.docIdd)} />
-                            </div>
-                            <div className="delet">
-                              <DeleteIcon onClick={() => deleteEquipe(item.docIdd)} />
-                            </div>
-                          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </>
-              );
-            })}
-          </table>
-        </div>
-      ) : (
-        <div className="tab">
-          <h3>Equipes dirigentes</h3>
-          <table>
-            <thead>
-              <tr>
-              <th>Nom et prénoms </th>
-              <th>Diplômes</th>
-              <th>Expériences</th>
-              <th>Poste</th>
-              </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+          
+        <Paper className={classes.root}>
+          <TableContainer className={classes.container}>
+            <Table stickyHeader aria-label="sticky table">
+              <caption style={{color: 'black', fontSize:18}}> Equipes dirigentes</caption>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Nom et prénoms</StyledTableCell>
+                  <StyledTableCell>Diplômes</StyledTableCell>
+                  <StyledTableCell>Poste</StyledTableCell>
+                  <StyledTableCell style={{minWidth:300}}>Expériences</StyledTableCell>
+                  <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {equipe.map((item, index) => {
+                    return (
+                      <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                        
+                            <TableCell>{item.nom}</TableCell>
+                            <TableCell>{item.diplome}</TableCell>
+                            <TableCell>{item.poste}</TableCell>
+                            <TableCell>{item.experience}</TableCell>
+                            <TableCell>
+                              <div className="delete">
+                                <div className="edit">
+                                  <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                </div>
+                                <div className="delet">
+                                  <DeleteIcon onClick={() => deleteEquipe(item.docIdd)} />
+                                </div>
+                              </div>
+                            </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+        
+      </div>
+    ) : (
+      <div className="tab">
+        <Paper className={classes.root}>
+          <TableContainer className={classes.container}>
+            <Table stickyHeader aria-label="sticky table">
+              <caption style={{color: 'black', fontSize:20}} >Cette partie n'a pas encore été remplit</caption>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Nom et prénoms</StyledTableCell>
+                  <StyledTableCell>Diplômes</StyledTableCell>
+                  <StyledTableCell>Poste</StyledTableCell>
+                  <StyledTableCell style={{minWidth:300}}>Expériences</StyledTableCell>
+                  <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                  <TableRow hover role="checkbox" tabIndex={-1}>
+                        <TableCell>...........</TableCell>
+                        <TableCell>...........</TableCell>
+                        <TableCell>...........</TableCell>
+                        <TableCell>...........</TableCell>
+                        <TableCell>.......</TableCell>
+                  </TableRow>
+                  <TableRow hover role="checkbox" tabIndex={-1}>
+                        <TableCell>...........</TableCell>
+                        <TableCell>...........</TableCell>
+                        <TableCell>...........</TableCell>
+                        <TableCell>...........</TableCell>
+                        <TableCell>......</TableCell>
+                  </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      </div>
+    )}
 
       <div className="chapitretwo-title">
         <p>Equipes dirigentes </p>

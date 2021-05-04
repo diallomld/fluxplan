@@ -363,13 +363,13 @@ const Chapitrethreep = () => {
         </>
         ): (
           <>
-          <Card variant="outlined">
+          <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
                <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
             
           >
             {(props) => (
-              <Form className={`${!show && "show"}`}>
+              <Form>
                 <div className="input">
                   <Field as={TextField}
                     variant="outlined"

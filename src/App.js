@@ -45,6 +45,9 @@ import Chapitreonep from "./startup/projection/Chapitreone";
 import Chapitretwop from "./startup/projection/Chapitretwo";
 import Chapitrethreep from "./startup/projection/Chapitrethree";
 import Chapitrefourp from "./startup/projection/chapitrefour";
+import Chapitrefivep from "./startup/projection/chapitrefive";
+import Analyse from "./startup/risque/analyse";
+import Chapitresixp from "./startup/projection/Chapitresix";
 
 function App() {
   var id = localStorage.getItem("userId");
@@ -139,6 +142,15 @@ function App() {
             </Route>
             <Route exact path="/projection/prevision1">
               <Chapitrefourp />
+            </Route>
+            <Route exact path="/projection/prevision2">
+              <Chapitrefivep />
+            </Route>
+            <Route exact path="/projection/indicateur">
+              <Chapitresixp />
+            </Route>
+            <Route exact path="/analyse">
+              <Analyse />
             </Route>
             <Route exact path="/download">
               <LandingPage />

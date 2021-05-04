@@ -23,12 +23,12 @@ import { useGlobalContext } from "../context/context";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {'© '}
       <Link color="inherit" href="/">
-        Appflux
+        Flux Plan
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
+      {'.'} Tous droit réservés | Design et Developpement par Amanou Tech
     </Typography>
   );
 }

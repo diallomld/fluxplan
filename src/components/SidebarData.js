@@ -172,7 +172,7 @@ export const SidebarData = [
       },
       {
         title: "Chiffre d’affaires sur 3 ans",
-        path: "/projection/prevision1",
+        path: "/projection/prevision2",
         icon: <IoIcons.IoIosPaper />,
       },
       {
@@ -202,7 +202,7 @@ export const SidebarData = [
       },
       {
         title: "Indicateurs de mesure de rentabilité",
-        path: "/projection/prevision1",
+        path: "/projection/indicateur",
         icon: <IoIcons.IoIosPaper />,
       },
     ],

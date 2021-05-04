@@ -62,13 +62,63 @@ const StyledTableCell = withStyles((theme) => ({
 const Chapitrefourp = () => {
   const initialvalues = {
     produits: "",
-    quantite: "",
-    prix: "",
+    //quantite: "",
+    //prix: "",
+    pm1: "",
+    pm2: "",
+    pm3: "",
+    pm4: "",
+    pm5: "",
+    pm6: "",
+    pm7: "",
+    pm8: "",
+    pm9: "",
+    pm10: "",
+    pm11: "",
+    pm12: "",
+    qrix: "",
+    qm1: "",
+    qm2: "",
+    qm3: "",
+    qm4: "",
+    qm5: "",
+    qm6: "",
+    qm7: "",
+    qm8: "",
+    qm9: "",
+    qm10: "",
+    qm11: "",
+    qm12: "",
   };
   const editObject = {
     produits: "",
-    quantite: "",
-    prix: "",
+    //quantite: "",
+    //prix: "",
+    pm1: "",
+    pm2: "",
+    pm3: "",
+    pm4: "",
+    pm5: "",
+    pm6: "",
+    pm7: "",
+    pm8: "",
+    pm9: "",
+    pm10: "",
+    pm11: "",
+    pm12: "",
+    qrix: "",
+    qm1: "",
+    qm2: "",
+    qm3: "",
+    qm4: "",
+    qm5: "",
+    qm6: "",
+    qm7: "",
+    qm8: "",
+    qm9: "",
+    qm10: "",
+    qm11: "",
+    qm12: "",
   };
   const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
@@ -77,12 +127,39 @@ const Chapitrefourp = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [total, setTotal] = React.useState(0);
+  const [totalQm, setTotalQm] = React.useState([]);
+  const [totalPm, setTotalPm] = React.useState(0);
   const [totalCa, setTotalCa] = React.useState(0);
   const [errorProduits, setErrorProduits] = React.useState(true);
-  const [errorQuantite, setErrorQuantite] = React.useState(true);
-  const [errorPrix, setErrorPrix] = React.useState(true);
-  let test = 0;
+  // errors quantite
+  const [errorQm1, setErrorQm1] = React.useState(true);
+  const [errorQm2, setErrorQm2] = React.useState(true);
+  const [errorQm3, setErrorQm3] = React.useState(true);
+  const [errorQm4, setErrorQm4] = React.useState(true);
+  const [errorQm5, setErrorQm5] = React.useState(true);
+  const [errorQm6, setErrorQm6] = React.useState(true);
+  const [errorQm7, setErrorQm7] = React.useState(true);
+  const [errorQm8, setErrorQm8] = React.useState(true);
+  const [errorQm9, setErrorQm9] = React.useState(true);
+  const [errorQm10, setErrorQm10] = React.useState(true);
+  const [errorQm11, setErrorQm11] = React.useState(true);
+  const [errorQm12, setErrorQm12] = React.useState(true);
+  // errors prix
+  const [errorPm1, setErrorPm1] = React.useState(true);
+  const [errorPm2, setErrorPm2] = React.useState(true);
+  const [errorPm3, setErrorPm3] = React.useState(true);
+  const [errorPm4, setErrorPm4] = React.useState(true);
+  const [errorPm5, setErrorPm5] = React.useState(true);
+  const [errorPm6, setErrorPm6] = React.useState(true);
+  const [errorPm7, setErrorPm7] = React.useState(true);
+  const [errorPm8, setErrorPm8] = React.useState(true);
+  const [errorPm9, setErrorPm9] = React.useState(true);
+  const [errorPm10, setErrorPm10] = React.useState(true);
+  const [errorPm11, setErrorPm11] = React.useState(true);
+  const [errorPm12, setErrorPm12] = React.useState(true);
+
+  let tQm = 0;
+  let tPm = 0;
   let testCa = 0;
 
   const classes = useStyles();
@@ -102,16 +179,225 @@ const Chapitrefourp = () => {
       [name]: value,
     });
     switch (name) {
-        case 'quantite':
+        case 'qm1':
             if (value.match(/^[0-9\b]{1,15}$/)) {
             //console.log("quantites " + value);
-            setErrorQuantite(true)
+            setErrorQm1(true)
             } else {
-            //console.error("quantites non valide");
-            setErrorQuantite(false)
+            //console.error("Qm1s non valide");
+            setErrorQm1(false)
+            }
+        break;
+        case 'qm2':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm2(true)
+            } else {
+            //console.error("Qm2s non valide");
+            setErrorQm2(false)
+            }
+        break;
+        case 'qm3':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm3(true)
+            } else {
+            //console.error("Qm3s non valide");
+            setErrorQm3(false)
+            }
+        break;
+        case 'qm4':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm4(true)
+            } else {
+            //console.error("Qm4s non valide");
+            setErrorQm4(false)
+            }
+        break;
+        case 'qm5':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm5(true)
+            } else {
+            //console.error("Qm5s non valide");
+            setErrorQm5(false)
+            }
+        break;
+        case 'qm6':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm6(true)
+            } else {
+            //console.error("Qm6s non valide");
+            setErrorQm6(false)
+            }
+        break;
+        case 'qm7':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm7(true)
+            } else {
+            //console.error("Qm7s non valide");
+            setErrorQm7(false)
+            }
+        break;
+        case 'qm8':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm8(true)
+            } else {
+            //console.error("Qm8s non valide");
+            setErrorQm8(false)
+            }
+        break;
+        case 'qm9':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm9(true)
+            } else {
+            //console.error("Qm9s non valide");
+            setErrorQm9(false)
+            }
+        break;
+        case 'qm10':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm10(true)
+            } else {
+            //console.error("Qm10s non valide");
+            setErrorQm10(false)
+            }
+        break;
+        case 'qm11':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm11(true)
+            } else {
+            //console.error("Qm11s non valide");
+            setErrorQm11(false)
+            }
+        break;
+        case 'qm12':
+            if (value.match(/^[0-9\b]{1,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorQm12(true)
+            } else {
+            //console.error("Qm12s non valide");
+            setErrorQm12(false)
             }
         break;
           
+        case 'pm1':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm1(true)
+            } else {
+            //console.error("Pm1s non valide");
+            setErrorPm1(false)
+            }
+        break;
+          
+        case 'pm2':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm2(true)
+            } else {
+            //console.error("Pm2s non valide");
+            setErrorPm2(false)
+            }
+        break;
+        case 'pm3':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm3(true)
+            } else {
+            //console.error("Pm3s non valide");
+            setErrorPm3(false)
+            }
+        break;
+        case 'pm4':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm4(true)
+            } else {
+            //console.error("Pm4s non valide");
+            setErrorPm4(false)
+            }
+        break;
+        case 'pm5':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm5(true)
+            } else {
+            //console.error("Pm5s non valide");
+            setErrorPm5(false)
+            }
+        break;
+        case 'pm6':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm6(true)
+            } else {
+            //console.error("Pm6s non valide");
+            setErrorPm6(false)
+            }
+        break;
+        case 'pm7':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm7(true)
+            } else {
+            //console.error("Pm7s non valide");
+            setErrorPm7(false)
+            }
+        break;
+        case 'pm8':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm8(true)
+            } else {
+            //console.error("Pm8s non valide");
+            setErrorPm8(false)
+            }
+        break;
+        case 'pm9':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm9(true)
+            } else {
+            //console.error("Pm9s non valide");
+            setErrorPm9(false)
+            }
+        break;
+        case 'pm10':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm10(true)
+            } else {
+            //console.error("Pm10s non valide");
+            setErrorPm10(false)
+            }
+        break;
+        case 'pm11':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm11(true)
+            } else {
+            //console.error("Pm11s non valide");
+            setErrorPm11(false)
+            }
+        break;
+        case 'pm12':
+            if (value.match(/^[0-9\b]{3,15}$/)) {
+            //console.log("quantites " + value);
+            setErrorPm12(true)
+            } else {
+            //console.error("Pm12s non valide");
+            setErrorPm12(false)
+            }
+        break;
+
         case 'produits':
             if (value.length >= 3) {
                 //console.log("produits" + value);
@@ -119,15 +405,6 @@ const Chapitrefourp = () => {
             } else {
                 //console.error("produits non valide "); 
                 setErrorProduits(false)
-            }
-        break;
-        case 'prix':
-            if (value.match(/^[0-9\b]{3,15}$/)) {
-                //console.log("produits" + value);
-                setErrorPrix(true)
-            } else {
-                //console.error("produits non valide "); 
-                setErrorPrix(false)
             }
         break;
     
@@ -155,8 +432,30 @@ const Chapitrefourp = () => {
       .set(
         {
           produits: editTable.produits,
-          quantite: editTable.quantite,
-          prix: editTable.prix,
+          qm1: editTable.qm1,
+          qm2: editTable.qm2,
+          qm3: editTable.qm3,
+          qm4: editTable.qm4,
+          qm5: editTable.qm5,
+          qm6: editTable.qm6,
+          qm7: editTable.qm7,
+          qm8: editTable.qm8,
+          qm9: editTable.qm9,
+          qm10: editTable.qm10,
+          qm11: editTable.qm11,
+          qm12: editTable.qm12,
+          pm1: editTable.pm1,
+          pm2: editTable.pm2,
+          pm3: editTable.pm3,
+          pm4: editTable.pm4,
+          pm5: editTable.pm5,
+          pm6: editTable.pm6,
+          pm7: editTable.pm7,
+          pm8: editTable.pm8,
+          pm9: editTable.pm9,
+          pm10: editTable.pm10,
+          pm11: editTable.pm11,
+          pm12: editTable.pm12,
           userId: userId,
         },
         { merge: true }
@@ -198,17 +497,44 @@ const Chapitrefourp = () => {
       .where("userId", "==", userId)
       .get()
       .then((data) => {
-        let dat = [];
+        let dat = [0];
+        let tabQte = [];
         data.forEach((doc) => {
           dat.push({
             produits: doc.data().produits,
-            quantite: doc.data().quantite,
-            prix: doc.data().prix,
+            qm1: doc.data().qm1,
+            qm2: doc.data().qm2,
+            qm3: doc.data().qm3,
+            qm4: doc.data().qm4,
+            qm5: doc.data().qm5,
+            qm6: doc.data().qm6,
+            qm7: doc.data().qm7,
+            qm8: doc.data().qm8,
+            qm9: doc.data().qm9,
+            qm10: doc.data().qm10,
+            qm11: doc.data().qm11,
+            qm12: doc.data().qm12,
+            pm1: doc.data().pm1,
+            pm2: doc.data().pm2,
+            pm3: doc.data().pm3,
+            pm4: doc.data().pm4,
+            pm5: doc.data().pm5,
+            pm6: doc.data().pm6,
+            pm7: doc.data().pm7,
+            pm8: doc.data().pm8,
+            pm9: doc.data().pm9,
+            pm10: doc.data().pm10,
+            pm11: doc.data().pm11,
+            pm12: doc.data().pm12,
             id: doc.data().userId,
             docIdd: doc.id,
           });
+          tabQte.push(Number(doc.data().qm1)+Number(doc.data().qm2)+Number(doc.data().qm3)+Number(doc.data().qm4)+Number(doc.data().qm5)+Number(doc.data().qm6)+Number(doc.data().qm7)+Number(doc.data().qm8)+Number(doc.data().qm9)+Number(doc.data().qm10)+Number(doc.data().qm11)+Number(doc.data().qm12))
           //console.log("montant "+ Number(doc.data().montant) + total)
+          
+                  
           testCa = testCa + (Number(doc.data().quantite))*Number(doc.data().prix)
+          setTotalQm(tabQte)
         });
         setPrevision(dat);
         setTotalCa(testCa)
@@ -219,8 +545,30 @@ const Chapitrefourp = () => {
 
   const validationSchema = Yup.object().shape({
     produits: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    prix: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
-    quantite: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire")
+    pm1: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm2: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm3: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm4: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm5: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm6: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm7: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm8: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm9: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm10: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm11: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    pm12: Yup.string().required("Entrer un prix unitaire valide").matches(/^[0-9\b]{3,15}$/,"Entrer un prix unitaire valide"),
+    qm1: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm2: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm3: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm4: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm5: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm6: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm7: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm8: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm9: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm10: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm11: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
+    qm12: Yup.number().positive("Entrer une quantié positive et valide").required("ce champ est obligatoire"),
 })
   const onSubmit = (values, props) => {
     setShow(!show)
@@ -230,8 +578,30 @@ const Chapitrefourp = () => {
       .collection("prevision-annne1")
       .add({
         produits: values.produits,
-        quantite: values.quantite,
-        prix: values.prix,
+        qm1: values.qm1,
+        qm2: values.qm2,
+        qm3: values.qm3,
+        qm4: values.qm4,
+        qm5: values.qm5,
+        qm6: values.qm6,
+        qm7: values.qm7,
+        qm8: values.qm8,
+        qm9: values.qm9,
+        qm10: values.qm10,
+        qm11: values.qm11,
+        qm12: values.qm12,
+        pm1: values.pm1,
+        pm2: values.pm2,
+        pm3: values.pm3,
+        pm4: values.pm4,
+        pm5: values.pm5,
+        pm6: values.pm6,
+        pm7: values.pm7,
+        pm8: values.pm8,
+        pm9: values.pm9,
+        pm10: values.pm10,
+        pm11: values.pm11,
+        pm12: values.pm12,
         userId: userId,
       })
       .then(() => {
@@ -245,6 +615,7 @@ const Chapitrefourp = () => {
   React.useEffect(() => {
     getDate();
     console.log("col")
+    console.log("total "+totalQm);
     //setTotal(0)
   }, [toggle]);
   //console.log("pro");
@@ -318,19 +689,19 @@ const Chapitrefourp = () => {
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1}>
                             <TableCell>Quantité</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite}</TableCell>
-                            <TableCell>{item.quantite * 12}</TableCell>
+                            <TableCell>{item.qm1}</TableCell>
+                            <TableCell>{item.qm2}</TableCell>
+                            <TableCell>{item.qm3}</TableCell>
+                            <TableCell>{item.qm4}</TableCell>
+                            <TableCell>{item.qm5}</TableCell>
+                            <TableCell>{item.qm6}</TableCell>
+                            <TableCell>{item.qm7}</TableCell>
+                            <TableCell>{item.qm8}</TableCell>
+                            <TableCell>{item.qm9}</TableCell>
+                            <TableCell>{item.qm10}</TableCell>
+                            <TableCell>{item.qm11}</TableCell>
+                            <TableCell>{item.qm12}</TableCell>
+                            <TableCell>{totalQm[index]} - {index} </TableCell>
                             <TableCell rowSpan="3">
                                 <div className="delete">
                                   <div className="edit">
@@ -344,35 +715,35 @@ const Chapitrefourp = () => {
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1}>
                             <TableCell>Prix unitaire</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix}</TableCell>
-                            <TableCell>{item.prix * 12} FCFA</TableCell>
+                            <TableCell>{item.pm1}</TableCell>
+                            <TableCell>{item.pm2}</TableCell>
+                            <TableCell>{item.pm3}</TableCell>
+                            <TableCell>{item.pm4}</TableCell>
+                            <TableCell>{item.pm5}</TableCell>
+                            <TableCell>{item.pm6}</TableCell>
+                            <TableCell>{item.pm7}</TableCell>
+                            <TableCell>{item.pm8}</TableCell>
+                            <TableCell>{item.pm9}</TableCell>
+                            <TableCell>{item.pm10}</TableCell>
+                            <TableCell>{item.pm11}</TableCell>
+                            <TableCell>{item.pm12}</TableCell>
+                            <TableCell>{item.pm1 * 12} FCFA</TableCell>
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1}>
                             <TableCell>Chiffre d'affaire</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{item.prix*item.quantite}</TableCell>
-                            <TableCell>{(item.prix*item.quantite)*12} FCFA</TableCell>
+                            <TableCell>{item.pm1*item.qm1}</TableCell>
+                            <TableCell>{item.pm2*item.qm2}</TableCell>
+                            <TableCell>{item.pm3*item.qm3}</TableCell>
+                            <TableCell>{item.pm4*item.qm4}</TableCell>
+                            <TableCell>{item.pm5*item.qm5}</TableCell>
+                            <TableCell>{item.pm6*item.qm6}</TableCell>
+                            <TableCell>{item.pm7*item.qm7}</TableCell>
+                            <TableCell>{item.pm8*item.qm8}</TableCell>
+                            <TableCell>{item.pm9*item.qm9}</TableCell>
+                            <TableCell>{item.pm10*item.qm10}</TableCell>
+                            <TableCell>{item.pm11*item.qm11}</TableCell>
+                            <TableCell>{item.pm12*item.qm12}</TableCell>
+                            <TableCell>0 FCFA</TableCell>
                         </TableRow>
                       </>
                       );
@@ -556,39 +927,468 @@ const Chapitrefourp = () => {
                   margin="normal"
                   required
                   fullWidth
-                  id="prix"
-                  label="prix"
-                  name="prix"
-                  autoComplete="prix"
+                  id="pm1"
+                  label="Prix mois 1"
+                  name="pm1"
+                  autoComplete="pm1"
                   InputLabelProps= {{
                     shrink: true,
                   }}
-                  value={editTable.prix}
+                  value={editTable.pm1}
                   onChange={handleChange}
                   style={{ width: 200, margin: 30 }}
                   InputProps={{
                     startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
                   }}
-                  error={errorPrix? false: true}
-                  helperText={!errorPrix? 'Entrer un prix valide':''}
+                  error={errorPm1? false: true}
+                  helperText={!errorPm1? 'Entrer un prix valide':''}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  id="quantite"
-                  label="quantite"
-                  name="quantite"
-                  autoComplete="quantite"
+                  id="pm2"
+                  label="Prix mois 2"
+                  name="pm2"
+                  autoComplete="pm2"
                   InputLabelProps= {{
                     shrink: true,
                   }}
-                  value={editTable.quantite}
+                  value={editTable.pm2}
                   onChange={handleChange}
                   style={{ width: 200, margin: 30 }}
-                  error={errorQuantite? false: true}
-                  helperText={!errorQuantite? 'Entrer une quantite valide':''}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm2? false: true}
+                  helperText={!errorPm2? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm3"
+                  label="Prix mois 3"
+                  name="pm3"
+                  autoComplete="pm3"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm3}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm3? false: true}
+                  helperText={!errorPm3? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm4"
+                  label="Prix mois 4"
+                  name="pm4"
+                  autoComplete="pm4"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm4}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm4? false: true}
+                  helperText={!errorPm4? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm5"
+                  label="Prix mois 5"
+                  name="pm5"
+                  autoComplete="pm5"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm5}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm5? false: true}
+                  helperText={!errorPm5? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm6"
+                  label="Prix mois 6"
+                  name="pm6"
+                  autoComplete="pm6"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm6}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm6? false: true}
+                  helperText={!errorPm6? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm7"
+                  label="Prix mois 7"
+                  name="pm7"
+                  autoComplete="pm7"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm7}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm7? false: true}
+                  helperText={!errorPm7? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm8"
+                  label="Prix mois 8"
+                  name="pm8"
+                  autoComplete="pm8"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm8}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm8? false: true}
+                  helperText={!errorPm8? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm9"
+                  label="Prix mois 9"
+                  name="pm9"
+                  autoComplete="pm9"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm9}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm9? false: true}
+                  helperText={!errorPm9? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm10"
+                  label="Prix mois 10"
+                  name="pm10"
+                  autoComplete="pm10"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm10}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm10? false: true}
+                  helperText={!errorPm10? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm11"
+                  label="Prix mois 11"
+                  name="pm11"
+                  autoComplete="pm11"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm11}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm11? false: true}
+                  helperText={!errorPm11? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm12"
+                  label="Prix mois 12"
+                  name="pm12"
+                  autoComplete="pm12"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.pm12}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  error={errorPm12? false: true}
+                  helperText={!errorPm12? 'Entrer un prix valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm1"
+                  label="Quantité mois 1"
+                  name="qm1"
+                  autoComplete="qm1"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm1}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm1? false: true}
+                  helperText={!errorQm1? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm2"
+                  label="Quantité mois 2"
+                  name="qm2"
+                  autoComplete="qm2"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm2}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm2? false: true}
+                  helperText={!errorQm2? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm3"
+                  label="Quantité mois 3"
+                  name="qm3"
+                  autoComplete="qm3"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm3}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm3? false: true}
+                  helperText={!errorQm3? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm4"
+                  label="Quantité mois 4"
+                  name="qm4"
+                  autoComplete="qm4"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm4}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm4? false: true}
+                  helperText={!errorQm4? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm5"
+                  label="Quantité mois 5"
+                  name="qm5"
+                  autoComplete="qm5"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm5}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm5? false: true}
+                  helperText={!errorQm5? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm6"
+                  label="Quantité mois 6"
+                  name="qm6"
+                  autoComplete="qm6"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm6}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm6? false: true}
+                  helperText={!errorQm6? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm7"
+                  label="Quantité mois 7"
+                  name="qm7"
+                  autoComplete="qm7"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm7}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm7? false: true}
+                  helperText={!errorQm7? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm8"
+                  label="Quantité mois 8"
+                  name="qm8"
+                  autoComplete="qm8"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm8}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm8? false: true}
+                  helperText={!errorQm8? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm9"
+                  label="Quantité mois 9"
+                  name="qm9"
+                  autoComplete="qm9"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm9}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm9? false: true}
+                  helperText={!errorQm9? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm10"
+                  label="Quantité mois 10"
+                  name="qm10"
+                  autoComplete="qm10"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm10}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm10? false: true}
+                  helperText={!errorQm10? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm11"
+                  label="Quantité mois 11"
+                  name="qm11"
+                  autoComplete="qm11"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm11}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm11? false: true}
+                  helperText={!errorQm11? 'Entrer une quantité valide':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm12"
+                  label="Quantité mois 12"
+                  name="qm12"
+                  autoComplete="qm12"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  value={editTable.qm12}
+                  onChange={handleChange}
+                  style={{ width: 200, margin: 30 }}
+                  error={errorQm12? false: true}
+                  helperText={!errorQm12? 'Entrer une quantité valide':''}
                 />
                 <Button
                   type="submit"
@@ -596,7 +1396,7 @@ const Chapitrefourp = () => {
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={(errorProduits|| errorQuantite || errorPrix) ? false: true}
+                  disabled ={(errorProduits|| errorQm1 || errorQm2 || errorQm3) ? false: true}
 
                 >
                   Modifier
@@ -609,13 +1409,13 @@ const Chapitrefourp = () => {
         </>
         ): (
           <>
-          <Card variant="outlined">
+          <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
                <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
             
           >
             {(props) => (
-              <Form className={`${!show && "show"}`}>
+              <Form>
                 <div className="input">
                   <Field as={TextField}
                     variant="outlined"
@@ -632,51 +1432,423 @@ const Chapitrefourp = () => {
                     helperText={<ErrorMessage name="produits" />}
                     error={props.errors.produits&&props.touched.produits}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="quantite"
-                    label="quantite"
-                    name="quantite"
-                    autoComplete="quantite"
-                    InputLabelProps= {{
-                      shrink: true,
-                    }}
-                    //onChange={handleChange}
-                    style={{ width: 200, margin: 30 }}
-                    helperText={<ErrorMessage name="quantite" />}
-                    error={props.errors.quantite&&props.touched.quantite}
-                  />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm1"
+                  label="Prix mois 1"
+                  name="pm1"
+                  autoComplete="pm1"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm1" />}
+                  error={props.errors.pm1&&props.touched.pm1}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm2"
+                  label="Prix mois 2"
+                  name="pm2"
+                  autoComplete="pm2"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm2" />}
+                  error={props.errors.pm2&&props.touched.pm2}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm3"
+                  label="Prix mois 3"
+                  name="pm3"
+                  autoComplete="pm3"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm3" />}
+                  error={props.errors.pm3&&props.touched.pm3}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm4"
+                  label="Prix mois 4"
+                  name="pm4"
+                  autoComplete="pm4"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm4" />}
+                  error={props.errors.pm4&&props.touched.pm4}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm5"
+                  label="Prix mois 5"
+                  name="pm5"
+                  autoComplete="pm5"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm5" />}
+                  error={props.errors.pm5&&props.touched.pm5}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm6"
+                  label="Prix mois 6"
+                  name="pm6"
+                  autoComplete="pm6"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm6" />}
+                  error={props.errors.pm6&&props.touched.pm6}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm7"
+                  label="Prix mois 7"
+                  name="pm7"
+                  autoComplete="pm7"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm7" />}
+                  error={props.errors.pm7&&props.touched.pm7}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm8"
+                  label="Prix mois 8"
+                  name="pm8"
+                  autoComplete="pm8"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm8" />}
+                  error={props.errors.pm8&&props.touched.pm8}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm9"
+                  label="Prix mois 9"
+                  name="pm9"
+                  autoComplete="pm9"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm9" />}
+                  error={props.errors.pm9&&props.touched.pm9}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm10"
+                  label="Prix mois 10"
+                  name="pm10"
+                  autoComplete="pm10"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm10" />}
+                  error={props.errors.pm10&&props.touched.pm10}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm11"
+                  label="Prix mois 11"
+                  name="pm11"
+                  autoComplete="pm11"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm11" />}
+                  error={props.errors.pm11&&props.touched.pm11}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="pm12"
+                  label="Prix mois 12"
+                  name="pm12"
+                  autoComplete="pm12"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                  }}
+                  helperText={<ErrorMessage name="pm12" />}
+                  error={props.errors.pm12&&props.touched.pm12}
+                />
+                <Field as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm1"
+                  label="Quantité mois 1"
+                  name="qm1"
+                  autoComplete="qm1"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm1" />}
+                  error={props.errors.qm1&&props.touched.qm1}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm2"
+                  label="Quantité mois 2"
+                  name="qm2"
+                  autoComplete="qm2"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm2" />}
+                  error={props.errors.qm2&&props.touched.qm2}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm3"
+                  label="Quantité mois 3"
+                  name="qm3"
+                  autoComplete="qm3"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm3" />}
+                  error={props.errors.qm3&&props.touched.qm3}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm4"
+                  label="Quantité mois 4"
+                  name="qm4"
+                  autoComplete="qm4"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm4" />}
+                  error={props.errors.qm4&&props.touched.qm4}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm5"
+                  label="Quantité mois 5"
+                  name="qm5"
+                  autoComplete="qm5"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm5" />}
+                  error={props.errors.qm5&&props.touched.qm5}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm6"
+                  label="Quantité mois 6"
+                  name="qm6"
+                  autoComplete="qm6"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm6" />}
+                  error={props.errors.qm6&&props.touched.qm6}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm7"
+                  label="Quantité mois 7"
+                  name="qm7"
+                  autoComplete="qm7"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm7" />}
+                  error={props.errors.qm7&&props.touched.qm7}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm8"
+                  label="Quantité mois 8"
+                  name="qm8"
+                  autoComplete="qm8"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm8" />}
+                  error={props.errors.qm8&&props.touched.qm8}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm9"
+                  label="Quantité mois 9"
+                  name="qm9"
+                  autoComplete="qm9"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm9" />}
+                  error={props.errors.qm9&&props.touched.qm9}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm10"
+                  label="Quantité mois 10"
+                  name="qm10"
+                  autoComplete="qm10"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm10" />}
+                  error={props.errors.qm10&&props.touched.qm10}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm11"
+                  label="Quantité mois 11"
+                  name="qm11"
+                  autoComplete="qm11"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm11" />}
+                  error={props.errors.qm11&&props.touched.qm11}
+                />
+                <Field as={TextField}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="qm12"
+                  label="Quantité mois 12"
+                  name="qm12"
+                  autoComplete="qm12"
+                  InputLabelProps= {{
+                    shrink: true,
+                  }}
+                  style={{ width: 200, margin: 30 }}
+                  helperText={<ErrorMessage name="qm12" />}
+                  error={props.errors.qm12&&props.touched.qm12}
+                />
                 
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="prix"
-                    label="prix"
-                    name="prix"
-                    autoComplete="prix"
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                    }}
-                    InputLabelProps= {{
-                      shrink: true,
-                    }}
-                    //onChange={handleChange}
-                    style={{ width: 200, margin: 30 }}
-                    helperText={<ErrorMessage name="prix" />}
-                    error={props.errors.prix&&props.touched.prix}
-                  />
                    <Button
                     type="submit"
                     className="plus-icon"
                     style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.quantite || props.errors.prix || props.errors.produits ? true: false}
+                    disabled ={props.errors.qm1 || props.errors.qm2 || props.errors.prix || props.errors.produits ? true: false}
                     
                   >
                     Enregistrer

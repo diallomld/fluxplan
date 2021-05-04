@@ -155,7 +155,6 @@ const Chapitreone = () => {
                       <td>{item.segmentation}</td>
                       <td>{item.ciblage}</td>
                       <td>{item.positionnement}</td>
-                      <td>{item.motif}</td>
                       <td>
                         <div className="delete">
                             <div className="edit">

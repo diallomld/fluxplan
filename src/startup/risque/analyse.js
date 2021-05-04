@@ -2,7 +2,7 @@ import React from "react";
 import { Button, TextField } from "@material-ui/core";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
-import "./Chapitretwo.css";
+import "./Chapitreone.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -20,8 +20,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -48,28 +51,29 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#18A4F6',
     color: theme.palette.common.white,
+    
     fontSize: 20,
   },
 }))(TableCell);
 
-const Chapitretwo = () => {
+const Analyse = () => {
   const initialvalues = {
-    nom: "",
-    description: "",
+    risques: "",
+    solutions: "",
   };
   const editObject = {
-    nom: "",
-    description: "",
+    risques: "",
+    solutions: "",
   };
   const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
-  const [produit, setProduit] = React.useState([]);
+  const [risque, setRisque] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorNom, setErrorNom] = React.useState(true);
-  const [errorDesc, setErrorDesc] = React.useState(true);
+  const [errorRisques, setErrorRisques] = React.useState(true);
+  const [errorSolutions, setErrorSolutions] = React.useState(true);
 
   const classes = useStyles();
 
@@ -88,22 +92,22 @@ const Chapitretwo = () => {
       [name]: value,
     });
     switch (name) {
-        case 'description':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorDesc(true)
+      case 'risques':
+          if (value.length >=3) {
+            //console.log("elements " + value);
+            setErrorRisques(true)
           } else {
-            //console.error("montant non valide "); 
-            setErrorDesc(false)
+            //console.error("prevision non valide");
+            setErrorRisques(false)
           }
-        break;
-        case 'nom':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorNom(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorNom(false)
+          break;
+          case 'solutions':
+            if (value.length > 3) {
+              //console.log("montant" + value);
+              setErrorSolutions(true)
+            } else {
+              //console.error("montant non valide "); 
+              setErrorSolutions(false)
           }
         break;
     
@@ -112,8 +116,7 @@ const Chapitretwo = () => {
     }
   };
   const handleModif = (id,index) => {
-    setEditTable(produit[index])
-    //console.log(editTable);
+    setEditTable(risque[index])
     setShow(!show);
     if(show){
       setIdDoc("");
@@ -121,18 +124,18 @@ const Chapitretwo = () => {
       setIdDoc(id);
     }
   };
-  const editProduit = (e) => {
+  const editRisque = (e) => {
     e.preventDefault();
     setLoad(true)
     //setShow(!show)
     firebasee
       .firestore()
-      .collection("produitprojet")
+      .collection("analyse-risque")
       .doc(idDoc)
       .set(
         {
-          nom: editTable.nom,
-          description: editTable.description,
+          risques: editTable.risques,
+          solutions: editTable.solutions,
           userId: userId,
         },
         { merge: true }
@@ -141,8 +144,8 @@ const Chapitretwo = () => {
         console.log("data" + data);
         //setLoad(false)
         setEditTable({
-          nom:"",
-          description:""
+          risques:"",
+          solutions:"",
         })
         setOpen(true)
       })
@@ -150,11 +153,11 @@ const Chapitretwo = () => {
     setToggle(!toggle);
     setIdDoc("");
   };
-  const deleteProduit = (id) => {
+  const deleteRisque = (id) => {
     setLoad(true)
     firebasee
       .firestore()
-      .collection("produitprojet")
+      .collection("analyse-risque")
       .doc(id)
       .delete()
       .then(() => {
@@ -169,38 +172,38 @@ const Chapitretwo = () => {
     setLoad(true)
     return firebasee
       .firestore()
-      .collection("produitprojet")
+      .collection("analyse-risque")
       .where("userId", "==", userId)
       .get()
       .then((data) => {
         let dat = [];
         data.forEach((doc) => {
           dat.push({
-            nom: doc.data().nom,
-            description: doc.data().description,
+            risques: doc.data().risques,
+            solutions: doc.data().solutions,
             id: doc.data().userId,
             docIdd: doc.id,
           });
         });
-        setProduit(dat);
+        setRisque(dat);
         setLoad(false)
       })
       .catch((err) => console.log(err));
   };
 
   const validationSchema = Yup.object().shape({
-    nom: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    description: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    risques: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    solutions: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
  })
   const onSubmit = (values, props) => {
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
-      .collection("produitprojet")
+      .collection("analyse-risque")
       .add({
-          nom: values.nom,
-          description: values.description,
+          risques: values.risques,
+          solutions: values.solutions,
           userId: userId,
       })
       .then(() => {
@@ -240,34 +243,34 @@ const Chapitretwo = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {produit.length > 0 ? (
+      {risque.length > 0 ? (
         <div className="tab">
           
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:30}}>Solution/Produits/Services</caption>
+                <caption style={{color: 'black', fontSize:30}}> Analyse des riques</caption>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell style={{maxWidth:200}}>Nom du produit/service</StyledTableCell>
-                    <StyledTableCell style={{maxWidth:300}}>Description du produit/service</StyledTableCell>
-                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell>
+                    <StyledTableCell style={{}}>Risques</StyledTableCell>
+                    <StyledTableCell style={{}}>Solutions</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {produit.map((item, index) => {
+                  {risque.map((item, index) => {
                       return (
                         <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                           
-                              <TableCell>{item.nom}</TableCell>
-                              <TableCell>{item.description}</TableCell>
+                              <TableCell>{item.risques}</TableCell>
+                              <TableCell>{item.solutions}</TableCell>
                               <TableCell>
                                 <div className="delete">
                                   <div className="edit">
                                     <EditIcon onClick={() => handleModif(item.docIdd, index)} />
                                   </div>
                                   <div className="delet">
-                                    <DeleteIcon onClick={() => deleteProduit(item.docIdd)} />
+                                    <DeleteIcon onClick={() => deleteRisque(item.docIdd)} />
                                   </div>
                                 </div>
                               </TableCell>
@@ -288,21 +291,19 @@ const Chapitretwo = () => {
                 <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell style={{maxWidth:200}}>Nom du produit/service</StyledTableCell>
-                    <StyledTableCell style={{maxWidth:300}}>Description du produit/service</StyledTableCell>
-                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 300 }}>Risque</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 300 }}>Solutions</StyledTableCell> 
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell> 
                   </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow hover role="checkbox" tabIndex={-1}>
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
+                          <TableCell>......analyse-risque......</TableCell>
+                          <TableCell>......analyse-risque......</TableCell>
                     </TableRow>
                     <TableRow hover role="checkbox" tabIndex={-1}>
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
+                          <TableCell>......analyse-risque......</TableCell>
+                          <TableCell>......analyse-risque......</TableCell>
                     </TableRow>
                 </TableBody>
               </Table>
@@ -333,7 +334,7 @@ const Chapitretwo = () => {
             <form
               noValidate
               className={`${!show && "show"}`}
-              onSubmit={editProduit}
+              onSubmit={editRisque}
             >
               <div className="input">
                 
@@ -342,35 +343,34 @@ const Chapitretwo = () => {
                   margin="normal"
                   required
                   fullWidth
-                  id="nom"
-                  label="Nom du produit/service"
-                  name="nom"
+                  id="risques"
+                  label="Les risques du projet"
+                  name="risques"
                   autoFocus
                   multiline
-                  rows="2"
-                  rowsMax={10}
-                  value={editTable.nom}
+                  rows="5"
+                  value={editTable.risques}
                   onChange={handleChange}
                   style={{ width: 200, marginRight: 10 }}
-                  error={errorNom? false: true}
-                  helperText={!errorNom? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                  error={errorRisques? false: true}
+                  helperText={!errorRisques? 'Le champ doit étre remplit avec 3 caractére minimum':''}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  id="description"
-                  label="Description du produit/service"
-                  name="description"
+                  id="solutions"
+                  label="Les solutions du projet"
+                  name="solutions"
+                  autoFocus
                   multiline
                   rows="5"
-                  rowsMax={10}
-                  value={editTable.description}
+                  value={editTable.solutions}
                   onChange={handleChange}
                   style={{ width: 200, marginRight: 10 }}
-                  error={errorDesc? false: true}
-                  helperText={!errorDesc? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                  error={errorSolutions? false: true}
+                  helperText={!errorSolutions? 'Le champ doit étre remplit avec 3 caractére minimum':''}
                 />
                 <Button
                   type="submit"
@@ -378,7 +378,7 @@ const Chapitretwo = () => {
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorDesc || errorNom ? false: true}
+                  disabled ={errorRisques || errorSolutions ? false: true}
 
                 >
                   Modifier
@@ -399,37 +399,35 @@ const Chapitretwo = () => {
             {(props) => (
               <Form>
                 <div className="input">
-                  
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
                     fullWidth
                     required
-                    id="nom"
-                    label="Nom du produit/service"
-                    name="nom"
+                    id="risques"
+                    label="Les risques"
+                    name="risques"
                     autoFocus
                     multiline
-                    rows={2}
-                    rowsMax={8}
+                    rowsMax={4}
                     style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="nom" />}
-                    error={props.errors.nom&&props.touched.nom}
+                    helperText={<ErrorMessage name="risques" />}
+                    error={props.errors.risques&&props.touched.risques}
                   />
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
                     fullWidth
                     required
-                    id="description"
-                    label="Description du produit/service"
-                    name="description"
+                    id="solutions"
+                    label="Les solutions"
+                    name="solutions"
+                    autoFocus
                     multiline
-                    rows={5}
-                    rowsMax={8}
+                    rowsMax={4}
                     style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="description" />}
-                    error={props.errors.description&&props.touched.description}
+                    helperText={<ErrorMessage name="solutions" />}
+                    error={props.errors.solutions&&props.touched.solutions}
                   />
                    <Button
                     type="submit"
@@ -437,7 +435,7 @@ const Chapitretwo = () => {
                     style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.nom || props.errors.description ? true: false}
+                    disabled ={props.errors.solutions|| props.errors.risques ? true: false}
                     
                   >
                     Enregistrer
@@ -454,4 +452,4 @@ const Chapitretwo = () => {
   );
 };
 
-export default Chapitretwo
+export default Analyse

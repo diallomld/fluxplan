@@ -6,6 +6,33 @@ import "./Chapitreone.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+const useStyles = makeStyles({
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    
+    fontSize: 20,
+  },
+}))(TableCell);
+
 const Chapitreone = () => {
   const initialState = {
     accosie: "",
@@ -21,6 +48,7 @@ const Chapitreone = () => {
   const [promoteur, setPromoteur] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+  const classes = useStyles();
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -135,84 +163,94 @@ const Chapitreone = () => {
   return (
     <div className="chapitretwo">
       {promoteur.length > 0 ? (
-        <div className="tab">
-          <table>
-            <tr>
-              <th>Nom associé</th>
-              <th>Téléphone</th>
-              <th>Nationalité</th>
-              <th>Diplômes</th>
-              <th>Expériences</th>
-              <th>Capital détenu</th>
-              <th>Action</th>
-            </tr>
-            {promoteur.map((item, index) => {
-              return (
-                <>
-                  <tr>
-                    <td>{item.accosie}</td>
-                    <td>{item.telephone}</td>
-                    <td>{item.nationalite}</td>
-                    <td>{item.diplome}</td>
-                    <td>{item.experience}</td>
-                    <td>{item.capital} FCFA</td>
-                    <td>
-                      <div className="delete">
-                          <div className="edit">
-                            <EditIcon onClick={() => handleModif(item.docIdd)} />
-                          </div>
-                          <div className="delet">
-                            <DeleteIcon onClick={() => deletePromoteur(item.docIdd)} />
-                          </div>
-                        </div>
-                    </td>
-                  </tr>
-                </>
-              );
-            })}
-          </table>
+        <div className="tab">          
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:18}}> Promoteurs</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Nom associé</StyledTableCell>
+                    <StyledTableCell>Téléphone</StyledTableCell>
+                    <StyledTableCell>Nationalité</StyledTableCell>
+                    <StyledTableCell>Diplômes</StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Expériences</StyledTableCell>
+                    <StyledTableCell>Capital détenu</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {promoteur.map((item, index) => {
+                      return (
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                          
+                              <TableCell>{item.accosie}</TableCell>
+                              <TableCell>{item.telephone}</TableCell>
+                              <TableCell>{item.nationalite}</TableCell>
+                              <TableCell>{item.diplome}</TableCell>
+                              <TableCell>{item.experience}</TableCell>
+                              <TableCell>{item.capital}</TableCell>
+                              <TableCell>
+                                <div className="delete">
+                                  <div className="edit">
+                                    <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                  </div>
+                                  <div className="delet">
+                                    <DeleteIcon onClick={() => deletePromoteur(item.docIdd)} />
+                                  </div>
+                                </div>
+                              </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
         </div>
       ) : (
         <div className="tab">
-          <h3>Promoteurs</h3>
-          <table>
-            <tr>
-              <th>Nom associé</th>
-              <th>Téléphone</th>
-              <th>Nationalité</th>
-              <th>Diplômes</th>
-              <th>Expériences</th>
-              <th>Capital détenu</th>
-            </tr>
-
-            <tr>
-              <td>..................</td>
-              <td>..................</td>
-              <td>..................</td>
-              <td>..................</td>
-              <td>..................</td>
-              <td>..................</td>
-            </tr>
-            <tr>
-              <td>..................</td>
-              <td>..................</td>
-              <td>..................</td>
-              <td>..................</td>
-              <td>..................</td>
-              <td>..................</td>
-            </tr>
-
-            <tr>
-          <td>..................</td>
-          <td>..................</td>
-          <td>..................</td>
-          <td>..................</td>
-          <td>..................</td>
-          <td>..................</td>
-        </tr>
-          </table>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:20}} >Cette partie n'a pas encore été remplit</caption>
+                <TableHead>
+                  <TableRow>                    
+                    <StyledTableCell>Nom associé</StyledTableCell>
+                    <StyledTableCell>Téléphone</StyledTableCell>
+                    <StyledTableCell>Nationalité</StyledTableCell>
+                    <StyledTableCell>Diplômes</StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Expériences</StyledTableCell>
+                    <StyledTableCell>Capital détenu</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>.......</TableCell>
+                    </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>......</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </div>
-      )}
+       )}
 
       <div className="chapitretwo-title">
         <p>Promoteurs </p>

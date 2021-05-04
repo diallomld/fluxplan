@@ -7,6 +7,36 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+import Add from '@material-ui/icons/Add';
+
+const useStyles = makeStyles({
+    root: {
+      width: '50%',
+    },
+    container: {
+      maxHeight: 400,
+    },
+  });
+  
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: '#18A4F6',
+      color: theme.palette.common.white,
+      
+      fontSize: 20,
+    },
+  }))(TableCell);
+
+
 const Chapitreone = () => {
   const initialState = {
     nature: "",
@@ -20,6 +50,7 @@ const Chapitreone = () => {
   const [analyse, setAnalyse] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+  const classes = useStyles();
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -122,97 +153,85 @@ const Chapitreone = () => {
   return (
     <div className="chapitretwo">
       {analyse.length > 0 ? (
-        <div className="tab">
-          <table>
-            <thead>
-              <tr>
-                <th>Nature</th>
-                <th>Localisation</th>
-                <th>Taille</th>
-                <th>Tendance</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            {analyse.map((item, index) => {
-              return (
-                <>
-                  <tbody>
-                    <tr>
-                      <td>{item.nature}</td>
-                      <td>{item.localisation}</td>
-                      <td>{item.taille}</td>
-                      <td>{item.tendance}</td>
-                      <td>
-                        <div className="delete">
-                            <div className="edit">
-                              <EditIcon onClick={() => handleModif(item.docIdd)} />
-                            </div>
-                            <div className="delet">
-                              <DeleteIcon onClick={() => deleteAnalyse(item.docIdd)} />
-                            </div>
-                          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </>
-              );
-            })}
-          </table>
-        </div>
-      ) : (
-        <div className="tab">
-          <h3>L'analyse du marché</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Nature</th>
-                <th>Localisation</th>
-                <th>Taille</th>
-                <th>Tendance</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+     <div className="tab">
+          
+     <Paper className={classes.root}>
+       <TableContainer className={classes.container}>
+         <Table stickyHeader aria-label="sticky table">
+           <caption style={{color: 'black', fontSize:18}}> L'analyse du marché</caption>
+           <TableHead>
+             <TableRow>
+              <StyledTableCell>Nature</StyledTableCell>
+              <StyledTableCell>Localisation</StyledTableCell>
+              <StyledTableCell style={{ minWidth: 200 }}>Taille</StyledTableCell>
+              <StyledTableCell style={{ minWidth: 300 }}>Tendance</StyledTableCell> 
+              <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell> 
+             </TableRow>
+           </TableHead>
+           <TableBody>
+             {analyse.map((item, index) => {
+                 return (
+                   <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                     
+                         <TableCell>{item.nature}</TableCell>
+                         <TableCell>{item.localisation}</TableCell>
+                         <TableCell>{item.taille}</TableCell>
+                         <TableCell>{item.tendance}</TableCell>
+                         <TableCell>
+                           <div className="delete">
+                             <div className="edit">
+                               <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                             </div>
+                             <div className="delet">
+                               <DeleteIcon onClick={() => deleteAnalyse(item.docIdd)} />
+                             </div>
+                           </div>
+                         </TableCell>
+                   </TableRow>
+                 );
+               })}
+           </TableBody>
+         </Table>
+       </TableContainer>
+     </Paper>
+     
+   </div>
+ ) : (
+    <div className="tab">
+     <Paper className={classes.root}>
+       <TableContainer className={classes.container}>
+         <Table stickyHeader aria-label="sticky table">
+           <caption style={{color: 'black', fontSize:20}} >Cette partie n'a pas encore été remplit</caption>
+           <TableHead>
+             <TableRow>
+               <StyledTableCell>indicateur</StyledTableCell>
+               <StyledTableCell>Calcul</StyledTableCell>
+               <StyledTableCell>Norme</StyledTableCell>
+               <StyledTableCell style={{ minWidth: 300 }}>Appreciation</StyledTableCell> 
+               <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell> 
+             </TableRow>
+           </TableHead>
+           <TableBody>
+               <TableRow hover role="checkbox" tabIndex={-1}>
+                     <TableCell>...........</TableCell>
+                     <TableCell>...........</TableCell>
+                     <TableCell>...........</TableCell>
+                     <TableCell>...........</TableCell>
+                     <TableCell>.......</TableCell>
+               </TableRow>
+               <TableRow hover role="checkbox" tabIndex={-1}>
+                     <TableCell>...........</TableCell>
+                     <TableCell>...........</TableCell>
+                     <TableCell>...........</TableCell>
+                     <TableCell>...........</TableCell>
+                     <TableCell>......</TableCell>
+               </TableRow>
+           </TableBody>
+         </Table>
+       </TableContainer>
+     </Paper>
+    </div>
+     )}
 
       <div className="chapitretwo-title">
         <p>Analyse du marché </p>

@@ -1,12 +1,70 @@
-import { Button, TextField } from "@material-ui/core";
 import React from "react";
+import { Button, TextField } from "@material-ui/core";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
+import "./Chapitretwo.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import "./Chapitresix.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
+import SaveIcon from '@material-ui/icons/Save';
+import Edit from '@material-ui/icons/Edit';
+import Add from '@material-ui/icons/Add';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from 'yup';
+
+const useStyles = makeStyles({
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    fontSize: 20,
+  },
+}))(TableCell);
+
 const Chapitresix = () => {
-  const initialState = {
+  const initialvalues = {
+    denomination: "",
+    nom: "",
+    sigle: "",
+    juridique: "",
+    social: "",
+    siege: "",
+    capital: "",
+    telephone: "",
+    courriel: "",
+  };
+  const editObject = {
     denomination: "",
     nom: "",
     sigle: "",
@@ -18,104 +76,189 @@ const Chapitresix = () => {
     courriel: "",
   };
   const { userId } = useGlobalContext();
-  const [credentital, setCredentital] = React.useState(initialState);
   const [show, setShow] = React.useState(false);
-  const [produit, setProduit] = React.useState([]);
+  const [statut, setStatut] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
-  const [idEdit, setIdEdit] = React.useState("");
+  const [load, setLoad] = React.useState(false);
+  const [editTable, setEditTable] = React.useState(editObject);
+  const [errorDenomination, setErrorDenomination] = React.useState(true);
+  const [errorNom, setErrorNom] = React.useState(true);
+  const [errorSigle, setErrorSigle] = React.useState(true);
+  const [errorJuridique, setErrorJuridique] = React.useState(true);
+  const [errorSocial, setErrorSocial] = React.useState(true);
+  const [errorSiege, setErrorSiege] = React.useState(true);
+  const [errorCapital, setErrorCapital] = React.useState(true);
+  const [errorTelephone, setErrorTelephone] = React.useState(true);
+  const [errorCourriel, setErrorCourriel] = React.useState(true);
+
+  const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
   const handleChange = (e) => {
     var { name, value } = e.target;
-    setCredentital({
-      ...credentital,
+    setEditTable({
+      ...editTable,
       [name]: value,
     });
+    switch (name) {
+        case 'denomination':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorDenomination(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorDenomination(false)
+          }
+        break;
+        case 'nom':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorNom(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorNom(false)
+          }
+        break;
+        case 'sigle':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorSigle(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorSigle(false)
+          }
+        break;
+        case 'juridique':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorJuridique(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorJuridique(false)
+          }
+        break;
+        case 'social':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorSocial(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorSocial(false)
+          }
+        break;
+        case 'siege':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorSiege(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorSiege(false)
+          }
+        break;
+        case 'capital':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorCapital(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorCapital(false)
+          }
+        break;
+        case 'telephone':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorTelephone(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorTelephone(false)
+          }
+        break;
+        case 'courriel':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorCourriel(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorCourriel(false)
+          }
+        break;
+      default:
+        break;
+    }
   };
-  const handleModif = (id) => {
+  const handleModif = (id,index) => {
+    setEditTable(statut[index])
+    //console.log(editTable);
     setShow(!show);
     if(show){
       setIdDoc("");
-      console.log('modif handle no ' +idDoc + show);
     }else{
       setIdDoc(id);
-      console.log('modif handle yes ' +idDoc + show);
     }
   };
-  const editPost = (e) => {
+  const editStatut = (e) => {
     e.preventDefault();
-    console.log("iddoc");
-    console.log(idDoc);
-    console.log("iddoc");
-
+    setLoad(true)
+    //setShow(!show)
     firebasee
       .firestore()
       .collection("statutjuridique")
       .doc(idDoc)
       .set(
         {
-          denomination: credentital.denomination,
-          sigle: credentital.sigle,
-          nom: credentital.nom,
-          juridique: credentital.juridique,
-          social: credentital.social,
-          siege: credentital.siege,
-          capital: credentital.capital,
-          telephone: credentital.telephone,
-          courriel: credentital.courriel,
+          denomination: editTable.denomination,
+          sigle: editTable.sigle,
+          nom: editTable.nom,
+          juridique: editTable.juridique,
+          social: editTable.social,
+          siege: editTable.siege,
+          capital: editTable.capital,
+          telephone: editTable.telephone,
+          courriel: editTable.courriel,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
-        console.log("data edit "+data);
+        console.log("data" + data);
+        //setLoad(false)
+        setEditTable({
+          produit: "",
+          description: "",
+          revenu: "",
+          model: "",
+        })
+        setOpen(true)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
     setToggle(!toggle);
-    //console.log("setIdDoc " + idDoc);
     setIdDoc("");
-    //console.log("setIdDoc " + idDoc);
   };
-  const deletePost = (id) => {
+  const deleteStatut = (id) => {
+    setLoad(true)
     firebasee
       .firestore()
       .collection("statutjuridique")
       .doc(id)
       .delete()
-      .then(() => console.log("deleted"))
-      .catch((err) => console.log(err));
-    setToggle(!toggle);
-    console.log("setIdDoc " + idDoc)
-    setIdDoc("")
-    console.log("setIdDoc " + idDoc)
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    firebasee
-      .firestore()
-      .collection("statutjuridique")
-      .add({
-        denomination: credentital.denomination,
-        sigle: credentital.sigle,
-        juridique: credentital.juridique,
-        social: credentital.social,
-        siege: credentital.siege,
-        capital: credentital.capital,
-        telephone: credentital.telephone,
-        courriel: credentital.courriel,
-        nom: credentital.nom,
-        userId: userId,
-      })
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        console.log("deleted")
+        setLoad(false)
+        setOpen(true)
       })
       .catch((err) => console.log(err));
-      console.log("setIdDoc " + idDoc)
-    setIdDoc("")
-    console.log("setIdDoc " + idDoc)
     setToggle(!toggle);
-    alert("Ajouté");
   };
   const getDate = () => {
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("statutjuridique")
@@ -124,404 +267,561 @@ const Chapitresix = () => {
       .then((data) => {
         let dat = [];
         data.forEach((doc) => {
-          setIdDoc(doc.id);
           dat.push({
             denomination: doc.data().denomination,
             sigle: doc.data().sigle,
+            nom: doc.data().nom,
             juridique: doc.data().juridique,
             social: doc.data().social,
             siege: doc.data().siege,
             capital: doc.data().capital,
             telephone: doc.data().telephone,
             courriel: doc.data().courriel,
-            nom: doc.data().nom,
             id: doc.data().userId,
             docIdd: doc.id,
           });
         });
-
-        setProduit(dat);
+        setStatut(dat);
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
 
+  const validationSchema = Yup.object().shape({
+    denomination: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    sigle: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    nom: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    juridique: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    social: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    siege: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    capital: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    telephone: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    courriel: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+ })
+  const onSubmit = (values, props) => {
+    setShow(!show)
+    setLoad(true)
+    firebasee
+      .firestore()
+      .collection("statutjuridique")
+      .add({
+        denomination: values.denomination,
+        sigle: values.sigle,
+        nom: values.nom,
+        juridique: values.juridique,
+        social: values.social,
+        siege: values.siege,
+        capital: values.capital,
+        telephone: values.telephone,
+        courriel: values.courriel,
+        userId: userId,
+      })
+      .then(() => {
+        props.resetForm()
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle(!toggle);
+  }
+
   React.useEffect(() => {
     getDate();
   }, [toggle]);
-  //console.log("id");
-  //console.log(idDoc);
   return (
     <div className="chapitretwo">
-      {produit.length > 0 ? (
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {statut.length > 0 ? (
         <div className="tab">
-          <table>
-            <tr>
-              <th>denomination</th>
-              <th>nom commercial</th>
-              <th>sigle</th>
-              <th>juridique</th>
-
-              <th>social</th>
-              <th>siege</th>
-              <th>capital</th>
-              <th>telephone</th>
-              <th>courriel</th>
-              <th></th>
-            </tr>
-            {produit.map((item, index) => {
-              return (
-                <>
-                  <tr>
-                    <td>{item.denomination}</td>
-                    <td>{item.nom}</td>
-                    <td>{item.sigle}</td>
-                    <td>{item.juridique}</td>
-                    <td>{item.social}</td>
-                    <td>{item.siege}</td>
-                    <td>{item.capital}</td>
-                    <td>{item.telephone}</td>
-                    <td>{item.courriel}</td>
-                    <div className="delete">
-                      <div className="edit">
-                        <EditIcon onClick={() => handleModif(item.docIdd)} />
-                      </div>
-                      <div className="delet">
-                        <DeleteIcon onClick={() => deletePost(item.docIdd)} />
-                      </div>
-                    </div>
-                  </tr>
-                </>
-              );
-            })}
-          </table>
+          
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:20}}>Statut Juridique</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{minWidth:200}}>Denomination</StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Nom commercial </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Sigle </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Forme Juridique </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Objet Social </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Siége Social </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Capital Social </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Téléphone </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Courriel </StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {statut.map((item, index) => {
+                      return (
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                          
+                              <TableCell>{item.denomination}</TableCell>
+                              <TableCell>{item.nom}</TableCell>
+                              <TableCell>{item.sigle}</TableCell>
+                              <TableCell>{item.juridique}</TableCell>
+                              <TableCell>{item.social}</TableCell>
+                              <TableCell>{item.siege}</TableCell>
+                              <TableCell>{item.capital}</TableCell>
+                              <TableCell>{item.telephone}</TableCell>
+                              <TableCell>{item.courriel}</TableCell>
+                              <TableCell>
+                                <div className="delete">
+                                  <div className="edit">
+                                    <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                  </div>
+                                  <div className="delet">
+                                    <DeleteIcon onClick={() => deleteStatut(item.docIdd)} />
+                                  </div>
+                                </div>
+                              </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
         </div>
       ) : (
         <div className="tab">
-          <h3>exemple</h3>
-          <table>
-            <tr>
-              <th>Dénomination / Raison sociale</th>
-              <th>.............................</th>
-            </tr>
-
-            <tr>
-              <td>Nom commercial</td>
-              <th>.............................</th>
-            </tr>
-            <tr>
-              <td>Sigle</td>
-              <th>.............................</th>
-            </tr>
-
-            <tr>
-              <th>Forme juridique</th>
-              <th>.............................</th>
-            </tr>
-            <tr>
-              <th>Objet social</th>
-              <th>.............................</th>
-            </tr>
-            <tr>
-              <th>Siège social</th>
-              <th>.............................</th>
-            </tr>
-            <tr>
-              <th>Capital social</th>
-              <th>.............................</th>
-            </tr>
-            <tr>
-              <th>Téléphone</th>
-              <th>.............................</th>
-            </tr>
-            <tr>
-              <th>Courriel</th>
-              <th>.............................</th>
-            </tr>
-          </table>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{minWidth:200}}>Denomination</StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Nom commercial </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Sigle </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Forme Juridique </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Objet Social </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Siége Social </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Capital Social </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Téléphone </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Courriel </StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </div>
       )}
 
-      <div className="chapitretwo-title">
-        <p>Statut juridique</p>
-      </div>
-      <div className="plus">
-        {!show && (
-          <Button className="plus-icon" onClick={() => setShow(!show)}>
-            Ajouter
-          </Button>
+      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
+        <>
+        <div className="plus">
+          {!show && (
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
+              Ajouter
+            </Button>
+          )}
+        </div>
+        </>
         )}
-      </div>
-      <div>
-        {idDoc ? (
-          <form noValidate className={`${!show && "show"}`} onSubmit={editPost}>
-            <div className="input">
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="denomination"
-                label="Dénomination / Raison sociale"
-                name="denomination"
-                autoComplete="denomination"
-                autoFocus
-                value={credentital.denomination}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="commercial"
-                label="Nom commercial"
-                name="nom"
-                autoFocus
-                value={credentital.nom}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="sigle"
-                label="Sigle"
-                name="sigle"
-                autoFocus
-                value={credentital.sigle}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="juridique"
-                label="Forme juridique"
-                name="juridique"
-                autoFocus
-                value={credentital.juridique}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="social"
-                label="Objet social"
-                name="social"
-                autoFocus
-                value={credentital.social}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="siege"
-                label="Siège social "
-                name="siege"
-                autoFocus
-                value={credentital.description}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="capital"
-                label="Capital social"
-                name="capital"
-                autoFocus
-                value={credentital.capital}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="telephone"
-                label="Téléphone"
-                name="telephone"
-                autoFocus
-                value={credentital.telephone}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="courriel"
-                label="Courriel"
-                name="courriel"
-                autoFocus
-                value={credentital.courriel}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
+        { idDoc ? (
+          <>
+        <Card>
+          <CardContent>
 
-              <Button
-                type="submit"
-                className="btn"
-                onClick={() => setShow(!show)}
-              >
-                Modifier
-              </Button>
-            </div>
-          </form>
-        ) : (
-          <form
-            noValidate
-            className={`${!show && "show"}`}
-            onSubmit={handleSubmit}
-          >
-            <div className="input">
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="denomination"
-                label="Dénomination / Raison sociale"
-                name="denomination"
-                autoComplete="denomination"
-                autoFocus
-                value={credentital.denomination}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="nom"
-                label="Nom commercial"
-                name="nom"
-                autoFocus
-                value={credentital.nom}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="sigle"
-                label="Sigle"
-                name="sigle"
-                autoFocus
-                value={credentital.sigle}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="juridique"
-                label="Forme juridique"
-                name="juridique"
-                autoFocus
-                value={credentital.juridique}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="social"
-                label="Objet social"
-                name="social"
-                autoFocus
-                value={credentital.social}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="siege"
-                label="Siège social "
-                name="siege"
-                autoFocus
-                value={credentital.description}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="capital"
-                label="Capital social"
-                name="capital"
-                autoFocus
-                value={credentital.capital}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="telephone"
-                label="Téléphone"
-                name="telephone"
-                autoFocus
-                value={credentital.telephone}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="courriel"
-                label="Courriel"
-                name="courriel"
-                autoFocus
-                value={credentital.courriel}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-
-              <Button
-                type="submit"
-                className="btn"
-                onClick={() => setShow(!show)}
-              >
-                Ajouter
-              </Button>
-            </div>
-          </form>
+            <form
+              noValidate
+              className={`${!show && "show"}`}
+              onSubmit={editStatut}
+            >
+              <div className="input">
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="denomination"
+                  label="Dénomination / Raison sociale"
+                  name="denomination"
+                  autoFocus
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.denomination}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorDenomination? false: true}
+                  helperText={!errorDenomination? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="nom"
+                  label="Nom commercial "
+                  name="nom"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.nom}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorNom? false: true}
+                  helperText={!errorNom? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="sigle"
+                  label="Sigle"
+                  name="sigle"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.sigle}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorSigle? false: true}
+                  helperText={!errorSigle? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="juridique"
+                  label="Forme juridique"
+                  name="juridique"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.juridique}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorJuridique? false: true}
+                  helperText={!errorJuridique? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="social"
+                  label="Objet social"
+                  name="social"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.social}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorSocial? false: true}
+                  helperText={!errorSocial? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="siege"
+                  label="Siege Social"
+                  name="siege"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.siege}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorSiege? false: true}
+                  helperText={!errorSiege? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="capital"
+                  label="capital Social"
+                  name="capital"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.capital}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorCapital? false: true}
+                  helperText={!errorCapital? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="telephone"
+                  label="Télephone"
+                  name="telephone"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.telephone}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorTelephone? false: true}
+                  helperText={!errorTelephone? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="courriel"
+                  label="Courriel"
+                  name="courriel"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.courriel}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorCourriel? false: true}
+                  helperText={!errorCourriel? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
+                  disabled ={errorCourriel || errorTelephone || errorCapital || errorDenomination || errorJuridique || errorNom || errorSiege || errorSigle || errorSocial ? false: true}
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
+            
+        </CardContent>
+        </Card>
+        </>
+        ): (
+          <>
+          <Card variant="outlined" className={`${!show && "show"}`}>
+            <CardContent>
+               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
+            
+            >
+            {(props) => (
+              <Form>
+                <div className="input">
+                  
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="denomination"
+                    label="Dénomination / Raison sociale"
+                    name="denomination"
+                    autoFocus
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="denomination" />}
+                    error={props.errors.denomination&&props.touched.denomination}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="nom"
+                    label="Nom commercial "
+                    name="nom"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="nom" />}
+                    error={props.errors.nom&&props.touched.nom}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sigle"
+                    label="Sigle"
+                    name="sigle"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="sigle" />}
+                    error={props.errors.sigle&&props.touched.sigle}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="juridique"
+                    label="Forme juridique"
+                    name="juridique"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="juridique" />}
+                    error={props.errors.juridique&&props.touched.juridique}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="social"
+                    label="Objet social"
+                    name="social"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="social" />}
+                    error={props.errors.social&&props.touched.social}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="siege"
+                    label="Siege Social"
+                    name="siege"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="siege" />}
+                    error={props.errors.siege&&props.touched.siege}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="capital"
+                    label="capital Social"
+                    name="capital"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="capital" />}
+                    error={props.errors.capital&&props.touched.capital}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="telephone"
+                    label="Télephone"
+                    name="telephone"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="telephone" />}
+                    error={props.errors.telephone&&props.touched.telephone}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="courriel"
+                    label="Courriel"
+                    name="courriel"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="courriel" />}
+                    error={props.errors.courriel&&props.touched.courriel}
+                  />
+                   <Button
+                    type="submit"
+                    className="plus-icon"
+                    style={{ width: 300}}
+                    endIcon={<SaveIcon/>}
+                    style={{color: 'white', background:'#18A4F6'}} 
+                    disabled ={(props.errors.denomination || props.errors.nom || props.errors.sigle || props.errors.juridique || props.errors.siege || props.errors.telephone || props.errors.courriel || props.errors.social || props.errors.capital) ? true: false}
+                    
+                  >
+                    Enregistrer
+                </Button>
+                </div>
+              </Form>
+              )}
+          </Formik>
+            </CardContent>
+          </Card>
+        </>
         )}
-      </div>
     </div>
   );
 };
 
-export default Chapitresix;
+export default Chapitresix

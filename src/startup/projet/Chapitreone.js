@@ -1,90 +1,158 @@
 import React from "react";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import "./Chapitreone.css";
 import { Button, TextField } from "@material-ui/core";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
+import "./Chapitreone.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
+import SaveIcon from '@material-ui/icons/Save';
+import Edit from '@material-ui/icons/Edit';
+import Add from '@material-ui/icons/Add';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from 'yup';
+
+const useStyles = makeStyles({
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    fontSize: 20,
+  },
+}))(TableCell);
 
 const Chapitreone = () => {
-  const initialState = {
-    partenaire: "",
+  const initialvalues = {
+    besoin: "",
+  };
+  const editObject = {
+    besoin: "",
   };
   const { userId } = useGlobalContext();
-  const [credentital, setCredentital] = React.useState(initialState);
-  const [besoin, setBesoin] = React.useState([]);
   const [show, setShow] = React.useState(false);
+  const [besoin, setBesoin] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
-  const [bEdit, setBedit] = React.useState("");
+  const [load, setLoad] = React.useState(false);
+  const [editTable, setEditTable] = React.useState(editObject);
+  const [errorSolutions, setErrorSolutions] = React.useState(true);
 
+  const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
   const handleChange = (e) => {
     var { name, value } = e.target;
-    setCredentital({
-      ...credentital,
+    setEditTable({
+      ...editTable,
       [name]: value,
     });
+    switch (name) {
+        case 'solutions':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorSolutions(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorSolutions(false)
+          }
+        break;
+    
+      default:
+        break;
+    }
   };
-  const handleModif = (id, index) => {
+  const handleModif = (id,index) => {
+    setEditTable(besoin[index])
+    //console.log(editTable);
     setShow(!show);
     if(show){
       setIdDoc("");
-      console.log('modif handle no ' +idDoc + show);
     }else{
       setIdDoc(id);
-      console.log('modif handle yes ' +idDoc + show);
     }
   };
   const editBesoin = (e) => {
     e.preventDefault();
-    console.log("iddoc");
-    console.log(idDoc);
-    console.log("iddoc");
-
+    setLoad(true)
+    //setShow(!show)
     firebasee
       .firestore()
       .collection("besoins")
       .doc(idDoc)
       .set(
         {
-          besoin: credentital.partenaire,
+          besoin: editTable.besoin,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
         console.log("data" + data);
+        //setLoad(false)
+        setEditTable({
+          besoin:"",
+        })
+        setOpen(true)
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
     setIdDoc("");
   };
   const deleteBesoin = (id) => {
+    setLoad(true)
     firebasee
       .firestore()
       .collection("besoins")
       .doc(id)
       .delete()
-      .then(() => console.log("deleted"))
+      .then(() => {
+        console.log("deleted")
+        setLoad(false)
+        setOpen(true)
+      })
       .catch((err) => console.log(err));
     setToggle(!toggle);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    firebasee
-      .firestore()
-      .collection("besoins")
-      .add({ besoin: credentital.partenaire, userId: userId, })
-      .then((data) => {
-        console.log("add " + data);
-      })
-      .catch((err) => console.error("erreur" + err));
-    setToggle(!toggle);
-    alert("Ajouté");
-    setIdDoc("");
-  };
   const getDate = () => {
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("besoins")
@@ -93,148 +161,242 @@ const Chapitreone = () => {
       .then((data) => {
         let dat = [];
         data.forEach((doc) => {
-          //setIdDoc(doc.id);
           dat.push({
             besoin: doc.data().besoin,
             id: doc.data().userId,
             docIdd: doc.id,
           });
         });
-        //console.log("dat " + dat[0].docIdd)
         setBesoin(dat);
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
 
+  const validationSchema = Yup.object().shape({
+    besoin: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+ })
+  const onSubmit = (values, props) => {
+    setShow(!show)
+    setLoad(true)
+    firebasee
+      .firestore()
+      .collection("besoins")
+      .add({
+          besoin: values.besoin,
+          userId: userId,
+      })
+      .then(() => {
+        props.resetForm()
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle(!toggle);
+  }
+
   React.useEffect(() => {
     getDate();
   }, [toggle]);
-  //console.log("ddddd");
-  //console.log(besoin);
   return (
-    <div className="chapitreone">
-       {besoin.length > 0 ? (
+    <div className="chapitretwo">
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {besoin.length > 0 ? (
         <div className="tab">
-          <table>
-            <thead>
-            <tr>
-              <th>Besoin ou problème à résoudre</th>
-              <th>Action { besoin.length }</th>
-            </tr>
-            </thead>
-            {besoin.map((item, index) => {
-              return (
-                <>
-                  <tbody>
-                  <tr>
-                    <td>{item.besoin}</td>
-                    <td>
-                    <div className="delete">
-                      <div className="edit">
-                        <EditIcon onClick={() => handleModif(item.docIdd, index)} />
-                      </div>
-                      <div className="delet">
-                        <DeleteIcon onClick={() => deleteBesoin(item.docIdd)} />
-                      </div>
-                    </div>
-                    </td>
-                  </tr>
-                  </tbody>
-                </>
-              );
-            })}
-          </table>
+          
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}}>Besoin ou problème à résoudre</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{maxWidth:100}}>Problémes/Besoins</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {besoin.map((item, index) => {
+                      return (
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                          
+                              <TableCell>{item.besoin}</TableCell>
+                              <TableCell>
+                                <div className="delete">
+                                  <div className="edit">
+                                    <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                  </div>
+                                  <div className="delet">
+                                    <DeleteIcon onClick={() => deleteBesoin(item.docIdd)} />
+                                  </div>
+                                </div>
+                              </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
         </div>
       ) : (
         <div className="tab">
-          <h3>exemple</h3>
-          <table>
-            <tr>
-              <th>Besoin ou problème à résoudre</th>
-              <th>.............................</th>
-            </tr>
-          </table>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{ maxWidth: 300 }}>Solutions/Besoin</StyledTableCell> 
+                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell> 
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>......besoins......</TableCell>
+                          <TableCell>......besoins......</TableCell>
+                    </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>......besoins......</TableCell>
+                          <TableCell>......besoins......</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </div>
       )}
-      <div className="chapitreone-title">
-        <h1>Besoin ou problème à résoudre</h1>
-        <p>Nous avons constaté plusieurs problèmes: </p>
-      </div>
-      <div className="plus">
-        {!show && (
-          <Button className="plus-icon" onClick={() => setShow(!show)}>
-            Ajouter
-          </Button>
-        )}
-      </div>
-      <div>
-        { idDoc ? (
-          <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={editBesoin}
-        >
-          <div className="input">
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="partenaire"
-              label="Besoin ou problème à résoudre"
-              name="partenaire"
-              autoFocus
-              multiline
-              value={credentital.partenaire}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
 
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
-            >
-              Modifier
-            </Button>
-          </div>
-        </form>
-        ): (
-          <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={handleSubmit}
-        >
-          <div className="input">
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="partenaire"
-              label="Besoin ou problème à résoudre"
-              name="partenaire"
-              autoFocus
-              multiline
-              value={credentital.partenaire}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
-            >
+      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
+        <>
+        <div className="plus">
+          {!show && (
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
               Ajouter
             </Button>
-          </div>
-        </form>
+          )}
+        </div>
+        </>
         )}
-        
-      </div>
+        { idDoc ? (
+          <>
+        <Card>
+          <CardContent>
+
+            <form
+              noValidate
+              className={`${!show && "show"}`}
+              onSubmit={editBesoin}
+            >
+              <div className="input">
+                
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="besoin"
+                  label="Les solutions/Besoins"
+                  name="besoin"
+                  autoFocus
+                  multiline
+                  rows="5"
+                  value={editTable.besoin}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorSolutions? false: true}
+                  helperText={!errorSolutions? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
+                  disabled ={errorSolutions ? false: true}
+
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
+            
+        </CardContent>
+        </Card>
+        </>
+        ): (
+          <>
+          <Card variant="outlined" className={`${!show && "show"}`}>
+            <CardContent>
+               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
+            
+            >
+            {(props) => (
+              <Form>
+                <div className="input">
+                  
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    required
+                    id="besoin"
+                    label="Solutions/Besoins"
+                    name="besoin"
+                    autoFocus
+                    multiline
+                    rows={4}
+                    rowsMax={8}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="besoin" />}
+                    error={props.errors.solutions&&props.touched.solutions}
+                  />
+                   <Button
+                    type="submit"
+                    className="plus-icon"
+                    style={{ width: 300}}
+                    endIcon={<SaveIcon/>}
+                    style={{color: 'white', background:'#18A4F6'}} 
+                    disabled ={props.errors.solutions ? true: false}
+                    
+                  >
+                    Enregistrer
+                </Button>
+                </div>
+              </Form>
+              )}
+          </Formik>
+            </CardContent>
+          </Card>
+        </>
+        )}
     </div>
   );
 };
 
-export default Chapitreone;
+export default Chapitreone

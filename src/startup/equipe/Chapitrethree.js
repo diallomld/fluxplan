@@ -6,6 +6,33 @@ import "./Chapitreone.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+const useStyles = makeStyles({
+    root: {
+      width: '50%',
+    },
+    container: {
+      maxHeight: 400,
+    },
+  });
+  
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: '#18A4F6',
+      color: theme.palette.common.white,
+      
+      fontSize: 20,
+    },
+  }))(TableCell);
+
 const Chapitrethree = () => {
   const initialState = {
     nombre: "",
@@ -19,6 +46,8 @@ const Chapitrethree = () => {
   const [personnel, setPersonnel] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+
+  const classes = useStyles();
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -121,77 +150,84 @@ const Chapitrethree = () => {
   return (
     <div className="chapitretwo">
       {personnel.length > 0 ? (
-        <div className="tab">
-          <table>
-            <thead>
-              <tr>
-                <th>Poste </th>
-                <th>Nombre</th>
-                <th>Profil</th>
-                <th>Missions et tâches</th>
-              </tr>
-            </thead>
-            {personnel.map((item, index) => {
-              return (
-                <>
-                  <tbody>
-                    <tr>
-                      <td>{item.poste}</td>
-                      <td>{item.nombre}</td>
-                      <td>{item.profil}</td>
-                      <td>{item.mission}</td>
-                      <td>
-                        <div className="delete">
-                            <div className="edit">
-                              <EditIcon onClick={() => handleModif(item.docIdd)} />
+      <div className="tab">
+          
+      <Paper className={classes.root}>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <caption style={{color: 'black', fontSize:18}}> Personnel</caption>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Poste</StyledTableCell>
+                <StyledTableCell>Nombre</StyledTableCell>
+                <StyledTableCell>Profil</StyledTableCell>
+                <StyledTableCell style={{minWidth:300}}>Missions et tâches</StyledTableCell>
+                <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {personnel.map((item, index) => {
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                      
+                          <TableCell>{item.poste}</TableCell>
+                          <TableCell>{item.nombre}</TableCell>
+                          <TableCell>{item.profil}</TableCell>
+                          <TableCell>{item.mission}</TableCell>
+                          <TableCell>
+                            <div className="delete">
+                              <div className="edit">
+                                <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                              </div>
+                              <div className="delet">
+                                <DeleteIcon onClick={() => deletePersonnel(item.docIdd)} />
+                              </div>
                             </div>
-                            <div className="delet">
-                              <DeleteIcon onClick={() => deletePersonnel(item.docIdd)} />
-                            </div>
-                          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </>
-              );
-            })}
-          </table>
-        </div>
-      ) : (
-        <div className="tab">
-          <h3></h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Poste </th>
-                <th>Nombre</th>
-                <th>Profil</th>
-                <th>Missions et tâches</th>
-              </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-                <tr>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                  <td>..................</td>
-                </tr>
-            </tbody>
-          </table>
-        </div>
+                          </TableCell>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+      
+    </div>
+  ) : (
+    <div className="tab">
+      <Paper className={classes.root}>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <caption style={{color: 'black', fontSize:20}} >Cette partie n'a pas encore été remplit</caption>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Poste</StyledTableCell>
+                <StyledTableCell>Nombre</StyledTableCell>
+                <StyledTableCell>Profil</StyledTableCell>
+                <StyledTableCell style={{minWidth:300}}>Missions et tâches</StyledTableCell>
+                <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+                <TableRow hover role="checkbox" tabIndex={-1}>
+                      <TableCell>............</TableCell>
+                      <TableCell>............</TableCell>
+                      <TableCell>............</TableCell>
+                      <TableCell>............</TableCell>
+                      <TableCell>.......</TableCell>
+                </TableRow>
+                <TableRow hover role="checkbox" tabIndex={-1}>
+                      <TableCell>............</TableCell>
+                      <TableCell>............</TableCell>
+                      <TableCell>............</TableCell>
+                      <TableCell>............</TableCell>
+                      <TableCell>......</TableCell>
+                </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </div>
       )}
 
       <div className="chapitretwo-title">

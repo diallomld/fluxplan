@@ -1,103 +1,209 @@
-import { Button, TextField } from "@material-ui/core";
 import React from "react";
+import { Button, TextField } from "@material-ui/core";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
-import "./Chapitrethree.css";
+import "./Chapitretwo.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
+import SaveIcon from '@material-ui/icons/Save';
+import Edit from '@material-ui/icons/Edit';
+import Add from '@material-ui/icons/Add';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from 'yup';
+
+const useStyles = makeStyles({
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    fontSize: 20,
+  },
+}))(TableCell);
 
 const Chapitrethree = () => {
-  const initialState = {
+  const initialvalues = {
+    produit: "",
+    description: "",
+    revenu: "",
+    model: "",
+  };
+  const editObject = {
     produit: "",
     description: "",
     revenu: "",
     model: "",
   };
   const { userId } = useGlobalContext();
-  const [credentital, setCredentital] = React.useState(initialState);
   const [show, setShow] = React.useState(false);
   const [business, setBusiness] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+  const [load, setLoad] = React.useState(false);
+  const [editTable, setEditTable] = React.useState(editObject);
+  const [errorProduit, setErrorProduit] = React.useState(true);
+  const [errorRevenu, setErrorRevenu] = React.useState(true);
+  const [errorModel, setErrorModel] = React.useState(true);
+  const [errorDesc, setErrorDesc] = React.useState(true);
+
+  const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   const handleChange = (e) => {
     var { name, value } = e.target;
-    setCredentital({
-      ...credentital,
+    setEditTable({
+      ...editTable,
       [name]: value,
     });
+    switch (name) {
+        case 'description':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorDesc(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorDesc(false)
+          }
+        break;
+        case 'produit':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorProduit(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorProduit(false)
+          }
+        break;
+        case 'model':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorModel(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorModel(false)
+          }
+        break;
+        case 'revenu':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorRevenu(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorRevenu(false)
+          }
+        break;
+        case 'revenu':
+          if (value.length > 3) {
+            //console.log("montant" + value);
+            setErrorRevenu(true)
+          } else {
+            //console.error("montant non valide "); 
+            setErrorRevenu(false)
+          }
+        break;
+    
+      default:
+        break;
+    }
   };
-
-  const handleModif = (id) => {
-    console.log("id "+id);
+  const handleModif = (id,index) => {
+    setEditTable(business[index])
+    //console.log(editTable);
     setShow(!show);
     if(show){
       setIdDoc("");
-      console.log('modif handle no ' +idDoc + show);
     }else{
       setIdDoc(id);
-      console.log('modif handle yes ' +idDoc + show);
     }
   };
   const editBusiness = (e) => {
     e.preventDefault();
-    console.log("iddoc");
-    console.log(idDoc);
-    console.log("iddoc");
-
+    setLoad(true)
+    //setShow(!show)
     firebasee
       .firestore()
       .collection("businessmodel")
       .doc(idDoc)
       .set(
         {
-          produit: credentital.produit,
-          description: credentital.description,
-          revenu: credentital.revenu,
-          model: credentital.model,
+          produit: editTable.produit,
+          model: editTable.model,
+          revenu: editTable.revenu,
+          description: editTable.description,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
         console.log("data" + data);
+        //setLoad(false)
+        setEditTable({
+          produit: "",
+          description: "",
+          revenu: "",
+          model: "",
+        })
+        setOpen(true)
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
     setIdDoc("");
   };
-  const deleteBusiness = (id) => {
+  const deleteProduit = (id) => {
+    setLoad(true)
     firebasee
       .firestore()
       .collection("businessmodel")
       .doc(id)
       .delete()
-      .then(() => console.log("deleted"))
-      .catch((err) => console.log(err));
-    setToggle(!toggle);
-  };
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    firebasee
-      .firestore()
-      .collection("businessmodel")
-      .add({
-        produit: credentital.produit,
-        description: credentital.description,
-        revenu: credentital.revenu,
-        model: credentital.model,
-        userId: userId,
-      })
       .then(() => {
-        console.log("add");
+        console.log("deleted")
+        setLoad(false)
+        setOpen(true)
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
-    alert("Ajouté");
   };
   const getDate = () => {
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("businessmodel")
@@ -108,249 +214,362 @@ const Chapitrethree = () => {
         data.forEach((doc) => {
           dat.push({
             produit: doc.data().produit,
-            description: doc.data().description,
-            revenu: doc.data().revenu,
             model: doc.data().model,
+            revenu: doc.data().revenu,
+            description: doc.data().description,
             id: doc.data().userId,
             docIdd: doc.id,
           });
         });
         setBusiness(dat);
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
+
+  const validationSchema = Yup.object().shape({
+    produit: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    model: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    revenu: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+    description: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
+ })
+  const onSubmit = (values, props) => {
+    setShow(!show)
+    setLoad(true)
+    firebasee
+      .firestore()
+      .collection("businessmodel")
+      .add({
+        produit: values.produit,
+        model: values.model,
+        revenu: values.revenu,
+        description: values.description,
+        userId: userId,
+      })
+      .then(() => {
+        props.resetForm()
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle(!toggle);
+  }
 
   React.useEffect(() => {
     getDate();
   }, [toggle]);
   return (
     <div className="chapitretwo">
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
       {business.length > 0 ? (
         <div className="tab">
-          <table>
-            <tr>
-              <th>Nom du produit/service</th>
-              <th>Nom du business model</th>
-              <th>Flux de revenus</th>
-              <th>Description des processus de paiement</th>
-              <th>Action</th>
-            </tr>
-            {business.map((item, index) => {
-              return (
-                <>
-                  <tr>
-                    <td>{item.produit}</td>
-                    <td>{item.model}</td>
-                    <td>{item.revenu}</td>
-                    <td>{item.description}</td>
-                    <td>
-                      <div className="delete">
-                        <div className="edit">
-                          <EditIcon onClick={() => handleModif(item.docIdd)} />
-                        </div>
-                        <div className="delet">
-                          <DeleteIcon onClick={() => deleteBusiness(item.docIdd)} />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </>
-              );
-            })}
-          </table>
+          
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}}>Business model</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{minWidth:200}}>business/service</StyledTableCell>
+                    <StyledTableCell style={{minWidth:300}}>Nom du business model </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Flux de revenus </StyledTableCell>
+                    <StyledTableCell style={{minWidth:400, maxWidth:400}}>Description des processus de paiement</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 150 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {business.map((item, index) => {
+                      return (
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                          
+                              <TableCell>{item.produit}</TableCell>
+                              <TableCell>{item.model}</TableCell>
+                              <TableCell>{item.revenu}</TableCell>
+                              <TableCell>{item.description}</TableCell>
+                              <TableCell>
+                                <div className="delete">
+                                  <div className="edit">
+                                    <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                  </div>
+                                  <div className="delet">
+                                    <DeleteIcon onClick={() => deleteProduit(item.docIdd)} />
+                                  </div>
+                                </div>
+                              </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
         </div>
       ) : (
         <div className="tab">
-          <h3>exemple</h3>
-          <table>
-            <tr>
-              <th>Nom du produit/service</th>
-              <th>Nom du business model </th>
-              <th>Flux de revenus</th>
-              <th>Description des processus de paiement</th>
-              <th>Action</th>
-            </tr>
-
-            <tr>
-              <td>produit1</td>
-              <td>......</td>
-              <td>......</td>
-              <td>......</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>produit2</td>
-              <td>........</td>
-              <td>........</td>
-              <td>........</td>
-            </tr>
-
-            <tr>
-              <th>service</th>
-              <td>.......</td>
-              <td>.......</td>
-              <td>.......</td>
-            </tr>
-          </table>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{minWidth:200}}>business/service</StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Nom du business model </StyledTableCell>
+                    <StyledTableCell style={{minWidth:200}}>Flux de revenus </StyledTableCell>
+                    <StyledTableCell style={{minWidth:300}}>Description des processus de paiement</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 150 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </div>
       )}
 
-      <div className="chapitretwo-title">
-        <p>Business model</p>
-      </div>
-      <div className="plus">
-        {!show && (
-          <Button className="plus-icon" onClick={() => setShow(!show)}>
-            Ajouter
-          </Button>
-        )}
-      </div>
-      <div>
-        {idDoc ? (
-          <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={editBusiness}
-        >
-          <div className="input">
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="produit"
-              label="Nom du produit/service"
-              name="produit"
-              autoComplete="produit"
-              autoFocus
-              value={credentital.produit}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="model"
-              label="Nom du business model "
-              name="model"
-              autoFocus
-              value={credentital.model}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="revenu"
-              label="Flux de revenus"
-              name="revenu"
-              autoFocus
-              value={credentital.revenu}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="description"
-              label="Description des processus de paiement"
-              name="description"
-              autoFocus
-              value={credentital.description}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
-            >
-              Modifier
-            </Button>
-          </div>
-        </form>
-        ) :(
-          <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={handleSubmit}
-        >
-          <div className="input">
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="produit"
-              label="Nom du produit/service"
-              name="produit"
-              autoComplete="produit"
-              autoFocus
-              value={credentital.produit}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="model"
-              label="Nom du business model "
-              name="model"
-              autoFocus
-              value={credentital.model}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="revenu"
-              label="Flux de revenus"
-              name="revenu"
-              autoFocus
-              value={credentital.revenu}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="description"
-              label="Description des processus de paiement"
-              name="description"
-              autoFocus
-              value={credentital.description}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
-            >
+      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
+        <>
+        <div className="plus">
+          {!show && (
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
               Ajouter
             </Button>
-          </div>
-        </form>
+          )}
+        </div>
+        </>
         )}
-        
-      </div>
+        { idDoc ? (
+          <>
+        <Card>
+          <CardContent>
+
+            <form
+              noValidate
+              className={`${!show && "show"}`}
+              onSubmit={editBusiness}
+            >
+              <div className="input">
+                
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="produit"
+                  label="produit/service"
+                  name="produit"
+                  autoFocus
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.produit}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorProduit? false: true}
+                  helperText={!errorProduit? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="model"
+                  label="Nom du business model "
+                  name="model"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.model}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorModel? false: true}
+                  helperText={!errorModel? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="revenu"
+                  label="Flux de revenus"
+                  name="revenu"
+                  multiline
+                  rows="2"
+                  rowsMax={5}
+                  value={editTable.revenu}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorRevenu? false: true}
+                  helperText={!errorRevenu? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="description"
+                  label="Description des processus de paiement"
+                  name="description"
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.description}
+                  onChange={handleChange}
+                  style={{ width: 200, marginRight: 10 }}
+                  error={errorDesc? false: true}
+                  helperText={!errorDesc? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
+                  disabled ={errorDesc || errorProduit || errorRevenu || errorModel ? false: true}
+
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
+            
+        </CardContent>
+        </Card>
+        </>
+        ): (
+          <>
+          <Card variant="outlined" className={`${!show && "show"}`}>
+            <CardContent>
+               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
+            
+            >
+            {(props) => (
+              <Form>
+                <div className="input">
+                  
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="produit"
+                    label="produit/service"
+                    name="produit"
+                    autoFocus
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="produit" />}
+                    error={props.errors.produit&&props.touched.produit}
+                    />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="model"
+                    label="Nom du business model "
+                    name="model"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="model" />}
+                    error={props.errors.model&&props.touched.model}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="revenu"
+                    label="Flux de revenus"
+                    name="revenu"
+                    multiline
+                    rows="2"
+                    rowsMax={5}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="revenu" />}
+                    error={props.errors.revenu&&props.touched.revenu}
+                  />
+                  <Field as={TextField}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="description"
+                    label="Description des processus de paiement"
+                    name="description"
+                    multiline
+                    rows="5"
+                    rowsMax={10}
+                    style={{ width: 200, marginRight: 10 }}
+                    helperText={<ErrorMessage name="description" />}
+                    error={props.errors.description&&props.touched.description}
+                  />
+
+                   <Button
+                    type="submit"
+                    className="plus-icon"
+                    style={{ width: 300}}
+                    endIcon={<SaveIcon/>}
+                    style={{color: 'white', background:'#18A4F6'}} 
+                    disabled ={props.errors.revenu || props.errors.description  || props.errors.produit || props.errors.model  ? true: false}
+                    
+                  >
+                    Enregistrer
+                </Button>
+                </div>
+              </Form>
+              )}
+          </Formik>
+            </CardContent>
+          </Card>
+        </>
+        )}
     </div>
   );
 };
 
-export default Chapitrethree;
+export default Chapitrethree

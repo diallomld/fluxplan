@@ -1,71 +1,143 @@
-import { Button, TextField } from "@material-ui/core";
 import React from "react";
-import Pdf from "react-to-pdf";
-import { useGlobalContext } from "../context/context";
+import jsPDF from 'jspdf';
+
 import "./LandingPage.css";
-const LandingPage = () => {
-  const ref = React.createRef();
-  const initialState = {
-    ciblage: "",
-    segmentation: "",
-    positionnement: "",
-  };
-  console.log(";;;;;;;;;;;;;");
-  const { getDataFrom } = useGlobalContext();
-  console.log(getDataFrom());
-  const [credentital, setCredentital] = React.useState(initialState);
-  const [show, setShow] = React.useState(false);
-  const handleChange = (e) => {
-    var { name, value } = e.target;
-    setCredentital({
-      ...credentital,
-      [name]: value,
-    });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+//import jsPDF from "jspdf";
+import pdf from './pdf.png';
 
-    alert("Ajouté");
+import { useGlobalContext } from "../context/context";
+import { firebasee } from "../context/firebase";
+
+const  LandingPage = () => {
+
+  const { userId } = useGlobalContext();
+  const [besoin, setBesoin] = React.useState([]);
+  const [produit, setProduit] = React.useState([]);
+  
+  const getBesoin = () => {
+    return firebasee
+      .firestore()
+      .collection("besoins")
+      .where("userId", "==", userId)
+      .get()
+      .then((data) => {
+        let dat = [];
+        data.forEach((doc) => {
+          //setIdDoc(doc.id);
+          dat.push({
+            besoin: doc.data().besoin,
+            id: doc.data().userId,
+            docIdd: doc.id,
+          });
+        });
+        //console.log("dat " + dat[0].docIdd)
+        setBesoin(dat);
+      })
+      .catch((err) => console.log(err));
   };
-  return (
-    <div className="chapitretwo">
-      <div styele={{ height: "30%" }}></div>
-      <div className="contain" ref={ref}>
-        <table>
-          <tr>
-            <th>Missio</th>
+  const getProduitProjet = () => {
+    return firebasee
+      .firestore()
+      .collection("produitprojet")
+      .where("userId", "==", userId)
+      .get()
+      .then((data) => {
+        let dat = [];
+        data.forEach((doc) => {
+          //setIdDoc(doc.id);
+          dat.push({
+            nom: doc.data().nom,
+            description: doc.data().description,
+            id: doc.data().userId,
+            docIdd: doc.id,
+          });
+        });
+        //console.log("dat " + dat[0].docIdd)
+        setProduit(dat);
+      })
+      .catch((err) => console.log(err));
+  };
 
-            <td>..................</td>
-          </tr>
-          <tr>
-            <th>Vision</th>
-            <td>..................</td>
-          </tr>
+  React.useEffect(() => {
+    getBesoin();
+    getProduitProjet();
+  }, []);
+  //document.querySelector("#capture").hidden = true;  
+  
+  function jsPDFform() {
+    const doc = new jsPDF("p","pt","a4");
+    //document.getElementById("capture").hidden = false;
+    doc.html(document.querySelector("#capture"),{
+        callback: function(pdf) {
+            //console.log(pdf)
+            pdf.save("myPdf.pdf");
+            //document.getElementById("capture").hidden = true;
+        }
+    },[30,30,30,30])
+ }
 
-          <tr>
-            <th>Objectifs</th>
-            <td>..................</td>
-          </tr>
-        </table>
-        <table>
-          <tr>
-            <th>Nom du produit/service</th>
-            <th>Description du produit/service</th>
-          </tr>
-        </table>
+    return (
+        <div className="chapitretwo">
+           <div id="capture" className="projet">
+                <div className="title">
+                    <p>1. LE PROJET</p>
+                </div>
+                <div className="subtitle">
+                    <p>1.1 Besoin ou problème à résoudre</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    {besoin.map((item, index) => {
+                        return (
+                            <>
+                            <p> - {item.besoin}</p>
+                            </>
+                        )
+                    })}
+                </div>
+                <div className="subtitle">
+                    <p>1.2 Solution/Produits/Services</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    {produit.length > 0 ? (
+                        <table>
+                            <thead>
+                            <tr>
+                            <th>Nom du produit/service</th>
+                            <th>Description du produit/service</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {produit.map((item, index) => {
+                                return (
+                                    <>
+                                    <tr>
+                                        <td>{item.nom}</td>
+                                        <td>{item.description}</td>
+                                    </tr>
+                                    </>
+                                );
+                                })}
+                            </tbody>
+                        </table>
+                        ) : (
+                                <p>Cette partie n'a pas encore été remplis</p>
+                        )}
+                </div>
+            </div>
         <div className="chapitretwo-title">
-          <h3>Télécharge le business plan pour start-up</h3>
-          <h4>Fluxplan</h4>
-          <p>Page en construction </p>
+            <h3>Télécharge le business plan pour start-up</h3>
+            <h4>Fluxplan</h4>
+            <div style={{margin: 20}}>    
+                <img src={pdf} width="150" />
+            </div>
+            </div>
+        <button onClick={jsPDFform}>download</button>
         </div>
-      </div>
-      <div className="pdf-btn">
-        <Pdf targetRef={ref} filename="fluxplan.pdf" style={{ width: 200 }}>
-          {({ toPdf }) => <button onClick={toPdf}>Télécharger</button>}
-        </Pdf>
-      </div>
-    </div>
-  );
-};
-
+    );
+}
+//ReactDOM.render(<LandingPage />, document.getElementById('root'));
+//ReactPDF.render(<LandingPage />, filePath="exmaple.pdf";
+//console.log("root"+rootElement)
 export default LandingPage;
