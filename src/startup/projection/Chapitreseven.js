@@ -391,15 +391,14 @@ const Chapitresevenp = () => {
           tb3 = (Number(doc.data().ca3)+Number(doc.data().autreproduit3))-(Number(doc.data().am3)+Number(doc.data().ap3))
           tproduit = Number(doc.data().ca1)+Number(doc.data().ca2)+Number(doc.data().ca3)+Number(doc.data().autreproduit1)+Number(doc.data().autreproduit2)+Number(doc.data().autreproduit3)
           setTotalProduit(tproduit)
-            console.log("tb1 "+tb1+" tb2 "+ tb2 +" tb3 "+ tb3)
-          tord1 = Number(doc.data().phao1)-Number(doc.data().chargeao1)
-          tord2 = Number(doc.data().phao2)-Number(doc.data().chargeao2)
-          tord3 = Number(doc.data().phao3)-Number(doc.data().chargeao2)
 
+          tord1 = Number(doc.data().phao1)-Number(doc.data().chargehao1)
+          tord2 = Number(doc.data().phao2)-Number(doc.data().chargehao2)
+          tord3 = Number(doc.data().phao3)-Number(doc.data().chargehao2)
           setTotalOrdinaire1(tord1)
           setTotalOrdinaire2(tord2)
           setTotalOrdinaire3(tord3)
-          setTotalOrdinaire((Number(doc.data().phao1)-Number(doc.data().chargeao1))+(Number(doc.data().phao2)-Number(doc.data().chargeao2))+(Number(doc.data().phao3)-Number(doc.data().chargeao3)))
+          setTotalOrdinaire((Number(doc.data().phao1)-Number(doc.data().chargehao1))+(Number(doc.data().phao2)-Number(doc.data().chargehao2))+(Number(doc.data().phao3)-Number(doc.data().chargehao3)))
           
           setTotalBrut1(tb1)
           setTotalBrut2(tb2)
@@ -790,9 +789,9 @@ const Chapitresevenp = () => {
                         </TableRow>
                         <TableRow>
                             <TableCell><b>RESULTAT HORS ACTIVITES ORDINAIRES</b></TableCell>
-                            <TableCell>{(Number(item.phao1))-(Number(item.chargeao1))}</TableCell>
-                            <TableCell>{(Number(item.phao2))-(Number(item.chargeao2))}</TableCell>
-                            <TableCell>{(Number(item.phao3))-(Number(item.chargeao3))}</TableCell>
+                            <TableCell>{(Number(item.phao1))-(Number(item.chargehao1))}</TableCell>
+                            <TableCell>{(Number(item.phao2))-(Number(item.chargehao2))}</TableCell>
+                            <TableCell>{(Number(item.phao3))-(Number(item.chargehao3))}</TableCell>
                             <TableCell>{totalOrdinaire}</TableCell>
                         </TableRow>
                         <TableRow>
