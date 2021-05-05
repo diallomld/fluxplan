@@ -177,7 +177,7 @@ export const SidebarData = [
       },
       {
         title: "Comptes de résultat sur 3 ans",
-        path: "/projection/prevision1",
+        path: "/projection/prevision3",
         icon: <IoIcons.IoIosPaper />,
       },
       {

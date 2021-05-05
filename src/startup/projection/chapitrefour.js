@@ -128,8 +128,22 @@ const Chapitrefourp = () => {
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
   const [totalQm, setTotalQm] = React.useState([]);
-  const [totalPm, setTotalPm] = React.useState(0);
-  const [totalCa, setTotalCa] = React.useState(0);
+  const [totalPm, setTotalPm] = React.useState([]);
+  const [totalCa, setTotalCa] = React.useState([]);
+  const [totalCat, setTotalCat] = React.useState([]);
+  //total ca
+  const [tCa1, setTCa1] = React.useState(0);
+  const [tCa2, setTCa2] = React.useState(0);
+  const [tCa3, setTCa3] = React.useState(0);
+  const [tCa4, setTCa4] = React.useState(0);
+  const [tCa5, setTCa5] = React.useState(0);
+  const [tCa6, setTCa6] = React.useState(0);
+  const [tCa7, setTCa7] = React.useState(0);
+  const [tCa8, setTCa8] = React.useState(0);
+  const [tCa9, setTCa9] = React.useState(0);
+  const [tCa10, setTCa10] = React.useState(0);
+  const [tCa11, setTCa11] = React.useState(0);
+  const [tCa12, setTCa12] = React.useState(0);
   const [errorProduits, setErrorProduits] = React.useState(true);
   // errors quantite
   const [errorQm1, setErrorQm1] = React.useState(true);
@@ -160,7 +174,11 @@ const Chapitrefourp = () => {
 
   let tQm = 0;
   let tPm = 0;
+  let tCa = 0;
   let testCa = 0;
+
+  //calcul des totaux du ca
+  let ca1=0,ca2=0,ca3=0,ca4=0,ca5=0,ca6=0,ca7=0,ca8=0,ca9=0, ca10=0, ca11=0, ca12 = 0
 
   const classes = useStyles();
 
@@ -499,7 +517,11 @@ const Chapitrefourp = () => {
       .then((data) => {
         let dat = [0];
         let tabQte = [];
+        let tabPrix = [];
+        let tabCa = [];
+        let tabCax = [];
         data.forEach((doc) => {
+          let som = 0;
           dat.push({
             produits: doc.data().produits,
             qm1: doc.data().qm1,
@@ -530,14 +552,49 @@ const Chapitrefourp = () => {
             docIdd: doc.id,
           });
           tabQte.push(Number(doc.data().qm1)+Number(doc.data().qm2)+Number(doc.data().qm3)+Number(doc.data().qm4)+Number(doc.data().qm5)+Number(doc.data().qm6)+Number(doc.data().qm7)+Number(doc.data().qm8)+Number(doc.data().qm9)+Number(doc.data().qm10)+Number(doc.data().qm11)+Number(doc.data().qm12))
-          //console.log("montant "+ Number(doc.data().montant) + total)
+          tabPrix.push(Number(doc.data().pm1)+Number(doc.data().pm2)+Number(doc.data().pm3)+Number(doc.data().pm4)+Number(doc.data().pm5)+Number(doc.data().pm6)+Number(doc.data().pm7)+Number(doc.data().pm8)+Number(doc.data().pm9)+Number(doc.data().pm10)+Number(doc.data().pm11)+Number(doc.data().pm12))
           
-                  
+          ca1+=(Number(doc.data().qm1)*Number(doc.data().pm1))
+          ca2+=(Number(doc.data().qm2)*Number(doc.data().pm2))
+          ca3+=(Number(doc.data().qm3)*Number(doc.data().pm3))
+          ca4+=(Number(doc.data().qm4)*Number(doc.data().pm4))
+          ca5+=(Number(doc.data().qm5)*Number(doc.data().pm5))
+          ca6+=(Number(doc.data().qm6)*Number(doc.data().pm6))
+          ca7+=(Number(doc.data().qm7)*Number(doc.data().pm7))
+          ca8+=(Number(doc.data().qm8)*Number(doc.data().pm8))
+          ca9+=(Number(doc.data().qm9)*Number(doc.data().pm9))
+          ca10+=(Number(doc.data().qm10)*Number(doc.data().pm10))
+          ca11+=(Number(doc.data().qm11)*Number(doc.data().pm11))
+          ca12+=(Number(doc.data().qm12)*Number(doc.data().pm12))
+
+          som = (Number(doc.data().qm1)*Number(doc.data().pm1)) + (Number(doc.data().qm2)*Number(doc.data().pm2)) + (Number(doc.data().qm3)*Number(doc.data().pm3)) + (Number(doc.data().qm4)*Number(doc.data().pm4)) + (Number(doc.data().qm5)*Number(doc.data().pm5)) + (Number(doc.data().qm6)*Number(doc.data().pm6)) + (Number(doc.data().qm7)*Number(doc.data().pm7)) + (Number(doc.data().qm8)*Number(doc.data().pm8)) + (Number(doc.data().qm9)*Number(doc.data().pm9)) + (Number(doc.data().qm10)*Number(doc.data().pm10)) + (Number(doc.data().qm11)*Number(doc.data().pm11)) + (Number(doc.data().qm12)*Number(doc.data().pm12));
           testCa = testCa + (Number(doc.data().quantite))*Number(doc.data().prix)
-          setTotalQm(tabQte)
+          tabCa.push(som)
         });
+        // total ca affectation
+        setTCa1(ca1)
+        setTCa2(ca2)
+        setTCa3(ca3)
+        setTCa4(ca4)
+        setTCa5(ca5)
+        setTCa6(ca6)
+        setTCa7(ca7)
+        setTCa8(ca8)
+        setTCa9(ca9)
+        setTCa10(ca10)
+        setTCa11(ca11)
+        setTCa12(ca12)
+
+        setTotalQm(tabQte)
+        setTotalPm(tabPrix)
+        setTotalCa(tabCa)
+        tabCa.forEach(ca => {
+          tCa+=ca 
+        })
+        setTotalCat(tCa)
+        dat.shift()
         setPrevision(dat);
-        setTotalCa(testCa)
+        //console.table(prevision)
         setLoad(false)
       })
       .catch((err) => console.log(err));
@@ -614,8 +671,6 @@ const Chapitrefourp = () => {
 
   React.useEffect(() => {
     getDate();
-    console.log("col")
-    console.log("total "+totalQm);
     //setTotal(0)
   }, [toggle]);
   //console.log("pro");
@@ -701,7 +756,7 @@ const Chapitrefourp = () => {
                             <TableCell>{item.qm10}</TableCell>
                             <TableCell>{item.qm11}</TableCell>
                             <TableCell>{item.qm12}</TableCell>
-                            <TableCell>{totalQm[index]} - {index} </TableCell>
+                            <TableCell>{totalQm[index]} - {index} FCFA </TableCell>
                             <TableCell rowSpan="3">
                                 <div className="delete">
                                   <div className="edit">
@@ -727,7 +782,7 @@ const Chapitrefourp = () => {
                             <TableCell>{item.pm10}</TableCell>
                             <TableCell>{item.pm11}</TableCell>
                             <TableCell>{item.pm12}</TableCell>
-                            <TableCell>{item.pm1 * 12} FCFA</TableCell>
+                            <TableCell>{totalPm[index]} - {index} FCFA</TableCell>
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1}>
                             <TableCell>Chiffre d'affaire</TableCell>
@@ -743,26 +798,26 @@ const Chapitrefourp = () => {
                             <TableCell>{item.pm10*item.qm10}</TableCell>
                             <TableCell>{item.pm11*item.qm11}</TableCell>
                             <TableCell>{item.pm12*item.qm12}</TableCell>
-                            <TableCell>0 FCFA</TableCell>
+                            <TableCell>{ totalCa[index]} FCFA</TableCell>
                         </TableRow>
                       </>
                       );
                     })}
                       <TableRow hover role="checkbox">
                           <TableCell colSpan="2" style={{color: 'black', fontSize:18}}>Total chiffres d'affaires</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell>{totalCa}</TableCell>
-                          <TableCell colSpan="2" style={{color: 'black', fontSize:20}}>{totalCa*12} FCFA</TableCell>
+                          <TableCell>{tCa1}</TableCell>
+                          <TableCell>{tCa2}</TableCell>
+                          <TableCell>{tCa3}</TableCell>
+                          <TableCell>{tCa4}</TableCell>
+                          <TableCell>{tCa5}</TableCell>
+                          <TableCell>{tCa6}</TableCell>
+                          <TableCell>{tCa7}</TableCell>
+                          <TableCell>{tCa8}</TableCell>
+                          <TableCell>{tCa9}</TableCell>
+                          <TableCell>{tCa10}</TableCell>
+                          <TableCell>{tCa11}</TableCell>
+                          <TableCell>{tCa12}</TableCell>
+                          <TableCell colSpan="2" style={{color: 'black', fontSize:20}}>{totalCat} FCFA</TableCell>
                       </TableRow>
                 </TableBody>
               </Table>
