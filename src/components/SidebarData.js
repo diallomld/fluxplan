@@ -181,8 +181,8 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
       },
       {
-        title: "Chiffre d’affaires sur 3 ans",
-        path: "/projection/prevision1",
+        title: "Plan de financement sur 3 ans",
+        path: "/projection/plan",
         icon: <IoIcons.IoIosPaper />,
       },
       {
