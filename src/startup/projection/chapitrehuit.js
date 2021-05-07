@@ -393,7 +393,7 @@ const Chapitrehuit = () => {
           });
         });
         setPlan(dat);
-        console.table(dat);
+        //console.table(dat);
         setLoad(false)
       })
       .catch((err) => console.log(err));

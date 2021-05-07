@@ -197,7 +197,7 @@ export const SidebarData = [
       },
       {
         title: "Seuil de rentabilité",
-        path: "/projection/prevision1",
+        path: "/projection/seuil",
         icon: <IoIcons.IoIosPaper />,
       },
       {
