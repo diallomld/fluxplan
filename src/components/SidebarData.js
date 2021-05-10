@@ -192,7 +192,7 @@ export const SidebarData = [
       },
       {
         title: "Plan de trésorerie de la première année",
-        path: "/projection/prevision1",
+        path: "/projection/tresorerie",
         icon: <IoIcons.IoIosPaper />,
       },
       {

@@ -372,9 +372,9 @@ const Chapitreneuf = () => {
                             <TableRow hover role="checkbox" tabIndex={-1}>
                             
                                 <TableCell><b>Taux de Marge sur Coût Variable (TMCV=MCV/CA)</b></TableCell>
-                                <TableCell><b>{tmcv1}</b></TableCell>
-                                <TableCell><b>{tmcv2}</b></TableCell>
-                                <TableCell><b>{tmcv3}</b></TableCell>
+                                <TableCell><b>{Math.round(tmcv1)}</b></TableCell>
+                                <TableCell><b>{Math.round(tmcv2)}</b></TableCell>
+                                <TableCell><b>{Math.round(tmcv3)}</b></TableCell>
                             </TableRow>
                             <TableRow hover role="checkbox" tabIndex={-1}>
                             
