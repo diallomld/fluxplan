@@ -801,6 +801,7 @@ const Chapitredix = () => {
       ...editTable,
       [name]: value,
     });
+    console.log("name "+name+" value "+value)
   };
   const handleModif = (id,index) => {
     setEditTable(plan[index])
@@ -1820,334 +1821,335 @@ const Chapitredix = () => {
       .catch((err) => console.log(err));
   };
 
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("plan-tresorerie")
       .add({
-        apportpm1:values.apportpm1,
-        apportpm2:values.apportpm2,
-        apportpm3:values.apportpm3,
-        apportpm4:values.apportpm4,
-        apportpm5:values.apportpm5,
-        apportpm6:values.apportpm6,
-        apportpm7:values.apportpm7,
-        apportpm8:values.apportpm8,
-        apportpm9:values.apportpm9,
-        apportpm10:values.apportpm10,
-        apportpm11:values.apportpm11,
-        apportpm12:values.apportpm12,
-        apportpm12:values.apportpm12,
+        apportpm1:editTable.apportpm1,
+        apportpm2:editTable.apportpm2,
+        apportpm3:editTable.apportpm3,
+        apportpm4:editTable.apportpm4,
+        apportpm5:editTable.apportpm5,
+        apportpm6:editTable.apportpm6,
+        apportpm7:editTable.apportpm7,
+        apportpm8:editTable.apportpm8,
+        apportpm9:editTable.apportpm9,
+        apportpm10:editTable.apportpm10,
+        apportpm11:editTable.apportpm11,
+        apportpm12:editTable.apportpm12,
+        apportpm12:editTable.apportpm12,
         
-        associem1:values.associem1,
-        associem2:values.associem2,
-        associem3:values.associem3,
-        associem4:values.associem4,
-        associem5:values.associem5,
-        associem6:values.associem6,
-        associem7:values.associem7,
-        associem8:values.associem8,
-        associem9:values.associem9,
-        associem10:values.associem10,
-        associem11:values.associem11,
-        associem12:values.associem12,
-        associem12:values.associem12,
+        associem1:editTable.associem1,
+        associem2:editTable.associem2,
+        associem3:editTable.associem3,
+        associem4:editTable.associem4,
+        associem5:editTable.associem5,
+        associem6:editTable.associem6,
+        associem7:editTable.associem7,
+        associem8:editTable.associem8,
+        associem9:editTable.associem9,
+        associem10:editTable.associem10,
+        associem11:editTable.associem11,
+        associem12:editTable.associem12,
+        associem12:editTable.associem12,
         
-        empruntm1:values.empruntm1,
-        empruntm2:values.empruntm2,
-        empruntm3:values.empruntm3,
-        empruntm4:values.empruntm4,
-        empruntm5:values.empruntm5,
-        empruntm6:values.empruntm6,
-        empruntm7:values.empruntm7,
-        empruntm8:values.empruntm8,
-        empruntm9:values.empruntm9,
-        empruntm10:values.empruntm10,
-        empruntm10:values.empruntm10,
-        empruntm11:values.empruntm11,
-        empruntm12:values.empruntm12,
+        empruntm1:editTable.empruntm1,
+        empruntm2:editTable.empruntm2,
+        empruntm3:editTable.empruntm3,
+        empruntm4:editTable.empruntm4,
+        empruntm5:editTable.empruntm5,
+        empruntm6:editTable.empruntm6,
+        empruntm7:editTable.empruntm7,
+        empruntm8:editTable.empruntm8,
+        empruntm9:editTable.empruntm9,
+        empruntm10:editTable.empruntm10,
+        empruntm10:editTable.empruntm10,
+        empruntm11:editTable.empruntm11,
+        empruntm12:editTable.empruntm12,
        
-        subventionm1:values.subventionm1,
-        subventionm2:values.subventionm2,
-        subventionm3:values.subventionm3,
-        subventionm4:values.subventionm4,
-        subventionm5:values.subventionm5,
-        subventionm6:values.subventionm6,
-        subventionm7:values.subventionm7,
-        subventionm8:values.subventionm8,
-        subventionm9:values.subventionm9,
-        subventionm10:values.subventionm10,
-        subventionm11:values.subventionm11,
-        subventionm12:values.subventionm12,
-        subventionm12:values.subventionm12,
-        aidesm1:values.aidesm1,
-        aidesm2:values.aidesm2,
-        aidesm3:values.aidesm3,
-        aidesm4:values.aidesm4,
-        aidesm5:values.aidesm5,
-        aidesm6:values.aidesm6,
-        aidesm7:values.aidesm7,
-        aidesm8:values.aidesm8,
-        aidesm9:values.aidesm9,
-        aidesm10:values.aidesm10,
-        aidesm11:values.aidesm11,
-        aidesm12:values.aidesm12,
-        aidesm12:values.aidesm12,
+        subventionm1:editTable.subventionm1,
+        subventionm2:editTable.subventionm2,
+        subventionm3:editTable.subventionm3,
+        subventionm4:editTable.subventionm4,
+        subventionm5:editTable.subventionm5,
+        subventionm6:editTable.subventionm6,
+        subventionm7:editTable.subventionm7,
+        subventionm8:editTable.subventionm8,
+        subventionm9:editTable.subventionm9,
+        subventionm10:editTable.subventionm10,
+        subventionm11:editTable.subventionm11,
+        subventionm12:editTable.subventionm12,
+        subventionm12:editTable.subventionm12,
+        aidesm1:editTable.aidesm1,
+        aidesm2:editTable.aidesm2,
+        aidesm3:editTable.aidesm3,
+        aidesm4:editTable.aidesm4,
+        aidesm5:editTable.aidesm5,
+        aidesm6:editTable.aidesm6,
+        aidesm7:editTable.aidesm7,
+        aidesm8:editTable.aidesm8,
+        aidesm9:editTable.aidesm9,
+        aidesm10:editTable.aidesm10,
+        aidesm11:editTable.aidesm11,
+        aidesm12:editTable.aidesm12,
+        aidesm12:editTable.aidesm12,
         
-        apportccm1:values.apportccm1,
-        apportccm2:values.apportccm2,
-        apportccm3:values.apportccm3,
-        apportccm4:values.apportccm4,
-        apportccm5:values.apportccm5,
-        apportccm6:values.apportccm6,
-        apportccm7:values.apportccm7,
-        apportccm8:values.apportccm8,
-        apportccm9:values.apportccm9,
-        apportccm10:values.apportccm10,
-        apportccm11:values.apportccm11,
-        apportccm11:values.apportccm11,
-        apportccm12:values.apportccm12,
+        apportccm1:editTable.apportccm1,
+        apportccm2:editTable.apportccm2,
+        apportccm3:editTable.apportccm3,
+        apportccm4:editTable.apportccm4,
+        apportccm5:editTable.apportccm5,
+        apportccm6:editTable.apportccm6,
+        apportccm7:editTable.apportccm7,
+        apportccm8:editTable.apportccm8,
+        apportccm9:editTable.apportccm9,
+        apportccm10:editTable.apportccm10,
+        apportccm11:editTable.apportccm11,
+        apportccm11:editTable.apportccm11,
+        apportccm12:editTable.apportccm12,
         
-        cahtm1:values.cahtm1,
-        cahtm2:values.cahtm2,
-        cahtm3:values.cahtm3,
-        cahtm4:values.cahtm4,
-        cahtm5:values.cahtm5,
-        cahtm6:values.cahtm6,
-        cahtm7:values.cahtm7,
-        cahtm8:values.cahtm8,
-        cahtm9:values.cahtm9,
-        cahtm10:values.cahtm10,
-        cahtm10:values.cahtm10,
-        cahtm11:values.cahtm11,
-        cahtm12:values.cahtm12,
+        cahtm1:editTable.cahtm1,
+        cahtm2:editTable.cahtm2,
+        cahtm3:editTable.cahtm3,
+        cahtm4:editTable.cahtm4,
+        cahtm5:editTable.cahtm5,
+        cahtm6:editTable.cahtm6,
+        cahtm7:editTable.cahtm7,
+        cahtm8:editTable.cahtm8,
+        cahtm9:editTable.cahtm9,
+        cahtm10:editTable.cahtm10,
+        cahtm10:editTable.cahtm10,
+        cahtm11:editTable.cahtm11,
+        cahtm12:editTable.cahtm12,
        
-        tvam1:values.tvam1,
-        tvam2:values.tvam2,
-        tvam2:values.tvam2,
-        tvam3:values.tvam3,
-        tvam4:values.tvam4,
-        tvam5:values.tvam5,
-        tvam6:values.tvam6,
-        tvam7:values.tvam7,
-        tvam8:values.tvam8,
-        tvam9:values.tvam9,
-        tvam10:values.tvam10,
-        tvam11:values.tvam11,
-        tvam12:values.tvam12,
+        tvam1:editTable.tvam1,
+        tvam2:editTable.tvam2,
+        tvam2:editTable.tvam2,
+        tvam3:editTable.tvam3,
+        tvam4:editTable.tvam4,
+        tvam5:editTable.tvam5,
+        tvam6:editTable.tvam6,
+        tvam7:editTable.tvam7,
+        tvam8:editTable.tvam8,
+        tvam9:editTable.tvam9,
+        tvam10:editTable.tvam10,
+        tvam11:editTable.tvam11,
+        tvam12:editTable.tvam12,
         
-        creancem1:values.creancem1,
-        creancem2:values.creancem2,
-        creancem3:values.creancem3,
-        creancem4:values.creancem4,
-        creancem5:values.creancem5,
-        creancem6:values.creancem6,
-        creancem7:values.creancem7,
-        creancem7:values.creancem7,
-        creancem8:values.creancem8,
-        creancem9:values.creancem9,
-        creancem10:values.creancem10,
-        creancem11:values.creancem11,
-        creancem12:values.creancem12,
+        creancem1:editTable.creancem1,
+        creancem2:editTable.creancem2,
+        creancem3:editTable.creancem3,
+        creancem4:editTable.creancem4,
+        creancem5:editTable.creancem5,
+        creancem6:editTable.creancem6,
+        creancem7:editTable.creancem7,
+        creancem7:editTable.creancem7,
+        creancem8:editTable.creancem8,
+        creancem9:editTable.creancem9,
+        creancem10:editTable.creancem10,
+        creancem11:editTable.creancem11,
+        creancem12:editTable.creancem12,
         
-        autrecaissem1:values.autrecaissem1,
-        autrecaissem1:values.autrecaissem1,
-        autrecaissem2:values.autrecaissem2,
-        autrecaissem3:values.autrecaissem3,
-        autrecaissem4:values.autrecaissem4,
-        autrecaissem5:values.autrecaissem5,
-        autrecaissem6:values.autrecaissem6,
-        autrecaissem7:values.autrecaissem7,
-        autrecaissem8:values.autrecaissem8,
-        autrecaissem9:values.autrecaissem9,
-        autrecaissem10:values.autrecaissem10,
-        autrecaissem11:values.autrecaissem11,
-        autrecaissem12:values.autrecaissem12,
+        autrecaissem1:editTable.autrecaissem1,
+        autrecaissem1:editTable.autrecaissem1,
+        autrecaissem2:editTable.autrecaissem2,
+        autrecaissem3:editTable.autrecaissem3,
+        autrecaissem4:editTable.autrecaissem4,
+        autrecaissem5:editTable.autrecaissem5,
+        autrecaissem6:editTable.autrecaissem6,
+        autrecaissem7:editTable.autrecaissem7,
+        autrecaissem8:editTable.autrecaissem8,
+        autrecaissem9:editTable.autrecaissem9,
+        autrecaissem10:editTable.autrecaissem10,
+        autrecaissem11:editTable.autrecaissem11,
+        autrecaissem12:editTable.autrecaissem12,
         
-        investm1:values.investm1,
-        investm2:values.investm2,
-        investm3:values.investm3,
-        investm4:values.investm4,
-        investm5:values.investm5,
-        investm6:values.investm6,
-        investm7:values.investm7,
-        investm8:values.investm8,
-        investm9:values.investm9,
-        investm10:values.investm10,
-        investm11:values.investm11,
-        investm12:values.investm12,
-        investm12:values.investm12,
+        investm1:editTable.investm1,
+        investm2:editTable.investm2,
+        investm3:editTable.investm3,
+        investm4:editTable.investm4,
+        investm5:editTable.investm5,
+        investm6:editTable.investm6,
+        investm7:editTable.investm7,
+        investm8:editTable.investm8,
+        investm9:editTable.investm9,
+        investm10:editTable.investm10,
+        investm11:editTable.investm11,
+        investm12:editTable.investm12,
+        investm12:editTable.investm12,
         
-        rembourseccm1:values.rembourseccm1,
-        rembourseccm2:values.rembourseccm2,
-        rembourseccm3:values.rembourseccm3,
-        rembourseccm4:values.rembourseccm4,
-        rembourseccm5:values.rembourseccm5,
-        rembourseccm6:values.rembourseccm6,
-        rembourseccm7:values.rembourseccm7,
-        rembourseccm8:values.rembourseccm8,
-        rembourseccm9:values.rembourseccm9,
-        rembourseccm10:values.rembourseccm10,
-        rembourseccm11:values.rembourseccm11,
-        rembourseccm12:values.rembourseccm12,
-        rembourseccm12:values.rembourseccm12,
+        rembourseccm1:editTable.rembourseccm1,
+        rembourseccm2:editTable.rembourseccm2,
+        rembourseccm3:editTable.rembourseccm3,
+        rembourseccm4:editTable.rembourseccm4,
+        rembourseccm5:editTable.rembourseccm5,
+        rembourseccm6:editTable.rembourseccm6,
+        rembourseccm7:editTable.rembourseccm7,
+        rembourseccm8:editTable.rembourseccm8,
+        rembourseccm9:editTable.rembourseccm9,
+        rembourseccm10:editTable.rembourseccm10,
+        rembourseccm11:editTable.rembourseccm11,
+        rembourseccm12:editTable.rembourseccm12,
+        rembourseccm12:editTable.rembourseccm12,
         
-        rembourseempruntm1:values.rembourseempruntm1,
-        rembourseempruntm2:values.rembourseempruntm2,
-        rembourseempruntm3:values.rembourseempruntm3,
-        rembourseempruntm4:values.rembourseempruntm4,
-        rembourseempruntm5:values.rembourseempruntm5,
-        rembourseempruntm6:values.rembourseempruntm6,
-        rembourseempruntm7:values.rembourseempruntm7,
-        rembourseempruntm8:values.rembourseempruntm8,
-        rembourseempruntm9:values.rembourseempruntm9,
-        rembourseempruntm10:values.rembourseempruntm10,
-        rembourseempruntm11:values.rembourseempruntm11,
-        rembourseempruntm12:values.rembourseempruntm12,
-        rembourseempruntm12:values.rembourseempruntm12,
+        rembourseempruntm1:editTable.rembourseempruntm1,
+        rembourseempruntm2:editTable.rembourseempruntm2,
+        rembourseempruntm3:editTable.rembourseempruntm3,
+        rembourseempruntm4:editTable.rembourseempruntm4,
+        rembourseempruntm5:editTable.rembourseempruntm5,
+        rembourseempruntm6:editTable.rembourseempruntm6,
+        rembourseempruntm7:editTable.rembourseempruntm7,
+        rembourseempruntm8:editTable.rembourseempruntm8,
+        rembourseempruntm9:editTable.rembourseempruntm9,
+        rembourseempruntm10:editTable.rembourseempruntm10,
+        rembourseempruntm11:editTable.rembourseempruntm11,
+        rembourseempruntm12:editTable.rembourseempruntm12,
+        rembourseempruntm12:editTable.rembourseempruntm12,
         
-        garantieempruntm1:values.garantieempruntm1,
-        garantieempruntm2:values.garantieempruntm2,
-        garantieempruntm3:values.garantieempruntm3,
-        garantieempruntm4:values.garantieempruntm4,
-        garantieempruntm5:values.garantieempruntm5,
-        garantieempruntm6:values.garantieempruntm6,
-        garantieempruntm7:values.garantieempruntm7,
-        garantieempruntm8:values.garantieempruntm8,
-        garantieempruntm9:values.garantieempruntm9,
-        garantieempruntm10:values.garantieempruntm10,
-        garantieempruntm11:values.garantieempruntm11,
-        garantieempruntm12:values.garantieempruntm12,
-        garantieempruntm12:values.garantieempruntm12,
+        garantieempruntm1:editTable.garantieempruntm1,
+        garantieempruntm2:editTable.garantieempruntm2,
+        garantieempruntm3:editTable.garantieempruntm3,
+        garantieempruntm4:editTable.garantieempruntm4,
+        garantieempruntm5:editTable.garantieempruntm5,
+        garantieempruntm6:editTable.garantieempruntm6,
+        garantieempruntm7:editTable.garantieempruntm7,
+        garantieempruntm8:editTable.garantieempruntm8,
+        garantieempruntm9:editTable.garantieempruntm9,
+        garantieempruntm10:editTable.garantieempruntm10,
+        garantieempruntm11:editTable.garantieempruntm11,
+        garantieempruntm12:editTable.garantieempruntm12,
+        garantieempruntm12:editTable.garantieempruntm12,
         
-        amm1:values.amm1,
-        amm2:values.amm2,
-        amm3:values.amm3,
-        amm4:values.amm4,
-        amm5:values.amm5,
-        amm6:values.amm6,
-        amm7:values.amm7,
-        amm8:values.amm8,
-        amm9:values.amm9,
-        amm10:values.amm10,
-        amm11:values.amm11,
-        amm12:values.amm12,
-        amm12:values.amm12,
+        amm1:editTable.amm1,
+        amm2:editTable.amm2,
+        amm3:editTable.amm3,
+        amm4:editTable.amm4,
+        amm5:editTable.amm5,
+        amm6:editTable.amm6,
+        amm7:editTable.amm7,
+        amm8:editTable.amm8,
+        amm9:editTable.amm9,
+        amm10:editTable.amm10,
+        amm11:editTable.amm11,
+        amm12:editTable.amm12,
+        amm12:editTable.amm12,
        
-        autreachatm1:values.autreachatm1,
-        autreachatm2:values.autreachatm2,
-        autreachatm3:values.autreachatm3,
-        autreachatm4:values.autreachatm4,
-        autreachatm5:values.autreachatm5,
-        autreachatm6:values.autreachatm6,
-        autreachatm7:values.autreachatm7,
-        autreachatm8:values.autreachatm8,
-        autreachatm9:values.autreachatm9,
-        autreachatm10:values.autreachatm10,
-        autreachatm11:values.autreachatm11,
-        autreachatm12:values.autreachatm12,
-        autreachatm12:values.autreachatm12,
+        autreachatm1:editTable.autreachatm1,
+        autreachatm2:editTable.autreachatm2,
+        autreachatm3:editTable.autreachatm3,
+        autreachatm4:editTable.autreachatm4,
+        autreachatm5:editTable.autreachatm5,
+        autreachatm6:editTable.autreachatm6,
+        autreachatm7:editTable.autreachatm7,
+        autreachatm8:editTable.autreachatm8,
+        autreachatm9:editTable.autreachatm9,
+        autreachatm10:editTable.autreachatm10,
+        autreachatm11:editTable.autreachatm11,
+        autreachatm12:editTable.autreachatm12,
+        autreachatm12:editTable.autreachatm12,
         
-        transportm1:values.transportm1,
-        transportm2:values.transportm2,
-        transportm3:values.transportm3,
-        transportm4:values.transportm4,
-        transportm5:values.transportm5,
-        transportm6:values.transportm6,
-        transportm7:values.transportm7,
-        transportm8:values.transportm8,
-        transportm9:values.transportm9,
-        transportm10:values.transportm10,
-        transportm10:values.transportm10,
-        transportm11:values.transportm11,
-        transportm12:values.transportm12,
+        transportm1:editTable.transportm1,
+        transportm2:editTable.transportm2,
+        transportm3:editTable.transportm3,
+        transportm4:editTable.transportm4,
+        transportm5:editTable.transportm5,
+        transportm6:editTable.transportm6,
+        transportm7:editTable.transportm7,
+        transportm8:editTable.transportm8,
+        transportm9:editTable.transportm9,
+        transportm10:editTable.transportm10,
+        transportm10:editTable.transportm10,
+        transportm11:editTable.transportm11,
+        transportm12:editTable.transportm12,
         
-        sem1:values.sem1,
-        sem2:values.sem2,
-        sem3:values.sem3,
-        sem4:values.sem4,
-        sem5:values.sem5,
-        sem6:values.sem6,
-        sem7:values.sem7,
-        sem8:values.sem8,
-        sem9:values.sem9,
-        sem10:values.sem10,
-        sem11:values.sem11,
-        sem12:values.sem12,       
-        sem12:values.sem12,       
-        autrechargem1:values.autrechargem1,
-        autrechargem2:values.autrechargem2,
-        autrechargem3:values.autrechargem3,
-        autrechargem4:values.autrechargem4,
-        autrechargem5:values.autrechargem5,
-        autrechargem6:values.autrechargem6,
-        autrechargem7:values.autrechargem7,
-        autrechargem8:values.autrechargem8,
-        autrechargem9:values.autrechargem9,
-        autrechargem10:values.autrechargem10,
-        autrechargem10:values.autrechargem10,
-        autrechargem11:values.autrechargem11,
-        autrechargem12:values.autrechargem12,
+        sem1:editTable.sem1,
+        sem2:editTable.sem2,
+        sem3:editTable.sem3,
+        sem4:editTable.sem4,
+        sem5:editTable.sem5,
+        sem6:editTable.sem6,
+        sem7:editTable.sem7,
+        sem8:editTable.sem8,
+        sem9:editTable.sem9,
+        sem10:editTable.sem10,
+        sem11:editTable.sem11,
+        sem12:editTable.sem12,       
+        sem12:editTable.sem12,       
+        autrechargem1:editTable.autrechargem1,
+        autrechargem2:editTable.autrechargem2,
+        autrechargem3:editTable.autrechargem3,
+        autrechargem4:editTable.autrechargem4,
+        autrechargem5:editTable.autrechargem5,
+        autrechargem6:editTable.autrechargem6,
+        autrechargem7:editTable.autrechargem7,
+        autrechargem8:editTable.autrechargem8,
+        autrechargem9:editTable.autrechargem9,
+        autrechargem10:editTable.autrechargem10,
+        autrechargem10:editTable.autrechargem10,
+        autrechargem11:editTable.autrechargem11,
+        autrechargem12:editTable.autrechargem12,
         
-        impotm1:values.impotm1,
-        impotm2:values.impotm2,
-        impotm3:values.impotm3,
-        impotm4:values.impotm4,
-        impotm5:values.impotm5,
-        impotm6:values.impotm6,
-        impotm7:values.impotm7,
-        impotm8:values.impotm8,
-        impotm9:values.impotm9,
-        impotm10:values.impotm10,
-        impotm11:values.impotm11,
-        impotm12:values.impotm12,
-        impotm12:values.impotm12,
+        impotm1:editTable.impotm1,
+        impotm2:editTable.impotm2,
+        impotm3:editTable.impotm3,
+        impotm4:editTable.impotm4,
+        impotm5:editTable.impotm5,
+        impotm6:editTable.impotm6,
+        impotm7:editTable.impotm7,
+        impotm8:editTable.impotm8,
+        impotm9:editTable.impotm9,
+        impotm10:editTable.impotm10,
+        impotm11:editTable.impotm11,
+        impotm12:editTable.impotm12,
+        impotm12:editTable.impotm12,
         
-        cpm1:values.cpm1,
-        cpm2:values.cpm2,
-        cpm3:values.cpm3,
-        cpm4:values.cpm4,
-        cpm5:values.cpm5,
-        cpm6:values.cpm6,
-        cpm7:values.cpm7,
-        cpm8:values.cpm8,
-        cpm9:values.cpm9,
-        cpm9:values.cpm9,
-        cpm10:values.cpm10,
-        cpm11:values.cpm11,
-        cpm12:values.cpm12,
+        cpm1:editTable.cpm1,
+        cpm2:editTable.cpm2,
+        cpm3:editTable.cpm3,
+        cpm4:editTable.cpm4,
+        cpm5:editTable.cpm5,
+        cpm6:editTable.cpm6,
+        cpm7:editTable.cpm7,
+        cpm8:editTable.cpm8,
+        cpm9:editTable.cpm9,
+        cpm9:editTable.cpm9,
+        cpm10:editTable.cpm10,
+        cpm11:editTable.cpm11,
+        cpm12:editTable.cpm12,
         
-        ffm1:values.ffm1,
-        ffm2:values.ffm2,
-        ffm3:values.ffm3,
-        ffm4:values.ffm4,
-        ffm5:values.ffm5,
-        ffm6:values.ffm6,
-        ffm6:values.ffm6,
-        ffm7:values.ffm7,
-        ffm8:values.ffm8,
-        ffm9:values.ffm9,
-        ffm10:values.ffm10,
-        ffm11:values.ffm11,
-        ffm12:values.ffm12,
-        tvadecaissem1:values.tvadecaissem1,
-        tvadecaissem2:values.tvadecaissem2,
-        tvadecaissem3:values.tvadecaissem3,
-        tvadecaissem4:values.tvadecaissem4,
-        tvadecaissem5:values.tvadecaissem5,
-        tvadecaissem6:values.tvadecaissem6,
-        tvadecaissem7:values.tvadecaissem7,
-        tvadecaissem8:values.tvadecaissem8,
-        tvadecaissem9:values.tvadecaissem9,
-        tvadecaissem10:values.tvadecaissem10,
-        tvadecaissem11:values.tvadecaissem11,
-        tvadecaissem12:values.tvadecaissem12,
+        ffm1:editTable.ffm1,
+        ffm2:editTable.ffm2,
+        ffm3:editTable.ffm3,
+        ffm4:editTable.ffm4,
+        ffm5:editTable.ffm5,
+        ffm6:editTable.ffm6,
+        ffm6:editTable.ffm6,
+        ffm7:editTable.ffm7,
+        ffm8:editTable.ffm8,
+        ffm9:editTable.ffm9,
+        ffm10:editTable.ffm10,
+        ffm11:editTable.ffm11,
+        ffm12:editTable.ffm12,
+        tvadecaissem1:editTable.tvadecaissem1,
+        tvadecaissem2:editTable.tvadecaissem2,
+        tvadecaissem3:editTable.tvadecaissem3,
+        tvadecaissem4:editTable.tvadecaissem4,
+        tvadecaissem5:editTable.tvadecaissem5,
+        tvadecaissem6:editTable.tvadecaissem6,
+        tvadecaissem7:editTable.tvadecaissem7,
+        tvadecaissem8:editTable.tvadecaissem8,
+        tvadecaissem9:editTable.tvadecaissem9,
+        tvadecaissem10:editTable.tvadecaissem10,
+        tvadecaissem11:editTable.tvadecaissem11,
+        tvadecaissem12:editTable.tvadecaissem12,
         userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        //props.resetForm()
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -2232,6 +2234,8 @@ const Chapitredix = () => {
                             </TableRow>
                             <TableRow style={{backgroundColor:'#18A4F6'}}>
                                 <TableCell><b>Encaissements </b></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
@@ -7669,4168 +7673,4716 @@ const Chapitredix = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit}
-          >
-            {(props) => (
-              <Form>  
+               <form onSubmit={onSubmit} noValidate>
                 
-                <div className="input">
+               <div className="input">
                 
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm1"
-                  label="Apport personnel Mois 1"
-                  name="apportpm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm2"
-                  label="Apport personnel Mois 2"
-                  name="apportpm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm3"
-                  label="Apport personnel Mois 3"
-                  name="apportpm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm4"
-                  label="Apport personnel Mois 4"
-                  name="apportpm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm5"
-                  label="Apport personnel Mois 5"
-                  name="apportpm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm6"
-                  label="Apport personnel Mois 6"
-                  name="apportpm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm7"
-                  label="Apport personnel Mois 7"
-                  name="apportpm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm8"
-                  label="Apport personnel Mois 8"
-                  name="apportpm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm9"
-                  label="Apport personnel Mois 9"
-                  name="apportpm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm10"
-                  label="Apport personnel Mois 10"
-                  name="apportpm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm11"
-                  label="Apport personnel Mois 11"
-                  name="apportpm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportpm12"
-                  label="Apport personnel Mois 12"
-                  name="apportpm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem1"
-                  label="Associés Mois 1"
-                  name="associem1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem2"
-                  label="Associés Mois 2"
-                  name="associem2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem3"
-                  label="Associés Mois 3"
-                  name="associem3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem4"
-                  label="Associés Mois 4"
-                  name="associem4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem5"
-                  label="Associés Mois 5"
-                  name="associem5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem6"
-                  label="Associés Mois 6"
-                  name="associem6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem7"
-                  label="Associés Mois 7"
-                  name="associem7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem8"
-                  label="Associés Mois 8"
-                  name="associem8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem9"
-                  label="Associés Mois 9"
-                  name="associem9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem10"
-                  label="Associés Mois 10"
-                  name="associem10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem11"
-                  label="Associés Mois 11"
-                  name="associem11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="associem12"
-                  label="Associés Mois 12"
-                  name="associem12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm1"
-                  label="Emprunts Mois 1"
-                  name="empruntm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm2"
-                  label="Emprunts Mois 2"
-                  name="empruntm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm3"
-                  label="Emprunts Mois 3"
-                  name="empruntm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm4"
-                  label="Emprunts Mois 4"
-                  name="empruntm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm5"
-                  label="Emprunts Mois 5"
-                  name="empruntm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm6"
-                  label="Emprunts Mois 6"
-                  name="empruntm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm7"
-                  label="Emprunts Mois 7"
-                  name="empruntm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm8"
-                  label="Emprunts Mois 8"
-                  name="empruntm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm9"
-                  label="Emprunts Mois 9"
-                  name="empruntm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm10"
-                  label="Emprunts Mois 10"
-                  name="empruntm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm11"
-                  label="Emprunts Mois 11"
-                  name="empruntm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="empruntm12"
-                  label="Emprunts Mois 12"
-                  name="empruntm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm1"
-                  label="Subventions Mois 1"
-                  name="subventionm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm2"
-                  label="Subventions Mois 2"
-                  name="subventionm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm3"
-                  label="Subventions Mois 3"
-                  name="subventionm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm4"
-                  label="Subventions Mois 4"
-                  name="subventionm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm5"
-                  label="Subventions Mois 5"
-                  name="subventionm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm6"
-                  label="Subventions Mois 6"
-                  name="subventionm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm7"
-                  label="Subventions Mois 7"
-                  name="subventionm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm8"
-                  label="Subventions Mois 8"
-                  name="subventionm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm9"
-                  label="Subventions Mois 9"
-                  name="subventionm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm10"
-                  label="Subventions Mois 10"
-                  name="subventionm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm11"
-                  label="Subventions Mois 11"
-                  name="subventionm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="subventionm12"
-                  label="Subventions Mois 12"
-                  name="subventionm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm1"
-                  label="Aides Mois 1"
-                  name="aidesm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm2"
-                  label="Aides Mois 2"
-                  name="aidesm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm3"
-                  label="Aides Mois 3"
-                  name="aidesm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm4"
-                  label="Aides Mois 4"
-                  name="aidesm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm5"
-                  label="Aides Mois 5"
-                  name="aidesm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm6"
-                  label="Aides Mois 6"
-                  name="aidesm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm7"
-                  label="Aides Mois 7"
-                  name="aidesm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm8"
-                  label="Aides Mois 8"
-                  name="aidesm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm9"
-                  label="Aides Mois 9"
-                  name="aidesm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm10"
-                  label="Aides Mois 10"
-                  name="aidesm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm11"
-                  label="Aides Mois 11"
-                  name="aidesm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="aidesm12"
-                  label="Aides Mois 12"
-                  name="aidesm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm1"
-                  label="Apport en compte courant Mois 1"
-                  name="apportccm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm2"
-                  label="Apport en compte courant Mois 2"
-                  name="apportccm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm3"
-                  label="Apport en compte courant Mois 3"
-                  name="apportccm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm4"
-                  label="Apport en compte courant Mois 4"
-                  name="apportccm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm5"
-                  label="Apport en compte courant Mois 5"
-                  name="apportccm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm6"
-                  label="Apport en compte courant Mois 6"
-                  name="apportccm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm7"
-                  label="Apport en compte courant Mois 7"
-                  name="apportccm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm8"
-                  label="Apport en compte courant Mois 8"
-                  name="apportccm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm9"
-                  label="Apport en compte courant Mois 9"
-                  name="apportccm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm10"
-                  label="Apport en compte courant Mois 10"
-                  name="apportccm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm11"
-                  label="Apport en compte courant Mois 11"
-                  name="apportccm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="apportccm12"
-                  label="Apport en compte courant Mois 12"
-                  name="apportccm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm1"
-                  label="Chiffres d'Affaires HT encaissés Mois 1"
-                  name="cahtm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm2"
-                  label="Chiffres d'Affaires HT encaissés Mois 2"
-                  name="cahtm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm3"
-                  label="Chiffres d'Affaires HT encaissés Mois 3"
-                  name="cahtm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm4"
-                  label="Chiffres d'Affaires HT encaissés Mois 4"
-                  name="cahtm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm5"
-                  label="Chiffres d'Affaires HT encaissés Mois 5"
-                  name="cahtm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm6"
-                  label="Chiffres d'Affaires HT encaissés Mois 6"
-                  name="cahtm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm7"
-                  label="Chiffres d'Affaires HT encaissés Mois 7"
-                  name="cahtm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm8"
-                  label="Chiffres d'Affaires HT encaissés Mois 8"
-                  name="cahtm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm9"
-                  label="Chiffres d'Affaires HT encaissés Mois 9"
-                  name="cahtm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm10"
-                  label="Chiffres d'Affaires HT encaissés Mois 10"
-                  name="cahtm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm11"
-                  label="Chiffres d'Affaires HT encaissés Mois 11"
-                  name="cahtm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cahtm12"
-                  label="Chiffres d'Affaires HT encaissés Mois 12"
-                  name="cahtm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam1"
-                  label="TVA encaissée/ventes Mois 1"
-                  name="tvam1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam2"
-                  label="TVA encaissée/ventes Mois 2"
-                  name="tvam2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam3"
-                  label="TVA encaissée/ventes Mois 3"
-                  name="tvam3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam4"
-                  label="TVA encaissée/ventes Mois 4"
-                  name="tvam4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam5"
-                  label="TVA encaissée/ventes Mois 5"
-                  name="tvam5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam6"
-                  label="TVA encaissée/ventes Mois 6"
-                  name="tvam6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam7"
-                  label="TVA encaissée/ventes Mois 7"
-                  name="tvam7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam8"
-                  label="TVA encaissée/ventes Mois 8"
-                  name="tvam8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam9"
-                  label="TVA encaissée/ventes Mois 9"
-                  name="tvam9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam10"
-                  label="TVA encaissée/ventes Mois 10"
-                  name="tvam10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam11"
-                  label="TVA encaissée/ventes Mois 11"
-                  name="tvam11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvam12"
-                  label="TVA encaissée/ventes Mois 12"
-                  name="tvam12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem1"
-                  label="Créances clients encaissées Mois 1"
-                  name="creancem1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem2"
-                  label="Créances clients encaissées Mois 2"
-                  name="creancem2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem3"
-                  label="Créances clients encaissées Mois 3"
-                  name="creancem3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem4"
-                  label="Créances clients encaissées Mois 4"
-                  name="creancem4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem5"
-                  label="Créances clients encaissées Mois 5"
-                  name="creancem5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem6"
-                  label="Créances clients encaissées Mois 6"
-                  name="creancem6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem7"
-                  label="Créances clients encaissées Mois 7"
-                  name="creancem7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem8"
-                  label="Créances clients encaissées Mois 8"
-                  name="creancem8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem9"
-                  label="Créances clients encaissées Mois 9"
-                  name="creancem9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem10"
-                  label="Créances clients encaissées Mois 10"
-                  name="creancem10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem11"
-                  label="Créances clients encaissées Mois 11"
-                  name="creancem11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="creancem12"
-                  label="Créances clients encaissées Mois 12"
-                  name="creancem12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem1"
-                  label="Autres encaissements Mois 1"
-                  name="autrecaissem1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem2"
-                  label="Autres encaissements Mois 2"
-                  name="autrecaissem2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem3"
-                  label="Autres encaissements Mois 3"
-                  name="autrecaissem3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem4"
-                  label="Autres encaissements Mois 4"
-                  name="autrecaissem4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem5"
-                  label="Autres encaissements Mois 5"
-                  name="autrecaissem5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem6"
-                  label="Autres encaissements Mois 6"
-                  name="autrecaissem6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem7"
-                  label="Autres encaissements Mois 7"
-                  name="autrecaissem7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem8"
-                  label="Autres encaissements Mois 8"
-                  name="autrecaissem8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem9"
-                  label="Autres encaissements Mois 9"
-                  name="autrecaissem9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem10"
-                  label="Autres encaissements Mois 10"
-                  name="autrecaissem10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem11"
-                  label="Autres encaissements Mois 11"
-                  name="autrecaissem11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrecaissem12"
-                  label="Autres encaissements Mois 12"
-                  name="autrecaissem12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm1"
-                  label="Investissements Mois 1"
-                  name="investm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm2"
-                  label="Investissements Mois 2"
-                  name="investm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm3"
-                  label="Investissements Mois 3"
-                  name="investm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm4"
-                  label="Investissements Mois 4"
-                  name="investm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm5"
-                  label="Investissements Mois 5"
-                  name="investm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm6"
-                  label="Investissements Mois 6"
-                  name="investm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm7"
-                  label="Investissements Mois 7"
-                  name="investm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm8"
-                  label="Investissements Mois 8"
-                  name="investm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm9"
-                  label="Investissements Mois 9"
-                  name="investm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm10"
-                  label="Investissements Mois 10"
-                  name="investm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm11"
-                  label="Investissements Mois 11"
-                  name="investm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="investm12"
-                  label="Investissements Mois 12"
-                  name="investm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm1"
-                  label="Remboursement comptes courants Mois 1"
-                  name="rembourseccm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm2"
-                  label="Remboursement comptes courants Mois 2"
-                  name="rembourseccm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm3"
-                  label="Remboursement comptes courants Mois 3"
-                  name="rembourseccm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm4"
-                  label="Remboursement comptes courants Mois 4"
-                  name="rembourseccm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm5"
-                  label="Remboursement comptes courants Mois 5"
-                  name="rembourseccm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm6"
-                  label="Remboursement comptes courants Mois 6"
-                  name="rembourseccm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm7"
-                  label="Remboursement comptes courants Mois 7"
-                  name="rembourseccm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm8"
-                  label="Remboursement comptes courants Mois 8"
-                  name="rembourseccm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm9"
-                  label="Remboursement comptes courants Mois 9"
-                  name="rembourseccm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm10"
-                  label="Remboursement comptes courants Mois 10"
-                  name="rembourseccm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm11"
-                  label="Remboursement comptes courants Mois 11"
-                  name="rembourseccm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseccm12"
-                  label="Remboursement comptes courants Mois 12"
-                  name="rembourseccm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm1"
-                  label="Rembousement emprunts (échéances) Mois 1"
-                  name="rembourseempruntm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm2"
-                  label="Rembousement emprunts (échéances) Mois 2"
-                  name="rembourseempruntm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm3"
-                  label="Rembousement emprunts (échéances) Mois 3"
-                  name="rembourseempruntm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm4"
-                  label="Rembousement emprunts (échéances) Mois 4"
-                  name="rembourseempruntm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm5"
-                  label="Rembousement emprunts (échéances) Mois 5"
-                  name="rembourseempruntm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm6"
-                  label="Rembousement emprunts (échéances) Mois 6"
-                  name="rembourseempruntm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm7"
-                  label="Rembousement emprunts (échéances) Mois 7"
-                  name="rembourseempruntm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm8"
-                  label="Rembousement emprunts (échéances) Mois 8"
-                  name="rembourseempruntm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm9"
-                  label="Rembousement emprunts (échéances) Mois 9"
-                  name="rembourseempruntm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm10"
-                  label="Rembousement emprunts (échéances) Mois 10"
-                  name="rembourseempruntm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm11"
-                  label="Rembousement emprunts (échéances) Mois 11"
-                  name="rembourseempruntm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="rembourseempruntm12"
-                  label="Rembousement emprunts (échéances) Mois 12"
-                  name="rembourseempruntm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm1"
-                  label="Garantie emprunt Mois 1"
-                  name="garantieempruntm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm2"
-                  label="Garantie emprunt Mois 2"
-                  name="garantieempruntm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm3"
-                  label="Garantie emprunt Mois 3"
-                  name="garantieempruntm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm4"
-                  label="Garantie emprunt Mois 4"
-                  name="garantieempruntm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm5"
-                  label="Garantie emprunt Mois 5"
-                  name="garantieempruntm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm6"
-                  label="Garantie emprunt Mois 6"
-                  name="garantieempruntm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm7"
-                  label="Garantie emprunt Mois 7"
-                  name="garantieempruntm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm8"
-                  label="Garantie emprunt Mois 8"
-                  name="garantieempruntm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm9"
-                  label="Garantie emprunt Mois 9"
-                  name="garantieempruntm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm10"
-                  label="Garantie emprunt Mois 10"
-                  name="garantieempruntm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm11"
-                  label="Garantie emprunt Mois 11"
-                  name="garantieempruntm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="garantieempruntm12"
-                  label="Garantie emprunt Mois 12"
-                  name="garantieempruntm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm1"
-                  label="Achats marchandises/mat prem Mois 1"
-                  name="amm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm2"
-                  label="Achats marchandises/mat prem Mois 2"
-                  name="amm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm3"
-                  label="Achats marchandises/mat prem Mois 3"
-                  name="amm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm4"
-                  label="Achats marchandises/mat prem Mois 4"
-                  name="amm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm5"
-                  label="Achats marchandises/mat prem Mois 5"
-                  name="amm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm6"
-                  label="Achats marchandises/mat prem Mois 6"
-                  name="amm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm7"
-                  label="Achats marchandises/mat prem Mois 7"
-                  name="amm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm8"
-                  label="Achats marchandises/mat prem Mois 8"
-                  name="amm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm9"
-                  label="Achats marchandises/mat prem Mois 9"
-                  name="amm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm10"
-                  label="Achats marchandises/mat prem Mois 10"
-                  name="amm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm11"
-                  label="Achats marchandises/mat prem Mois 11"
-                  name="amm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="amm12"
-                  label="Achats marchandises/mat prem Mois 12"
-                  name="amm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm1"
-                  label="Autres Achats Mois 1"
-                  name="autreachatm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm2"
-                  label="Autres Achats Mois 2"
-                  name="autreachatm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm3"
-                  label="Autres Achats Mois 3"
-                  name="autreachatm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm4"
-                  label="Autres Achats Mois 4"
-                  name="autreachatm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm5"
-                  label="Autres Achats Mois 5"
-                  name="autreachatm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm6"
-                  label="Autres Achats Mois 6"
-                  name="autreachatm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm7"
-                  label="Autres Achats Mois 7"
-                  name="autreachatm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm8"
-                  label="Autres Achats Mois 8"
-                  name="autreachatm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm9"
-                  label="Autres Achats Mois 9"
-                  name="autreachatm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm10"
-                  label="Autres Achats Mois 10"
-                  name="autreachatm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm11"
-                  label="Autres Achats Mois 11"
-                  name="autreachatm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autreachatm12"
-                  label="Autres Achats Mois 12"
-                  name="autreachatm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm1"
-                  label="Transports Mois 1"
-                  name="transportm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm2"
-                  label="Transports Mois 2"
-                  name="transportm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm3"
-                  label="Transports Mois 3"
-                  name="transportm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm4"
-                  label="Transports Mois 4"
-                  name="transportm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm5"
-                  label="Transports Mois 5"
-                  name="transportm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm6"
-                  label="Transports Mois 6"
-                  name="transportm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm7"
-                  label="Transports Mois 7"
-                  name="transportm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm8"
-                  label="Transports Mois 8"
-                  name="transportm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm9"
-                  label="Transports Mois 9"
-                  name="transportm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm10"
-                  label="Transports Mois 10"
-                  name="transportm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm11"
-                  label="Transports Mois 11"
-                  name="transportm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="transportm12"
-                  label="Transports Mois 12"
-                  name="transportm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem1"
-                  label="Services extérieurs Mois 1"
-                  name="sem1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem2"
-                  label="Services extérieurs Mois 2"
-                  name="sem2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem3"
-                  label="Services extérieurs Mois 3"
-                  name="sem3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem4"
-                  label="Services extérieurs Mois 4"
-                  name="sem4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem5"
-                  label="Services extérieurs Mois 5"
-                  name="sem5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem6"
-                  label="Services extérieurs Mois 6"
-                  name="sem6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem7"
-                  label="Services extérieurs Mois 7"
-                  name="sem7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem8"
-                  label="Services extérieurs Mois 8"
-                  name="sem8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem9"
-                  label="Services extérieurs Mois 9"
-                  name="sem9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem10"
-                  label="Services extérieurs Mois 10"
-                  name="sem10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem11"
-                  label="Services extérieurs Mois 11"
-                  name="sem11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="sem12"
-                  label="Services extérieurs Mois 12"
-                  name="sem12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem1"
-                  label="Autres charges Mois 1"
-                  name="autrechargem1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem2"
-                  label="Autres charges Mois 2"
-                  name="autrechargem2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem3"
-                  label="Autres charges Mois 3"
-                  name="autrechargem3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem4"
-                  label="Autres charges Mois 4"
-                  name="autrechargem4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem5"
-                  label="Autres charges Mois 5"
-                  name="autrechargem5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem6"
-                  label="Autres charges Mois 6"
-                  name="autrechargem6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem7"
-                  label="Autres charges Mois 7"
-                  name="autrechargem7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem8"
-                  label="Autres charges Mois 8"
-                  name="autrechargem8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem9"
-                  label="Autres charges Mois 9"
-                  name="autrechargem9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem10"
-                  label="Autres charges Mois 10"
-                  name="autrechargem10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem11"
-                  label="Autres charges Mois 11"
-                  name="autrechargem11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="autrechargem12"
-                  label="Autres charges Mois 12"
-                  name="autrechargem12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm1"
-                  label="Impôts et taxes Mois 1"
-                  name="impotm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm2"
-                  label="Impôts et taxes Mois 2"
-                  name="impotm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm3"
-                  label="Impôts et taxes Mois 3"
-                  name="impotm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm4"
-                  label="Impôts et taxes Mois 4"
-                  name="impotm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm5"
-                  label="Impôts et taxes Mois 5"
-                  name="impotm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm6"
-                  label="Impôts et taxes Mois 6"
-                  name="impotm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm7"
-                  label="Impôts et taxes Mois 7"
-                  name="impotm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm8"
-                  label="Impôts et taxes Mois 8"
-                  name="impotm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm9"
-                  label="Impôts et taxes Mois 9"
-                  name="impotm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm10"
-                  label="Impôts et taxes Mois 10"
-                  name="impotm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm11"
-                  label="Impôts et taxes Mois 11"
-                  name="impotm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="impotm12"
-                  label="Impôts et taxes Mois 12"
-                  name="impotm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm1"
-                  label="Charges du personnel Mois 1"
-                  name="cpm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm2"
-                  label="Charges du personnel Mois 2"
-                  name="cpm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm3"
-                  label="Charges du personnel Mois 3"
-                  name="cpm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm4"
-                  label="Charges du personnel Mois 4"
-                  name="cpm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm5"
-                  label="Charges du personnel Mois 5"
-                  name="cpm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm6"
-                  label="Charges du personnel Mois 6"
-                  name="cpm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm7"
-                  label="Charges du personnel Mois 7"
-                  name="cpm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm8"
-                  label="Charges du personnel Mois 8"
-                  name="cpm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm9"
-                  label="Charges du personnel Mois 9"
-                  name="cpm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm10"
-                  label="Charges du personnel Mois 10"
-                  name="cpm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm11"
-                  label="Charges du personnel Mois 11"
-                  name="cpm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="cpm12"
-                  label="Charges du personnel Mois 12"
-                  name="cpm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm1"
-                  label="Frais financiers Mois 1"
-                  name="ffm1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm2"
-                  label="Frais financiers Mois 2"
-                  name="ffm2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm3"
-                  label="Frais financiers Mois 3"
-                  name="ffm3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm4"
-                  label="Frais financiers Mois 4"
-                  name="ffm4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm5"
-                  label="Frais financiers Mois 5"
-                  name="ffm5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm6"
-                  label="Frais financiers Mois 6"
-                  name="ffm6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm7"
-                  label="Frais financiers Mois 7"
-                  name="ffm7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm8"
-                  label="Frais financiers Mois 8"
-                  name="ffm8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm9"
-                  label="Frais financiers Mois 9"
-                  name="ffm9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm10"
-                  label="Frais financiers Mois 10"
-                  name="ffm10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm11"
-                  label="Frais financiers Mois 11"
-                  name="ffm11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="ffm12"
-                  label="Frais financiers Mois 12"
-                  name="ffm12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem1"
-                  label="TVA décaissée Mois 1"
-                  name="tvadecaissem1"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem2"
-                  label="TVA décaissée Mois 2"
-                  name="tvadecaissem2"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem3"
-                  label="TVA décaissée Mois 3"
-                  name="tvadecaissem3"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem4"
-                  label="TVA décaissée Mois 4"
-                  name="tvadecaissem4"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem5"
-                  label="TVA décaissée Mois 5"
-                  name="tvadecaissem5"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem6"
-                  label="TVA décaissée Mois 6"
-                  name="tvadecaissem6"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem7"
-                  label="TVA décaissée Mois 7"
-                  name="tvadecaissem7"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem8"
-                  label="TVA décaissée Mois 8"
-                  name="tvadecaissem8"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem9"
-                  label="TVA décaissée Mois 9"
-                  name="tvadecaissem9"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem10"
-                  label="TVA décaissée Mois 10"
-                  name="tvadecaissem10"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem11"
-                  label="TVA décaissée Mois 11"
-                  name="tvadecaissem11"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
-              <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="tvadecaissem12"
-                  label="TVA décaissée Mois 12"
-                  name="tvadecaissem12"
-                  autoFocus
-                  type="number"
-                  style={{ width: 200, marginRight: 10 }}
-                  InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                  }}
-              />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm1"
+                    label="Apport personnel Mois 1"
+                    name="apportpm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm2"
+                    label="Apport personnel Mois 2"
+                    name="apportpm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm3"
+                    label="Apport personnel Mois 3"
+                    name="apportpm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm4"
+                    label="Apport personnel Mois 4"
+                    name="apportpm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm5"
+                    label="Apport personnel Mois 5"
+                    name="apportpm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm6"
+                    label="Apport personnel Mois 6"
+                    name="apportpm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm7"
+                    label="Apport personnel Mois 7"
+                    name="apportpm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm8"
+                    label="Apport personnel Mois 8"
+                    name="apportpm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm9"
+                    label="Apport personnel Mois 9"
+                    name="apportpm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm10"
+                    label="Apport personnel Mois 10"
+                    name="apportpm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm11"
+                    label="Apport personnel Mois 11"
+                    name="apportpm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportpm12"
+                    label="Apport personnel Mois 12"
+                    name="apportpm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportpm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem1"
+                    label="Associés Mois 1"
+                    name="associem1"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem2"
+                    label="Associés Mois 2"
+                    name="associem2"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem3"
+                    label="Associés Mois 3"
+                    name="associem3"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem4"
+                    label="Associés Mois 4"
+                    name="associem4"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem5"
+                    label="Associés Mois 5"
+                    name="associem5"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem6"
+                    label="Associés Mois 6"
+                    name="associem6"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem7"
+                    label="Associés Mois 7"
+                    name="associem7"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem8"
+                    label="Associés Mois 8"
+                    name="associem8"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem9"
+                    label="Associés Mois 9"
+                    name="associem9"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem10"
+                    label="Associés Mois 10"
+                    name="associem10"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem11"
+                    label="Associés Mois 11"
+                    name="associem11"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="associem12"
+                    label="Associés Mois 12"
+                    name="associem12"
+                    autoFocus
+                    type="number"
+                    value={editTable.associem12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm1"
+                    label="Emprunts Mois 1"
+                    name="empruntm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm2"
+                    label="Emprunts Mois 2"
+                    name="empruntm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm3"
+                    label="Emprunts Mois 3"
+                    name="empruntm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm4"
+                    label="Emprunts Mois 4"
+                    name="empruntm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm5"
+                    label="Emprunts Mois 5"
+                    name="empruntm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm6"
+                    label="Emprunts Mois 6"
+                    name="empruntm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm7"
+                    label="Emprunts Mois 7"
+                    name="empruntm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm8"
+                    label="Emprunts Mois 8"
+                    name="empruntm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm9"
+                    label="Emprunts Mois 9"
+                    name="empruntm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm10"
+                    label="Emprunts Mois 10"
+                    name="empruntm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm11"
+                    label="Emprunts Mois 11"
+                    name="empruntm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="empruntm12"
+                    label="Emprunts Mois 12"
+                    name="empruntm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.empruntm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm1"
+                    label="Subventions Mois 1"
+                    name="subventionm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm2"
+                    label="Subventions Mois 2"
+                    name="subventionm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm3"
+                    label="Subventions Mois 3"
+                    name="subventionm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm4"
+                    label="Subventions Mois 4"
+                    name="subventionm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm5"
+                    label="Subventions Mois 5"
+                    name="subventionm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm6"
+                    label="Subventions Mois 6"
+                    name="subventionm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm7"
+                    label="Subventions Mois 7"
+                    name="subventionm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm8"
+                    label="Subventions Mois 8"
+                    name="subventionm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm9"
+                    label="Subventions Mois 9"
+                    name="subventionm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm10"
+                    label="Subventions Mois 10"
+                    name="subventionm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm11"
+                    label="Subventions Mois 11"
+                    name="subventionm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="subventionm12"
+                    label="Subventions Mois 12"
+                    name="subventionm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.subventionm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm1"
+                    label="Aides Mois 1"
+                    name="aidesm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm2"
+                    label="Aides Mois 2"
+                    name="aidesm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm3"
+                    label="Aides Mois 3"
+                    name="aidesm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm4"
+                    label="Aides Mois 4"
+                    name="aidesm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm5"
+                    label="Aides Mois 5"
+                    name="aidesm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm6"
+                    label="Aides Mois 6"
+                    name="aidesm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm7"
+                    label="Aides Mois 7"
+                    name="aidesm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm8"
+                    label="Aides Mois 8"
+                    name="aidesm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm9"
+                    label="Aides Mois 9"
+                    name="aidesm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm10"
+                    label="Aides Mois 10"
+                    name="aidesm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm11"
+                    label="Aides Mois 11"
+                    name="aidesm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="aidesm12"
+                    label="Aides Mois 12"
+                    name="aidesm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.aidesm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm1"
+                    label="Apport en compte courant Mois 1"
+                    name="apportccm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm2"
+                    label="Apport en compte courant Mois 2"
+                    name="apportccm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm3"
+                    label="Apport en compte courant Mois 3"
+                    name="apportccm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm4"
+                    label="Apport en compte courant Mois 4"
+                    name="apportccm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm5"
+                    label="Apport en compte courant Mois 5"
+                    name="apportccm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm6"
+                    label="Apport en compte courant Mois 6"
+                    name="apportccm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm7"
+                    label="Apport en compte courant Mois 7"
+                    name="apportccm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm8"
+                    label="Apport en compte courant Mois 8"
+                    name="apportccm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm9"
+                    label="Apport en compte courant Mois 9"
+                    name="apportccm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm10"
+                    label="Apport en compte courant Mois 10"
+                    name="apportccm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm11"
+                    label="Apport en compte courant Mois 11"
+                    name="apportccm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="apportccm12"
+                    label="Apport en compte courant Mois 12"
+                    name="apportccm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.apportccm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm1"
+                    label="Chiffres d'Affaires HT encaissés Mois 1"
+                    name="cahtm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm2"
+                    label="Chiffres d'Affaires HT encaissés Mois 2"
+                    name="cahtm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm3"
+                    label="Chiffres d'Affaires HT encaissés Mois 3"
+                    name="cahtm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm4"
+                    label="Chiffres d'Affaires HT encaissés Mois 4"
+                    name="cahtm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm5"
+                    label="Chiffres d'Affaires HT encaissés Mois 5"
+                    name="cahtm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm6"
+                    label="Chiffres d'Affaires HT encaissés Mois 6"
+                    name="cahtm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm7"
+                    label="Chiffres d'Affaires HT encaissés Mois 7"
+                    name="cahtm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm8"
+                    label="Chiffres d'Affaires HT encaissés Mois 8"
+                    name="cahtm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm9"
+                    label="Chiffres d'Affaires HT encaissés Mois 9"
+                    name="cahtm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm10"
+                    label="Chiffres d'Affaires HT encaissés Mois 10"
+                    name="cahtm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm11"
+                    label="Chiffres d'Affaires HT encaissés Mois 11"
+                    name="cahtm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cahtm12"
+                    label="Chiffres d'Affaires HT encaissés Mois 12"
+                    name="cahtm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.cahtm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam1"
+                    label="TVA encaissée/ventes Mois 1"
+                    name="tvam1"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam2"
+                    label="TVA encaissée/ventes Mois 2"
+                    name="tvam2"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam3"
+                    label="TVA encaissée/ventes Mois 3"
+                    name="tvam3"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam4"
+                    label="TVA encaissée/ventes Mois 4"
+                    name="tvam4"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam5"
+                    label="TVA encaissée/ventes Mois 5"
+                    name="tvam5"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam6"
+                    label="TVA encaissée/ventes Mois 6"
+                    name="tvam6"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam7"
+                    label="TVA encaissée/ventes Mois 7"
+                    name="tvam7"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam8"
+                    label="TVA encaissée/ventes Mois 8"
+                    name="tvam8"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam9"
+                    label="TVA encaissée/ventes Mois 9"
+                    name="tvam9"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam10"
+                    label="TVA encaissée/ventes Mois 10"
+                    name="tvam10"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam11"
+                    label="TVA encaissée/ventes Mois 11"
+                    name="tvam11"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvam12"
+                    label="TVA encaissée/ventes Mois 12"
+                    name="tvam12"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvam12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem1"
+                    label="Créances clients encaissées Mois 1"
+                    name="creancem1"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem2"
+                    label="Créances clients encaissées Mois 2"
+                    name="creancem2"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem3"
+                    label="Créances clients encaissées Mois 3"
+                    name="creancem3"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem4"
+                    label="Créances clients encaissées Mois 4"
+                    name="creancem4"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem5"
+                    label="Créances clients encaissées Mois 5"
+                    name="creancem5"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem6"
+                    label="Créances clients encaissées Mois 6"
+                    name="creancem6"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem7"
+                    label="Créances clients encaissées Mois 7"
+                    name="creancem7"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem8"
+                    label="Créances clients encaissées Mois 8"
+                    name="creancem8"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem9"
+                    label="Créances clients encaissées Mois 9"
+                    name="creancem9"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem10"
+                    label="Créances clients encaissées Mois 10"
+                    name="creancem10"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem11"
+                    label="Créances clients encaissées Mois 11"
+                    name="creancem11"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="creancem12"
+                    label="Créances clients encaissées Mois 12"
+                    name="creancem12"
+                    autoFocus
+                    type="number"
+                    value={editTable.creancem12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem1"
+                    label="Autres encaissements Mois 1"
+                    name="autrecaissem1"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem2"
+                    label="Autres encaissements Mois 2"
+                    name="autrecaissem2"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem3"
+                    label="Autres encaissements Mois 3"
+                    name="autrecaissem3"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem4"
+                    label="Autres encaissements Mois 4"
+                    name="autrecaissem4"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem5"
+                    label="Autres encaissements Mois 5"
+                    name="autrecaissem5"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem6"
+                    label="Autres encaissements Mois 6"
+                    name="autrecaissem6"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem7"
+                    label="Autres encaissements Mois 7"
+                    name="autrecaissem7"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem8"
+                    label="Autres encaissements Mois 8"
+                    name="autrecaissem8"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem9"
+                    label="Autres encaissements Mois 9"
+                    name="autrecaissem9"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem10"
+                    label="Autres encaissements Mois 10"
+                    name="autrecaissem10"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem11"
+                    label="Autres encaissements Mois 11"
+                    name="autrecaissem11"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrecaissem12"
+                    label="Autres encaissements Mois 12"
+                    name="autrecaissem12"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrecaissem12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm1"
+                    label="Investissements Mois 1"
+                    name="investm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm2"
+                    label="Investissements Mois 2"
+                    name="investm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm3"
+                    label="Investissements Mois 3"
+                    name="investm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm4"
+                    label="Investissements Mois 4"
+                    name="investm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm5"
+                    label="Investissements Mois 5"
+                    name="investm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm6"
+                    label="Investissements Mois 6"
+                    name="investm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm7"
+                    label="Investissements Mois 7"
+                    name="investm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm8"
+                    label="Investissements Mois 8"
+                    name="investm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm9"
+                    label="Investissements Mois 9"
+                    name="investm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm10"
+                    label="Investissements Mois 10"
+                    name="investm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm11"
+                    label="Investissements Mois 11"
+                    name="investm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="investm12"
+                    label="Investissements Mois 12"
+                    name="investm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.investm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm1"
+                    label="Remboursement comptes courants Mois 1"
+                    name="rembourseccm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm2"
+                    label="Remboursement comptes courants Mois 2"
+                    name="rembourseccm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm3"
+                    label="Remboursement comptes courants Mois 3"
+                    name="rembourseccm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm4"
+                    label="Remboursement comptes courants Mois 4"
+                    name="rembourseccm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm5"
+                    label="Remboursement comptes courants Mois 5"
+                    name="rembourseccm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm6"
+                    label="Remboursement comptes courants Mois 6"
+                    name="rembourseccm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm7"
+                    label="Remboursement comptes courants Mois 7"
+                    name="rembourseccm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm8"
+                    label="Remboursement comptes courants Mois 8"
+                    name="rembourseccm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm9"
+                    label="Remboursement comptes courants Mois 9"
+                    name="rembourseccm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm10"
+                    label="Remboursement comptes courants Mois 10"
+                    name="rembourseccm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm11"
+                    label="Remboursement comptes courants Mois 11"
+                    name="rembourseccm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseccm12"
+                    label="Remboursement comptes courants Mois 12"
+                    name="rembourseccm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseccm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm1"
+                    label="Rembousement emprunts (échéances) Mois 1"
+                    name="rembourseempruntm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm2"
+                    label="Rembousement emprunts (échéances) Mois 2"
+                    name="rembourseempruntm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm3"
+                    label="Rembousement emprunts (échéances) Mois 3"
+                    name="rembourseempruntm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm4"
+                    label="Rembousement emprunts (échéances) Mois 4"
+                    name="rembourseempruntm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm5"
+                    label="Rembousement emprunts (échéances) Mois 5"
+                    name="rembourseempruntm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm6"
+                    label="Rembousement emprunts (échéances) Mois 6"
+                    name="rembourseempruntm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm7"
+                    label="Rembousement emprunts (échéances) Mois 7"
+                    name="rembourseempruntm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm8"
+                    label="Rembousement emprunts (échéances) Mois 8"
+                    name="rembourseempruntm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm9"
+                    label="Rembousement emprunts (échéances) Mois 9"
+                    name="rembourseempruntm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm10"
+                    label="Rembousement emprunts (échéances) Mois 10"
+                    name="rembourseempruntm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm11"
+                    label="Rembousement emprunts (échéances) Mois 11"
+                    name="rembourseempruntm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="rembourseempruntm12"
+                    label="Rembousement emprunts (échéances) Mois 12"
+                    name="rembourseempruntm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.rembourseempruntm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm1"
+                    label="Garantie emprunt Mois 1"
+                    name="garantieempruntm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm2"
+                    label="Garantie emprunt Mois 2"
+                    name="garantieempruntm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm3"
+                    label="Garantie emprunt Mois 3"
+                    name="garantieempruntm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm4"
+                    label="Garantie emprunt Mois 4"
+                    name="garantieempruntm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm5"
+                    label="Garantie emprunt Mois 5"
+                    name="garantieempruntm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm6"
+                    label="Garantie emprunt Mois 6"
+                    name="garantieempruntm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm7"
+                    label="Garantie emprunt Mois 7"
+                    name="garantieempruntm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm8"
+                    label="Garantie emprunt Mois 8"
+                    name="garantieempruntm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm9"
+                    label="Garantie emprunt Mois 9"
+                    name="garantieempruntm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm10"
+                    label="Garantie emprunt Mois 10"
+                    name="garantieempruntm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm11"
+                    label="Garantie emprunt Mois 11"
+                    name="garantieempruntm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="garantieempruntm12"
+                    label="Garantie emprunt Mois 12"
+                    name="garantieempruntm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.garantieempruntm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm1"
+                    label="Achats marchandises/mat prem Mois 1"
+                    name="amm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm2"
+                    label="Achats marchandises/mat prem Mois 2"
+                    name="amm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm3"
+                    label="Achats marchandises/mat prem Mois 3"
+                    name="amm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm4"
+                    label="Achats marchandises/mat prem Mois 4"
+                    name="amm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm5"
+                    label="Achats marchandises/mat prem Mois 5"
+                    name="amm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm6"
+                    label="Achats marchandises/mat prem Mois 6"
+                    name="amm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm7"
+                    label="Achats marchandises/mat prem Mois 7"
+                    name="amm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm8"
+                    label="Achats marchandises/mat prem Mois 8"
+                    name="amm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm9"
+                    label="Achats marchandises/mat prem Mois 9"
+                    name="amm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm10"
+                    label="Achats marchandises/mat prem Mois 10"
+                    name="amm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm11"
+                    label="Achats marchandises/mat prem Mois 11"
+                    name="amm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="amm12"
+                    label="Achats marchandises/mat prem Mois 12"
+                    name="amm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.amm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm1"
+                    label="Autres Achats Mois 1"
+                    name="autreachatm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm2"
+                    label="Autres Achats Mois 2"
+                    name="autreachatm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm3"
+                    label="Autres Achats Mois 3"
+                    name="autreachatm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm4"
+                    label="Autres Achats Mois 4"
+                    name="autreachatm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm5"
+                    label="Autres Achats Mois 5"
+                    name="autreachatm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm6"
+                    label="Autres Achats Mois 6"
+                    name="autreachatm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm7"
+                    label="Autres Achats Mois 7"
+                    name="autreachatm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm8"
+                    label="Autres Achats Mois 8"
+                    name="autreachatm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm9"
+                    label="Autres Achats Mois 9"
+                    name="autreachatm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm10"
+                    label="Autres Achats Mois 10"
+                    name="autreachatm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm11"
+                    label="Autres Achats Mois 11"
+                    name="autreachatm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autreachatm12"
+                    label="Autres Achats Mois 12"
+                    name="autreachatm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.autreachatm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm1"
+                    label="Transports Mois 1"
+                    name="transportm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm2"
+                    label="Transports Mois 2"
+                    name="transportm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm3"
+                    label="Transports Mois 3"
+                    name="transportm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm4"
+                    label="Transports Mois 4"
+                    name="transportm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm5"
+                    label="Transports Mois 5"
+                    name="transportm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm6"
+                    label="Transports Mois 6"
+                    name="transportm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm7"
+                    label="Transports Mois 7"
+                    name="transportm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm8"
+                    label="Transports Mois 8"
+                    name="transportm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm9"
+                    label="Transports Mois 9"
+                    name="transportm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm10"
+                    label="Transports Mois 10"
+                    name="transportm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm11"
+                    label="Transports Mois 11"
+                    name="transportm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="transportm12"
+                    label="Transports Mois 12"
+                    name="transportm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.transportm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem1"
+                    label="Services extérieurs Mois 1"
+                    name="sem1"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem2"
+                    label="Services extérieurs Mois 2"
+                    name="sem2"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem3"
+                    label="Services extérieurs Mois 3"
+                    name="sem3"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem4"
+                    label="Services extérieurs Mois 4"
+                    name="sem4"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem5"
+                    label="Services extérieurs Mois 5"
+                    name="sem5"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem6"
+                    label="Services extérieurs Mois 6"
+                    name="sem6"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem7"
+                    label="Services extérieurs Mois 7"
+                    name="sem7"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem8"
+                    label="Services extérieurs Mois 8"
+                    name="sem8"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem9"
+                    label="Services extérieurs Mois 9"
+                    name="sem9"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem10"
+                    label="Services extérieurs Mois 10"
+                    name="sem10"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem11"
+                    label="Services extérieurs Mois 11"
+                    name="sem11"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="sem12"
+                    label="Services extérieurs Mois 12"
+                    name="sem12"
+                    autoFocus
+                    type="number"
+                    value={editTable.sem12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem1"
+                    label="Autres charges Mois 1"
+                    name="autrechargem1"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem2"
+                    label="Autres charges Mois 2"
+                    name="autrechargem2"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem3"
+                    label="Autres charges Mois 3"
+                    name="autrechargem3"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem4"
+                    label="Autres charges Mois 4"
+                    name="autrechargem4"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem5"
+                    label="Autres charges Mois 5"
+                    name="autrechargem5"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem6"
+                    label="Autres charges Mois 6"
+                    name="autrechargem6"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem7"
+                    label="Autres charges Mois 7"
+                    name="autrechargem7"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem8"
+                    label="Autres charges Mois 8"
+                    name="autrechargem8"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem9"
+                    label="Autres charges Mois 9"
+                    name="autrechargem9"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem10"
+                    label="Autres charges Mois 10"
+                    name="autrechargem10"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem11"
+                    label="Autres charges Mois 11"
+                    name="autrechargem11"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="autrechargem12"
+                    label="Autres charges Mois 12"
+                    name="autrechargem12"
+                    autoFocus
+                    type="number"
+                    value={editTable.autrechargem12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm1"
+                    label="Impôts et taxes Mois 1"
+                    name="impotm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm2"
+                    label="Impôts et taxes Mois 2"
+                    name="impotm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm3"
+                    label="Impôts et taxes Mois 3"
+                    name="impotm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm4"
+                    label="Impôts et taxes Mois 4"
+                    name="impotm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm5"
+                    label="Impôts et taxes Mois 5"
+                    name="impotm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm6"
+                    label="Impôts et taxes Mois 6"
+                    name="impotm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm7"
+                    label="Impôts et taxes Mois 7"
+                    name="impotm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm8"
+                    label="Impôts et taxes Mois 8"
+                    name="impotm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm9"
+                    label="Impôts et taxes Mois 9"
+                    name="impotm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm10"
+                    label="Impôts et taxes Mois 10"
+                    name="impotm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm11"
+                    label="Impôts et taxes Mois 11"
+                    name="impotm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="impotm12"
+                    label="Impôts et taxes Mois 12"
+                    name="impotm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.impotm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm1"
+                    label="Charges du personnel Mois 1"
+                    name="cpm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm2"
+                    label="Charges du personnel Mois 2"
+                    name="cpm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm3"
+                    label="Charges du personnel Mois 3"
+                    name="cpm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm4"
+                    label="Charges du personnel Mois 4"
+                    name="cpm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm5"
+                    label="Charges du personnel Mois 5"
+                    name="cpm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm6"
+                    label="Charges du personnel Mois 6"
+                    name="cpm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm7"
+                    label="Charges du personnel Mois 7"
+                    name="cpm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm8"
+                    label="Charges du personnel Mois 8"
+                    name="cpm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm9"
+                    label="Charges du personnel Mois 9"
+                    name="cpm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm10"
+                    label="Charges du personnel Mois 10"
+                    name="cpm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm11"
+                    label="Charges du personnel Mois 11"
+                    name="cpm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="cpm12"
+                    label="Charges du personnel Mois 12"
+                    name="cpm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.cpm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm1"
+                    label="Frais financiers Mois 1"
+                    name="ffm1"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm2"
+                    label="Frais financiers Mois 2"
+                    name="ffm2"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm3"
+                    label="Frais financiers Mois 3"
+                    name="ffm3"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm4"
+                    label="Frais financiers Mois 4"
+                    name="ffm4"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm5"
+                    label="Frais financiers Mois 5"
+                    name="ffm5"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm6"
+                    label="Frais financiers Mois 6"
+                    name="ffm6"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm7"
+                    label="Frais financiers Mois 7"
+                    name="ffm7"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm8"
+                    label="Frais financiers Mois 8"
+                    name="ffm8"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm9"
+                    label="Frais financiers Mois 9"
+                    name="ffm9"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm10"
+                    label="Frais financiers Mois 10"
+                    name="ffm10"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm11"
+                    label="Frais financiers Mois 11"
+                    name="ffm11"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="ffm12"
+                    label="Frais financiers Mois 12"
+                    name="ffm12"
+                    autoFocus
+                    type="number"
+                    value={editTable.ffm12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem1"
+                    label="TVA décaissée Mois 1"
+                    name="tvadecaissem1"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem1}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem2"
+                    label="TVA décaissée Mois 2"
+                    name="tvadecaissem2"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem2}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem3"
+                    label="TVA décaissée Mois 3"
+                    name="tvadecaissem3"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem3}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem4"
+                    label="TVA décaissée Mois 4"
+                    name="tvadecaissem4"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem4}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem5"
+                    label="TVA décaissée Mois 5"
+                    name="tvadecaissem5"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem5}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem6"
+                    label="TVA décaissée Mois 6"
+                    name="tvadecaissem6"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem6}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem7"
+                    label="TVA décaissée Mois 7"
+                    name="tvadecaissem7"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem7}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem8"
+                    label="TVA décaissée Mois 8"
+                    name="tvadecaissem8"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem8}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem9"
+                    label="TVA décaissée Mois 9"
+                    name="tvadecaissem9"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem9}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem10"
+                    label="TVA décaissée Mois 10"
+                    name="tvadecaissem10"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem10}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem11"
+                    label="TVA décaissée Mois 11"
+                    name="tvadecaissem11"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem11}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="tvadecaissem12"
+                    label="TVA décaissée Mois 12"
+                    name="tvadecaissem12"
+                    autoFocus
+                    type="number"
+                    value={editTable.tvadecaissem12}
+                    onChange={handleChange}
+                    style={{ width: 200, marginRight: 10 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                    }}
+                />
 
-              <Button
-                type="submit"
-                className="plus-icon"
-                onClick={() => setShow(!show)}
-                endIcon={<SaveIcon/>}
-                style={{color: 'white', background:'#18A4F6'}}
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<SaveIcon/>}
+                  style={{color: 'white', background:'#18A4F6'}}
 
-              >
-                Enregistrer
-              </Button>
-            </div>
-               </Form>
-              )}
-          </Formik>
+                >
+                  Ajouter
+                </Button>
+              </div>
+            
+                </form>
             </CardContent>
           </Card>
         </>
