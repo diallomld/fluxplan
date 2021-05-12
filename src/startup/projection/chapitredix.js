@@ -1804,14 +1804,6 @@ const Chapitredix = () => {
           setSoldeFinDuMois10(tsoldefindumois10)
           setSoldeFinDuMois11(tsoldefindumois11)
           setSoldeFinDuMois12(tsoldefindumois12)
-
-          
-         
-          
-
-
-
-
           
         });
         setPlan(dat);

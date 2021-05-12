@@ -52,6 +52,7 @@ import Chapitresevenp from "./startup/projection/Chapitreseven";
 import Chapitrehuit from "./startup/projection/chapitrehuit"
 import Chapitreneuf from "./startup/projection/chapitreneuf";
 import Chapitredix from "./startup/projection/chapitredix";
+import Chapitreonze from "./startup/projection/chapitreonze";
 
 function App() {
   var id = localStorage.getItem("userId");
@@ -161,6 +162,9 @@ function App() {
             </Route>
             <Route exact path="/projection/seuil">
               <Chapitreneuf />
+            </Route>
+            <Route exact path="/projection/bilan">
+              <Chapitreonze />
             </Route>
             <Route exact path="/projection/tresorerie">
               <Chapitredix />

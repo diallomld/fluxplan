@@ -187,7 +187,7 @@ export const SidebarData = [
       },
       {
         title: "Bilans prévisionnels",
-        path: "/projection/prevision1",
+        path: "/projection/bilan",
         icon: <IoIcons.IoIosPaper />,
       },
       {
