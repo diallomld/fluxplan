@@ -142,7 +142,7 @@ const Chapitrefour = () => {
               return (
                 <>
                   <tbody>
-                    <tr>
+                    <tr key={index}>
                       <td>{item.nom}</td>
                       <td>{item.localisation}</td>
                       <td>{item.produit}</td>

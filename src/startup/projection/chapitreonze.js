@@ -61,10 +61,42 @@ const StyledTableCell = withStyles((theme) => ({
 
 const Chapitreonze = () => {
   const initialvalues = {
-    elements: "",
-    annee1: "",
-    annee2: "",
-    annee3: "",
+    capitala1: 0,
+    capitala2: 0,
+    capitala3: 0,
+    reservea1: 0,
+    reservea2: 0,
+    reservea3: 0,
+    rapporta1: 0,
+    rapporta2: 0,
+    rapporta3: 0,
+    resultata1: 0,
+    resultata2: 0,
+    resultata3: 0,
+    subventiona1: 0,
+    subventiona2: 0,
+    subventiona3: 0,
+    emprunta1: 0,
+    emprunta2: 0,
+    emprunta3: 0,
+    provisiona1: 0,
+    provisiona2: 0,
+    provisiona3: 0,
+    dettea1: 0,
+    dettea2: 0,
+    dettea3: 0,
+    personnela1: 0,
+    personnela2: 0,
+    personnela3: 0,
+    organismea1: 0,
+    organismea2: 0,
+    organismea3: 0,
+    etata1: 0,
+    etata2: 0,
+    etata3: 0,
+    detteba1: 0,
+    detteba2: 0,
+    detteba3: 0,
   };
   const editObject = {
     incorpbruta1: 0,
@@ -130,11 +162,17 @@ const Chapitreonze = () => {
   };
   const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
+  const [show2, setShow2] = React.useState(false);
   const [bilan, setBilan] = React.useState([]);
+  const [passif, setPassif] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
+  const [toggle2, setToggle2] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+  const [idDoc2, setIdDoc2] = React.useState("");
   const [load, setLoad] = React.useState(false);
+  const [load2, setLoad2] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
+  const [credential, setCredential] = React.useState(initialvalues);
 
   const [icbruta1, seticbruta1] = React.useState(0);
   const [icamorta1, seticamorta1] = React.useState(0);
@@ -189,6 +227,22 @@ const Chapitreonze = () => {
   const [totalamorta3, settotalamorta3] = React.useState(0)
   const [totalneta3, settotalneta3] = React.useState(0)
 
+  const [rsa1,setRsa1] = React.useState()
+  const [rsa2,setRsa2] = React.useState()
+  const [rsa3,setRsa3] = React.useState()
+
+  const [pca1,setPca1] = React.useState()
+  const [pca2,setPca2] = React.useState()
+  const [pca3,setPca3] = React.useState()
+
+  const [tpa1,setTpa1] = React.useState()
+  const [tpa2,setTpa2] = React.useState()
+  const [tpa3,setTpa3] = React.useState()
+
+  const [totalpassifa1,setTotalpassifa1] = React.useState()
+  const [totalpassifa2,setTotalpassifa2] = React.useState()
+  const [totalpassifa3,setTotalpassifa3] = React.useState()
+
 
 
   const classes = useStyles();
@@ -207,6 +261,10 @@ const Chapitreonze = () => {
       ...editTable,
       [name]: value,
     });
+    setCredential({
+      ...credential,
+      [name]: value,
+    });
   };
   const handleModif = (id,index) => {
     setEditTable(bilan[index])
@@ -216,6 +274,77 @@ const Chapitreonze = () => {
     }else{
       setIdDoc(id);
     }
+  };
+  const handleModif2 = (id,index) => {
+    setCredential(passif[index])
+    setShow2(!show2);
+    console.log("edit handle")
+    if(show2){
+      setIdDoc2("");
+    }else{
+      setIdDoc2(id);
+    }
+  };
+  const editPassif = (e) => {
+    e.preventDefault();
+    setLoad2(true)
+    //setShow(!show)
+    firebasee
+      .firestore()
+      .collection("bilan-passif")
+      .doc(idDoc2)
+      .set(
+        {
+          capitala1: credential.capitala1,
+          capitala2: credential.capitala2,
+          capitala3: credential.capitala3,
+          reservea1: credential.reservea1,
+          reservea2: credential.reservea2,
+          reservea3: credential.reservea3,
+          rapporta1: credential.rapporta1,
+          rapporta2: credential.rapporta2,
+          rapporta3: credential.rapporta3,
+          resultata1: credential.resultata1,
+          resultata2: credential.resultata2,
+          resultata3: credential.resultata3,
+          subventiona1: credential.subventiona1,
+          subventiona2: credential.subventiona2,
+          subventiona3: credential.subventiona3,
+          emprunta1: credential.emprunta1,
+          emprunta2: credential.emprunta2,
+          emprunta3: credential.emprunta3,
+          provisiona1: credential.provisiona1,
+          provisiona2: credential.provisiona2,
+          provisiona3: credential.provisiona3,
+          dettea1: credential.dettea1,
+          dettea2: credential.dettea2,
+          dettea3: credential.dettea3,
+          personnela1: credential.personnela1,
+          personnela2: credential.personnela2,
+          personnela3: credential.personnela3,
+          organismea1: credential.organismea1,
+          organismea2: credential.organismea2,
+          organismea3: credential.organismea3,
+          etata1: credential.etata1,
+          etata2: credential.etata2,
+          etata3: credential.etata3,
+          detteba1: credential.detteba1,
+          detteba2: credential.detteba2,
+          detteba3: credential.detteba3,
+          userId: userId,
+        },
+        { merge: true }
+      )
+      .then((data) => {
+        console.log("data" + data);
+        setLoad2(false)
+        setCredential({
+        })
+        setOpen(true)
+      })
+      .catch((err) => console.error(err));
+    setToggle2(!toggle2);
+    setIdDoc2("");
   };
   const editBilan = (e) => {
     e.preventDefault();
@@ -302,6 +431,21 @@ const Chapitreonze = () => {
     setToggle(!toggle);
     setIdDoc("");
   };
+  const deletePassif = (id) => {
+    setLoad2(true)
+    firebasee
+      .firestore()
+      .collection("bilan-passif")
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log("deleted")
+        setLoad2(false)
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle2(!toggle2);
+  };
   const deletePrevision = (id) => {
     setLoad(true)
     firebasee
@@ -316,6 +460,112 @@ const Chapitreonze = () => {
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
+  };
+  const getDate2 = () => {
+    setLoad2(true)
+    return firebasee
+      .firestore()
+      .collection("bilan-passif")
+      .where("userId", "==", userId)
+      .get()
+      .then((data) => {
+        let dat = [];
+        data.forEach((doc) => {
+          
+          // total ressources stables passif
+          let trsa1 = 0
+          let trsa2 = 0
+          let trsa3 = 0
+          
+          // total passif circulant
+          let tpca1 = 0
+          let tpca2 = 0
+          let tpca3 = 0
+
+          // total tresorerie passif
+          let ttpa1 = 0
+          let ttpa2 = 0
+          let ttpa3 = 0
+
+          //total passif
+          let tpassifa1 = 0
+          let tpassifa2 = 0
+          let tpassifa3 = 0
+
+          trsa1 = Number(doc.data().capitala1)+Number(doc.data().reservea1)+Number(doc.data().rapporta1)+Number(doc.data().resultata1)+Number(doc.data().subventiona1)+Number(doc.data().emprunta1)+Number(doc.data().provisiona1)
+          trsa2 = Number(doc.data().capitala2)+Number(doc.data().reservea2)+Number(doc.data().rapporta2)+Number(doc.data().resultata2)+Number(doc.data().subventiona2)+Number(doc.data().emprunta2)+Number(doc.data().provisiona2)
+          trsa3 = Number(doc.data().capitala3)+Number(doc.data().reservea3)+Number(doc.data().rapporta3)+Number(doc.data().resultata3)+Number(doc.data().subventiona3)+Number(doc.data().emprunta3)+Number(doc.data().provisiona3)
+          setRsa1(trsa1)
+          setRsa2(trsa2)
+          setRsa3(trsa3)
+
+          tpca1 = Number(doc.data().dettea1)+Number(doc.data().personnela1)+Number(doc.data().organismea1)+Number(doc.data().etata1)
+          tpca2 = Number(doc.data().dettea2)+Number(doc.data().personnela2)+Number(doc.data().organismea2)+Number(doc.data().etata2)
+          tpca3 = Number(doc.data().dettea3)+Number(doc.data().personnela3)+Number(doc.data().organismea3)+Number(doc.data().etata3)
+          setPca1(tpca1)
+          setPca2(tpca2)
+          setPca3(tpca3)
+          
+          ttpa1 = Number(doc.data().detteba1)
+          ttpa2 = Number(doc.data().detteba2)
+          ttpa3 = Number(doc.data().detteba3)
+          setTpa1(ttpa1)
+          setTpa2(ttpa2)
+          setTpa3(ttpa3)
+
+          tpassifa1 = trsa1+tpca1+ttpa1
+          tpassifa2 = trsa2+tpca2+ttpa2
+          tpassifa3 = trsa3+tpca3+ttpa3
+
+          setTotalpassifa1(tpassifa1)
+          setTotalpassifa2(tpassifa2)
+          setTotalpassifa3(tpassifa3)
+
+          dat.push({
+            capitala1: doc.data().capitala1,
+            capitala2: doc.data().capitala2,
+            capitala3: doc.data().capitala3,
+            reservea1: doc.data().reservea1,
+            reservea2: doc.data().reservea2,
+            reservea3: doc.data().reservea3,
+            rapporta1: doc.data().rapporta1,
+            rapporta2: doc.data().rapporta2,
+            rapporta3: doc.data().rapporta3,
+            resultata1: doc.data().resultata1,
+            resultata2: doc.data().resultata2,
+            resultata3: doc.data().resultata3,
+            subventiona1: doc.data().subventiona1,
+            subventiona2: doc.data().subventiona2,
+            subventiona3: doc.data().subventiona3,
+            emprunta1: doc.data().emprunta1,
+            emprunta2: doc.data().emprunta2,
+            emprunta3: doc.data().emprunta3,
+            provisiona1: doc.data().provisiona1,
+            provisiona2: doc.data().provisiona2,
+            provisiona3: doc.data().provisiona3,
+            dettea1: doc.data().dettea1,
+            dettea2: doc.data().dettea2,
+            dettea3: doc.data().dettea3,
+            personnela1: doc.data().personnela1,
+            personnela2: doc.data().personnela2,
+            personnela3: doc.data().personnela3,
+            organismea1: doc.data().organismea1,
+            organismea2: doc.data().organismea2,
+            organismea3: doc.data().organismea3,
+            etata1: doc.data().etata1,
+            etata2: doc.data().etata2,
+            etata3: doc.data().etata3,
+            detteba1: doc.data().detteba1,
+            detteba2: doc.data().detteba2,
+            detteba3: doc.data().detteba3,
+            docIdd: doc.id,
+          });
+        
+        });
+        setPassif(dat);
+        setLoad2(false)
+      })
+      .catch((err) => console.log(err));
   };
   const getDate = () => {
     setLoad(true)
@@ -560,6 +810,59 @@ const Chapitreonze = () => {
       .catch((err) => console.log(err));
   };
 
+  const onSubmit2 = (e) => {
+    e.preventDefault();
+    setShow2(!show2)
+    setLoad2(true)
+    firebasee
+      .firestore()
+      .collection("bilan-passif")
+      .add({
+          capitala1: credential.capitala1,
+          capitala2: credential.capitala2,
+          capitala3: credential.capitala3,
+          reservea1: credential.reservea1,
+          reservea2: credential.reservea2,
+          reservea3: credential.reservea3,
+          rapporta1: credential.rapporta1,
+          rapporta2: credential.rapporta2,
+          rapporta3: credential.rapporta3,
+          resultata1: credential.resultata1,
+          resultata2: credential.resultata2,
+          resultata3: credential.resultata3,
+          subventiona1: credential.subventiona1,
+          subventiona2: credential.subventiona2,
+          subventiona3: credential.subventiona3,
+          emprunta1: credential.emprunta1,
+          emprunta2: credential.emprunta2,
+          emprunta3: credential.emprunta3,
+          provisiona1: credential.provisiona1,
+          provisiona2: credential.provisiona2,
+          provisiona3: credential.provisiona3,
+          dettea1: credential.dettea1,
+          dettea2: credential.dettea2,
+          dettea3: credential.dettea3,
+          personnela1: credential.personnela1,
+          personnela2: credential.personnela2,
+          personnela3: credential.personnela3,
+          organismea1: credential.organismea1,
+          organismea2: credential.organismea2,
+          organismea3: credential.organismea3,
+          etata1: credential.etata1,
+          etata2: credential.etata2,
+          etata3: credential.etata3,
+          detteba1: credential.detteba1,
+          detteba2: credential.detteba2,
+          detteba3: credential.detteba3,
+          userId: userId,
+      })
+      .then(() => {
+        //props.resetForm()
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle2(!toggle2);
+  }
   const onSubmit = (e) => {
     e.preventDefault();
     setShow(!show)
@@ -640,11 +943,13 @@ const Chapitreonze = () => {
 
   React.useEffect(() => {
     getDate();
+    getDate2()
     //setTotal(0)
-  }, [toggle]);
+  }, [toggle,toggle2]);
   //console.log("pro");
   //console.log(mission);
   return (
+    <>
     <div className="chapitretwo">
       <Dialog
         fullScreen={fullScreen}
@@ -3089,6 +3394,1523 @@ const Chapitreonze = () => {
         )}
       </div>
     </div>
+      <div className="chapitretwo">
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {passif.length > 0 ? (
+        <div className="tab">
+          
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}}> Bilans prévisionnels</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell style={{ minWidth: 300}}>Passif</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 200 }}>Annee 1</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 200 }}>Annee 2</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 200 }}>Annee 3</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 150 }}>Action</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {passif.map((item, index) => {
+                      return (
+                          <>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                            
+                                <TableCell><b>RESSOURCES STABLES</b></TableCell>
+                                <TableCell><b>{rsa1}</b></TableCell>
+                                <TableCell><b>{rsa2}</b></TableCell>
+                                <TableCell><b>{rsa3}</b></TableCell>
+                                <TableCell rowSpan="16">
+                                  <div className="delete">
+                                    <div className="edit">
+                                      <EditIcon onClick={() => handleModif2(item.docIdd, index)} />
+                                    </div>
+                                    <div className="delet">
+                                      <DeleteIcon onClick={() => deletePassif(item.docIdd)} />
+                                    </div>
+                                  </div>
+                                </TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                            
+                                <TableCell>Capital</TableCell>
+                                <TableCell>{item.capitala1}</TableCell>
+                                <TableCell>{item.capitala2}</TableCell>
+                                <TableCell>{item.capitala3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                            
+                                <TableCell>Réserves</TableCell>
+                                <TableCell>{item.reservea1}</TableCell>
+                                <TableCell>{item.reservea2}</TableCell>
+                                <TableCell>{item.reservea3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                            
+                                <TableCell>Report à nouveau</TableCell>
+                                <TableCell>{item.rapporta1}</TableCell>
+                                <TableCell>{item.rapporta2}</TableCell>
+                                <TableCell>{item.rapporta3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                            
+                                <TableCell>Résultat net</TableCell>
+                                <TableCell>{item.resultata1}</TableCell>
+                                <TableCell>{item.resultata2}</TableCell>
+                                <TableCell>{item.resultata3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                            
+                                <TableCell>Subventions</TableCell>
+                                <TableCell>{item.subventiona1}</TableCell>
+                                <TableCell>{item.subventiona2}</TableCell>
+                                <TableCell>{item.subventiona3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell>Emprunts à moyen et long terme</TableCell>
+                                <TableCell>{item.emprunta1}</TableCell>
+                                <TableCell>{item.emprunta2}</TableCell>
+                                <TableCell>{item.emprunta3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell>Provisions fin. pour risque et charge</TableCell>
+                                <TableCell>{item.provisiona1}</TableCell>
+                                <TableCell>{item.provisiona2}</TableCell>
+                                <TableCell>{item.provisiona3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#87bfad"}}>
+                                <TableCell><b>PASSIF CIRCULANT</b></TableCell>
+                                <TableCell><b>{pca1}</b></TableCell>
+                                <TableCell><b>{pca2}</b></TableCell>
+                                <TableCell><b>{pca3}</b></TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell>Dettes fournisseurs</TableCell>
+                                <TableCell>{item.dettea1}</TableCell>
+                                <TableCell>{item.dettea2}</TableCell>
+                                <TableCell>{item.dettea3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell>Personnel</TableCell>
+                                <TableCell>{item.personnela1}</TableCell>
+                                <TableCell>{item.personnela2}</TableCell>
+                                <TableCell>{item.personnela3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell>Organismes sociaux </TableCell>
+                                <TableCell>{item.organismea1}</TableCell>
+                                <TableCell>{item.organismea2}</TableCell>
+                                <TableCell>{item.organismea3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell>Etat et collectivités publiques  </TableCell>
+                                <TableCell>{item.etata1}</TableCell>
+                                <TableCell>{item.etata2}</TableCell>
+                                <TableCell>{item.etata3}</TableCell>
+                          </TableRow>
+                          
+                          <TableRow hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#87bfad"}}>
+                                <TableCell><b>TRESORERIE PASSIF </b></TableCell>
+                                <TableCell><b>{tpa1}</b></TableCell>
+                                <TableCell><b>{tpa2}</b></TableCell>
+                                <TableCell><b>{tpa3}</b></TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell> Dettes bancaires à CT </TableCell>
+                                <TableCell>{item.dettea1}</TableCell>
+                                <TableCell>{item.dettea2}</TableCell>
+                                <TableCell>{item.dettea3}</TableCell>
+                          </TableRow>
+                          <TableRow hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#1A88F0"}}>
+                                <TableCell><b>TOTAL</b></TableCell>
+                                <TableCell><b>{totalpassifa1}</b></TableCell>
+                                <TableCell><b>{totalpassifa2}</b></TableCell>
+                                <TableCell><b>{totalpassifa3}</b></TableCell>
+                          </TableRow>
+                        </>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
+        </div>
+      ) : (
+        <div className="tab">
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
+                <TableHead>
+                <TableRow>
+                    <StyledTableCell style={{ minWidth: 300}}>Passif</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 200 }}>Annee 1</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 200 }}>Annee 2</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 200 }}>Annee 3</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 150 }}>Action</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                    <StyledTableCell></StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+        </div>
+      )}
+
+      {load2 ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
+        <>
+        <div className="plus">
+          {!show2 && (
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow2(!show2)} 
+              endIcon={<Add/>}>
+              Ajouter
+            </Button>
+          )}
+        </div>
+        </>
+        )}
+      <div>
+        { idDoc2 ? (
+          <>
+        <Card>
+          <CardContent>
+
+            <form
+              noValidate
+              className={`${!show2 && "show"}`}
+              onSubmit={editPassif}
+            >
+              <div className="input">
+                
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="capitala1"
+                      label="Capital Année 1"
+                      name="capitala1"
+                      autoFocus
+                      type="number"
+                      value={credential.capitala1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="capitala2"
+                      label="Capital Année 2"
+                      name="capitala2"
+                      autoFocus
+                      type="number"
+                      value={credential.capitala2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="capitala3"
+                      label="Capital Année 3"
+                      name="capitala3"
+                      autoFocus
+                      type="number"
+                      value={credential.capitala3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="reservea1"
+                      label="Réserves Année 1"
+                      name="reservea1"
+                      autoFocus
+                      type="number"
+                      value={credential.reservea1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="reservea2"
+                      label="Réserves Année 2"
+                      name="reservea2"
+                      autoFocus
+                      type="number"
+                      value={credential.reservea2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="reservea3"
+                      label="Réserves Année 3"
+                      name="reservea3"
+                      autoFocus
+                      type="number"
+                      value={credential.reservea3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="rapporta1"
+                      label="Report à nouveau Année 1"
+                      name="rapporta1"
+                      autoFocus
+                      type="number"
+                      value={credential.rapporta1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="rapporta2"
+                      label="Report à nouveau Année 2"
+                      name="rapporta2"
+                      autoFocus
+                      type="number"
+                      value={credential.rapporta2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="rapporta3"
+                      label="Report à nouveau Année 3"
+                      name="rapporta3"
+                      autoFocus
+                      type="number"
+                      value={credential.rapporta3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="resultata1"
+                      label="Résultat net Année 1"
+                      name="resultata1"
+                      autoFocus
+                      type="number"
+                      value={credential.resultata1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="resultata2"
+                      label="Résultat net Année 2"
+                      name="resultata2"
+                      autoFocus
+                      type="number"
+                      value={credential.resultata2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="resultata3"
+                      label="Résultat net Année 3"
+                      name="resultata3"
+                      autoFocus
+                      type="number"
+                      value={credential.resultata3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="subventiona1"
+                      label="Subventions Année 1"
+                      name="subventiona1"
+                      autoFocus
+                      type="number"
+                      value={credential.subventiona1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="subventiona2"
+                      label="Subventions Année 2"
+                      name="subventiona2"
+                      autoFocus
+                      type="number"
+                      value={credential.subventiona2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="subventiona3"
+                      label="Subventions Année 3"
+                      name="subventiona3"
+                      autoFocus
+                      type="number"
+                      value={credential.subventiona3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="emprunta1"
+                      label="emprunts Année 1"
+                      name="emprunta1"
+                      autoFocus
+                      type="number"
+                      value={credential.emprunta1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="emprunta2"
+                      label="emprunts Année 2"
+                      name="emprunta2"
+                      autoFocus
+                      type="number"
+                      value={credential.emprunta2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="emprunta3"
+                      label="emprunts Année 3"
+                      name="emprunta3"
+                      autoFocus
+                      type="number"
+                      value={credential.emprunta3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="provisiona1"
+                      label="Provisions fin. pour risque et charge Année 1"
+                      name="provisiona1"
+                      autoFocus
+                      type="number"
+                      value={credential.provisiona1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="provisiona2"
+                      label="Provisions fin. pour risque et charge Année 2"
+                      name="provisiona2"
+                      autoFocus
+                      type="number"
+                      value={credential.provisiona2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="provisiona3"
+                      label="Provisions fin. pour risque et charge Année 3"
+                      name="provisiona3"
+                      autoFocus
+                      type="number"
+                      value={credential.provisiona3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="dettea1"
+                      label="Dettes fournisseurs  Année 1"
+                      name="dettea1"
+                      autoFocus
+                      type="number"
+                      value={credential.dettea1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="dettea2"
+                      label="Dettes fournisseurs  Année 2"
+                      name="dettea2"
+                      autoFocus
+                      type="number"
+                      value={credential.dettea2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="dettea3"
+                      label="Dettes fournisseurs  Année 3"
+                      name="dettea3"
+                      autoFocus
+                      type="number"
+                      value={credential.dettea3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="personnela1"
+                      label="Personnel  Année 1"
+                      name="personnela1"
+                      autoFocus
+                      type="number"
+                      value={credential.personnela1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="personnela2"
+                      label="Personnel  Année 2"
+                      name="personnela2"
+                      autoFocus
+                      type="number"
+                      value={credential.personnela2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="personnela3"
+                      label="Personnel  Année 3"
+                      name="personnela3"
+                      autoFocus
+                      type="number"
+                      value={credential.personnela3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="organismea1"
+                      label="Organismes sociaux Année 1"
+                      name="organismea1"
+                      autoFocus
+                      type="number"
+                      value={credential.organismea1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="organismea2"
+                      label="Organismes sociaux Année 2"
+                      name="organismea2"
+                      autoFocus
+                      type="number"
+                      value={credential.organismea2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="organismea3"
+                      label="Organismes sociaux Année 3"
+                      name="organismea3"
+                      autoFocus
+                      type="number"
+                      value={credential.organismea3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="etata1"
+                      label="Etat et collectivités publiques  Année 1"
+                      name="etata1"
+                      autoFocus
+                      type="number"
+                      value={credential.etata1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="etata2"
+                      label="Etat et collectivités publiques  Année 2"
+                      name="etata2"
+                      autoFocus
+                      type="number"
+                      value={credential.etata2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="etata3"
+                      label="Etat et collectivités publiques  Année 3"
+                      name="etata3"
+                      autoFocus
+                      type="number"
+                      value={credential.etata3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="detteba1"
+                      label="Dettes bancaires à CT Année 1"
+                      name="detteba1"
+                      autoFocus
+                      type="number"
+                      value={credential.detteba1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="detteba2"
+                      label="Dettes bancaires à CT Année 2"
+                      name="detteba2"
+                      autoFocus
+                      type="number"
+                      value={credential.detteba2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="detteba3"
+                      label="Dettes bancaires à CT Année 3"
+                      name="detteba3"
+                      autoFocus
+                      type="number"
+                      value={credential.detteba3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                 <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow2(!show2)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
+
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
+            
+        </CardContent>
+        </Card>
+        </>
+        ): (
+          <>
+          <Card variant="outlined" className={`${!show2 && "show"}`}>
+            <CardContent>
+               <form onSubmit={onSubmit2} noValidate>
+                <div className="input">
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="capitala1"
+                      label="Capital Année 1"
+                      name="capitala1"
+                      autoFocus
+                      type="number"
+                      value={credential.capitala1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="capitala2"
+                      label="Capital Année 2"
+                      name="capitala2"
+                      autoFocus
+                      type="number"
+                      value={credential.capitala2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="capitala3"
+                      label="Capital Année 3"
+                      name="capitala3"
+                      autoFocus
+                      type="number"
+                      value={credential.capitala3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="reservea1"
+                      label="Réserves Année 1"
+                      name="reservea1"
+                      autoFocus
+                      type="number"
+                      value={credential.reservea1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="reservea2"
+                      label="Réserves Année 2"
+                      name="reservea2"
+                      autoFocus
+                      type="number"
+                      value={credential.reservea2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="reservea3"
+                      label="Réserves Année 3"
+                      name="reservea3"
+                      autoFocus
+                      type="number"
+                      value={credential.reservea3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="rapporta1"
+                      label="Report à nouveau Année 1"
+                      name="rapporta1"
+                      autoFocus
+                      type="number"
+                      value={credential.rapporta1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="rapporta2"
+                      label="Report à nouveau Année 2"
+                      name="rapporta2"
+                      autoFocus
+                      type="number"
+                      value={credential.rapporta2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="rapporta3"
+                      label="Report à nouveau Année 3"
+                      name="rapporta3"
+                      autoFocus
+                      type="number"
+                      value={credential.rapporta3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="resultata1"
+                      label="Résultat net Année 1"
+                      name="resultata1"
+                      autoFocus
+                      type="number"
+                      value={credential.resultata1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="resultata2"
+                      label="Résultat net Année 2"
+                      name="resultata2"
+                      autoFocus
+                      type="number"
+                      value={credential.resultata2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="resultata3"
+                      label="Résultat net Année 3"
+                      name="resultata3"
+                      autoFocus
+                      type="number"
+                      value={credential.resultata3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="subventiona1"
+                      label="Subventions Année 1"
+                      name="subventiona1"
+                      autoFocus
+                      type="number"
+                      value={credential.subventiona1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="subventiona2"
+                      label="Subventions Année 2"
+                      name="subventiona2"
+                      autoFocus
+                      type="number"
+                      value={credential.subventiona2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="subventiona3"
+                      label="Subventions Année 3"
+                      name="subventiona3"
+                      autoFocus
+                      type="number"
+                      value={credential.subventiona3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="emprunta1"
+                      label="emprunts Année 1"
+                      name="emprunta1"
+                      autoFocus
+                      type="number"
+                      value={credential.emprunta1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="emprunta2"
+                      label="emprunts Année 2"
+                      name="emprunta2"
+                      autoFocus
+                      type="number"
+                      value={credential.emprunta2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="emprunta3"
+                      label="emprunts Année 3"
+                      name="emprunta3"
+                      autoFocus
+                      type="number"
+                      value={credential.emprunta3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="provisiona1"
+                      label="Provisions fin. pour risque et charge Année 1"
+                      name="provisiona1"
+                      autoFocus
+                      type="number"
+                      value={credential.provisiona1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="provisiona2"
+                      label="Provisions fin. pour risque et charge Année 2"
+                      name="provisiona2"
+                      autoFocus
+                      type="number"
+                      value={credential.provisiona2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="provisiona3"
+                      label="Provisions fin. pour risque et charge Année 3"
+                      name="provisiona3"
+                      autoFocus
+                      type="number"
+                      value={credential.provisiona3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="dettea1"
+                      label="Dettes fournisseurs  Année 1"
+                      name="dettea1"
+                      autoFocus
+                      type="number"
+                      value={credential.dettea1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="dettea2"
+                      label="Dettes fournisseurs  Année 2"
+                      name="dettea2"
+                      autoFocus
+                      type="number"
+                      value={credential.dettea2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="dettea3"
+                      label="Dettes fournisseurs  Année 3"
+                      name="dettea3"
+                      autoFocus
+                      type="number"
+                      value={credential.dettea3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="personnela1"
+                      label="Personnel  Année 1"
+                      name="personnela1"
+                      autoFocus
+                      type="number"
+                      value={credential.personnela1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="personnela2"
+                      label="Personnel  Année 2"
+                      name="personnela2"
+                      autoFocus
+                      type="number"
+                      value={credential.personnela2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="personnela3"
+                      label="Personnel  Année 3"
+                      name="personnela3"
+                      autoFocus
+                      type="number"
+                      value={credential.personnela3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="organismea1"
+                      label="Organismes sociaux Année 1"
+                      name="organismea1"
+                      autoFocus
+                      type="number"
+                      value={credential.organismea1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="organismea2"
+                      label="Organismes sociaux Année 2"
+                      name="organismea2"
+                      autoFocus
+                      type="number"
+                      value={credential.organismea2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="organismea3"
+                      label="Organismes sociaux Année 3"
+                      name="organismea3"
+                      autoFocus
+                      type="number"
+                      value={credential.organismea3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="etata1"
+                      label="Etat et collectivités publiques  Année 1"
+                      name="etata1"
+                      autoFocus
+                      type="number"
+                      value={credential.etata1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="etata2"
+                      label="Etat et collectivités publiques  Année 2"
+                      name="etata2"
+                      autoFocus
+                      type="number"
+                      value={credential.etata2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="etata3"
+                      label="Etat et collectivités publiques  Année 3"
+                      name="etata3"
+                      autoFocus
+                      type="number"
+                      value={credential.etata3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="detteba1"
+                      label="Dettes bancaires à CT Année 1"
+                      name="detteba1"
+                      autoFocus
+                      type="number"
+                      value={credential.detteba1}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="detteba2"
+                      label="Dettes bancaires à CT Année 2"
+                      name="detteba2"
+                      autoFocus
+                      type="number"
+                      value={credential.detteba2}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="detteba3"
+                      label="Dettes bancaires à CT Année 3"
+                      name="detteba3"
+                      autoFocus
+                      type="number"
+                      value={credential.detteba3}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                      InputProps={{
+                          startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                />
+                   <Button
+                    type="submit"
+                    className="plus-icon"
+                    style={{ width: 300}}
+                    endIcon={<SaveIcon/>}
+                    onClick={() => setShow2(!show2)}
+                    style={{color: 'white', background:'#18A4F6'}} 
+                  >
+                    Enregistrer
+                </Button>
+                </div>
+          </form>
+            </CardContent>
+          </Card>
+        </>
+        )}
+      </div>
+    </div>
+  </>
   );
 };
 

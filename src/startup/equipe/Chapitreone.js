@@ -176,7 +176,7 @@ const Chapitreone = () => {
                     <StyledTableCell>Diplômes</StyledTableCell>
                     <StyledTableCell style={{minWidth:200}}>Expériences</StyledTableCell>
                     <StyledTableCell>Capital détenu</StyledTableCell>
-                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

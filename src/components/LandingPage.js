@@ -5,67 +5,33 @@ import "./LandingPage.css";
 //import jsPDF from "jspdf";
 import pdf from './pdf.png';
 
-import { useGlobalContext } from "../context/context";
-import { firebasee } from "../context/firebase";
+import BesoinComponent from "./pdf/besoinComponent";
+import SolutionComponent from './pdf/SolutionComponent';
+import BusinessModelComponent from "./pdf/BusinessModelComponent";
+import Historique from "./pdf/Historique";
+import Mission from "./pdf/Mission";
+import StatutJuridique from "./pdf/StatutJuridique";
+import Avancement from "./pdf/Avancement";
+import Promoteur from "./pdf/equipe/Promoteur";
+import EquipeDirigente from "./pdf/equipe/EquipeDirigeante";
+import Personnel from "./pdf/equipe/Personnel";
+import Partenaire from "./pdf/equipe/Partenaire";
+import Analyse from "./pdf/marche/Analyse";
+import Segment from "./pdf/marche/Segment";
+import Fournisseur from "./pdf/marche/Fournisseur";
+import Concurrent from "./pdf/marche/Concurrent";
+import Avantage from "./pdf/marche/Avantage";
+import Prescripteur from "./pdf/marche/Prescripteur";
+import Strategie from "./pdf/marketing/strategie";
+import Mix from "./pdf/marketing/Mix";
+import PlanAction from "./pdf/marketing/PlanAction";
 
 const  LandingPage = () => {
 
-  const { userId } = useGlobalContext();
-  const [besoin, setBesoin] = React.useState([]);
-  const [produit, setProduit] = React.useState([]);
-  
-  const getBesoin = () => {
-    return firebasee
-      .firestore()
-      .collection("besoins")
-      .where("userId", "==", userId)
-      .get()
-      .then((data) => {
-        let dat = [];
-        data.forEach((doc) => {
-          //setIdDoc(doc.id);
-          dat.push({
-            besoin: doc.data().besoin,
-            id: doc.data().userId,
-            docIdd: doc.id,
-          });
-        });
-        //console.log("dat " + dat[0].docIdd)
-        setBesoin(dat);
-      })
-      .catch((err) => console.log(err));
-  };
-  const getProduitProjet = () => {
-    return firebasee
-      .firestore()
-      .collection("produitprojet")
-      .where("userId", "==", userId)
-      .get()
-      .then((data) => {
-        let dat = [];
-        data.forEach((doc) => {
-          //setIdDoc(doc.id);
-          dat.push({
-            nom: doc.data().nom,
-            description: doc.data().description,
-            id: doc.data().userId,
-            docIdd: doc.id,
-          });
-        });
-        //console.log("dat " + dat[0].docIdd)
-        setProduit(dat);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  React.useEffect(() => {
-    getBesoin();
-    getProduitProjet();
-  }, []);
   //document.querySelector("#capture").hidden = true;  
   
   function jsPDFform() {
-    const doc = new jsPDF("p","pt","a4");
+    const doc = new jsPDF("p","pt","a3");
     //document.getElementById("capture").hidden = false;
     doc.html(document.querySelector("#capture"),{
         callback: function(pdf) {
@@ -87,54 +53,160 @@ const  LandingPage = () => {
                     <hr/>
                 </div>
                 <div className="desc">
-                    {besoin.map((item, index) => {
-                        return (
-                            <>
-                            <p> - {item.besoin}</p>
-                            </>
-                        )
-                    })}
+                    <BesoinComponent />
                 </div>
                 <div className="subtitle">
                     <p>1.2 Solution/Produits/Services</p>
                     <hr/>
                 </div>
                 <div className="desc">
-                    {produit.length > 0 ? (
-                        <table>
-                            <thead>
-                            <tr>
-                            <th>Nom du produit/service</th>
-                            <th>Description du produit/service</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {produit.map((item, index) => {
-                                return (
-                                    <>
-                                    <tr>
-                                        <td>{item.nom}</td>
-                                        <td>{item.description}</td>
-                                    </tr>
-                                    </>
-                                );
-                                })}
-                            </tbody>
-                        </table>
-                        ) : (
-                                <p>Cette partie n'a pas encore été remplis</p>
-                        )}
+                    <SolutionComponent />
+                </div>
+                <div className="subtitle">
+                    <p>1.3 Business model</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <BusinessModelComponent />
+                </div>
+                <div className="subtitle">
+                    <p>1.4 Historique succinct du projet</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Historique />
+                </div>
+                <div className="subtitle">
+                    <p>1.6 Mission, Vision et Objectifs </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Mission />
+                </div>
+                <div className="subtitle">
+                    <p>1.7 Statut juridique </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <StatutJuridique />
+                </div>
+                <div className="subtitle">
+                    <p>1.8 Etat d’avancement du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Avancement />
+                </div>
+                <div className="title">
+                    <p>2. L’EQUIPE </p>
+                </div>
+                <div className="subtitle">
+                    <p>2.1 Promoteur(s)</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Promoteur />
+                </div>
+                <div className="subtitle">
+                    <p>2.2 L’équipe dirigeante</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <EquipeDirigente />
+                </div>
+                <div className="subtitle">
+                    <p>2.3 Personnel</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Personnel />
+                </div>
+                <div className="subtitle">
+                    <p>2.4 Partenaires clés</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Partenaire />
+                </div>
+                <div className="title">
+                    <p>3. LE MARCHE </p>
+                </div>
+                <div className="subtitle">
+                    <p>3.1 Analyse du marché </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Analyse />
+                </div>
+                <div className="subtitle">
+                    <p>3.2 Segments de Clients </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Segment />
+                </div>
+                <div className="subtitle">
+                    <p>3.3 Fournisseurs clés </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Fournisseur />
+                </div>
+                <div className="subtitle">
+                    <p>3.4 Concurrents </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Concurrent />
+                </div>
+                <div className="subtitle">
+                    <p>3.5 Notre avantage concurrentiel </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Avantage />
+                </div>
+                <div className="subtitle">
+                    <p>3.6 Prescripteurs </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Prescripteur />
+                </div>
+                <div className="title">
+                    <p>4. STRATEGIE ET MARKETING MIX </p>
+                </div>
+                <div className="subtitle">
+                    <p>4.1 Stratégie Marketing </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <Strategie/>
+                </div>
+                <div className="subtitle">
+                    <p>4.2	Marketing Mix</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <Mix/>
+                </div>
+                <div className="subtitle">
+                    <p>4.3	Plan d’actions commercial</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <PlanAction/>
                 </div>
             </div>
-        <div className="chapitretwo-title">
+        <div className="chapitretwo-title" style={{marginTop:20}}>
             <h3>Télécharge le business plan pour start-up</h3>
             <h4>Fluxplan</h4>
             <div style={{margin: 20}}>    
                 <img src={pdf} width="150" />
             </div>
-            </div>
-        <button onClick={jsPDFform}>download</button>
         </div>
+            <button onClick={jsPDFform}>download</button>
+      </div>
     );
 }
 //ReactDOM.render(<LandingPage />, document.getElementById('root'));
