@@ -25,6 +25,8 @@ import Prescripteur from "./pdf/marche/Prescripteur";
 import Strategie from "./pdf/marketing/strategie";
 import Mix from "./pdf/marketing/Mix";
 import PlanAction from "./pdf/marketing/PlanAction";
+import Cout from "./pdf/projection/cout";
+import Schema from "./pdf/projection/Schema";
 
 const  LandingPage = () => {
 
@@ -196,6 +198,23 @@ const  LandingPage = () => {
                 </div>
                 <div className="desc">
                   <PlanAction/>
+                </div>
+                <div className="title">
+                    <p>5. PROJECTIONS FINANCIERES </p>
+                </div>
+                <div className="subtitle">
+                    <p>5.1 Coût du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <Cout/>
+                </div>
+                <div className="subtitle">
+                    <p>• 5.2 Schéma de financement du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <Schema/>
                 </div>
             </div>
         <div className="chapitretwo-title" style={{marginTop:20}}>

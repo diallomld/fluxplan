@@ -301,7 +301,7 @@ const Chapitretwop = () => {
                             
                                 <TableCell>{item.elements}</TableCell>
                                 <TableCell>{item.montant}</TableCell>
-                                <TableCell>x%</TableCell>
+                                <TableCell>{Math.round((item.montant/total)*100)}%</TableCell>
                                 <TableCell>
                                   <div className="delete">
                                     <div className="edit">
@@ -323,14 +323,14 @@ const Chapitretwop = () => {
                     <TableCell></TableCell>
                   </TableRow>
                   {finance.map((item, index) => {
-                      if (item.typeFinancement=="exterieur") {
+                      if (item.typeFinancement=="exterieur" || item.typeFinancement=="externe") {
                         
                         return (
                           <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                             
                                 <TableCell>{item.elements}</TableCell>
                                 <TableCell>{item.montant}</TableCell>
-                                <TableCell>x%</TableCell>
+                                <TableCell>{Math.round((item.montant/total)*100)}%</TableCell>
                                 <TableCell>
                                   <div className="delete">
                                     <div className="edit">
