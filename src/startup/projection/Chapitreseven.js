@@ -608,7 +608,7 @@ const Chapitresevenp = () => {
                 <caption style={{color: 'black', fontSize:20}}> Comptes de résultat prévisionnels sur 3 ans</caption>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell style={{ mixWidth: 400}}>Libelle</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 300}}>Libelle</StyledTableCell>
                     <StyledTableCell style={{ minWidth: 150 }}>Annee 1</StyledTableCell>
                     <StyledTableCell style={{ minWidth: 150 }}>Annee 2</StyledTableCell>
                     <StyledTableCell style={{ minWidth: 150 }}>Annee 3</StyledTableCell>
@@ -638,7 +638,7 @@ const Chapitresevenp = () => {
                               </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Autres Charges</TableCell>
+                            <TableCell>Autres Produits</TableCell>
                             <TableCell>{item.autreproduit1}</TableCell>
                             <TableCell>{item.autreproduit2}</TableCell>
                             <TableCell>{item.autreproduit3}</TableCell>

@@ -83,6 +83,10 @@ const Chapitrefivep = () => {
   const [errorAnnee1, setErrorAnnee1] = React.useState(true);
   const [errorAnnee2, setErrorAnnee2] = React.useState(true);
   const [errorAnnee3, setErrorAnnee3] = React.useState(true);
+  
+  const [Totala1, setTotala1] = React.useState(0);
+  const [Totala2, setTotala2] = React.useState(0);
+  const [Totala3, setTotala3] = React.useState(0);
 
   const classes = useStyles();
 
@@ -208,6 +212,9 @@ const Chapitrefivep = () => {
       .get()
       .then((data) => {
         let dat = [];
+        let ta1 = 0
+        let ta2 = 0
+        let ta3 = 0
         data.forEach((doc) => {
           dat.push({
             elements: doc.data().elements,
@@ -217,7 +224,14 @@ const Chapitrefivep = () => {
             id: doc.data().userId,
             docIdd: doc.id,
           });
+          ta1+=Number(doc.data().annee1)
+          ta2+=Number(doc.data().annee2)
+          ta3+=Number(doc.data().annee3)
         });
+        console.log("anne 2 "+ta2)
+        setTotala1(ta1)
+        setTotala2(ta2)
+        setTotala3(ta3)
         setPrevision(dat);
         setLoad(false)
       })
@@ -321,6 +335,12 @@ const Chapitrefivep = () => {
                         </TableRow>
                       );
                     })}
+                    <TableRow style={{backgroundColor:'#18A4F6', color:'black'}}>
+                        <TableCell>Total</TableCell>
+                        <TableCell>{Totala1}</TableCell>
+                        <TableCell>{Totala2}</TableCell>
+                        <TableCell>{Totala3}</TableCell>
+                    </TableRow>
                 </TableBody>
               </Table>
             </TableContainer>

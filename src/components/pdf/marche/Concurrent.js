@@ -57,8 +57,8 @@ const Concurrent = ()=>{
                             <td>{item.nom}</td>
                             <td>{item.localisation}</td>
                             <td>{item.produit}</td>
-                            <td style={{minWidth:200}}>{item.force}</td>
-                            <td style={{minWidth:200}}>{item.faiblesse}</td>
+                            <td style={{minWidth:150}}>{item.force}</td>
+                            <td style={{minWidth:150}}>{item.faiblesse}</td>
                         </tr>
                         </>
                     );

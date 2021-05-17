@@ -27,6 +27,10 @@ import Mix from "./pdf/marketing/Mix";
 import PlanAction from "./pdf/marketing/PlanAction";
 import Cout from "./pdf/projection/cout";
 import Schema from "./pdf/projection/Schema";
+import Hypothese from "./pdf/projection/Hypothese";
+import PrevisionAnnee1 from "./pdf/projection/PrevisionAnnee1";
+import PrevisionAnnee3 from "./pdf/projection/PrevisionAnnee3";
+import CompteResultat from "./pdf/projection/CompteResultat";
 
 const  LandingPage = () => {
 
@@ -215,6 +219,25 @@ const  LandingPage = () => {
                 </div>
                 <div className="desc">
                   <Schema/>
+                </div>
+                <div className="subtitle">
+                    <p>• 5.3 Chiffres d’affaires prévisionnels </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <b>• Hypothèses</b><br/>
+                  <Hypothese/>
+                    <br/><b>•  Chiffre d’affaires prévisionnel de la première année</b><br/><br/>
+                  <PrevisionAnnee1/>
+                    <b>•  Chiffre d’affaires prévisionnel sur 3 ans </b><br/><br/>
+                  <PrevisionAnnee3/>
+                </div>
+                <div className="subtitle">
+                    <p>6.3 Comptes de résultat prévisionnels sur 3 ans </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <CompteResultat/>
                 </div>
             </div>
         <div className="chapitretwo-title" style={{marginTop:20}}>

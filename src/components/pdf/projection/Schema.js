@@ -54,7 +54,6 @@ const Schema = ()=>{
                         <td style={{fontSize:20}}><b>Financement interne</b></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                     </tr>
                     
                     {finance.map((item, index) => {
@@ -75,7 +74,6 @@ const Schema = ()=>{
                         <td style={{fontSize:20}}><b>Financement exterieur</b></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                     </tr>
                   {finance.map((item, index) => {
                       if (item.typeFinancement=="exterieur" || item.typeFinancement=="externe") {
@@ -93,7 +91,7 @@ const Schema = ()=>{
                     <tr>
                         <td style={{color: 'black', fontSize:20}}>TOTAL</td>
                         <td style={{color: 'black', fontSize:20}}>{total} FCFA</td>
-                        <td colSpan="2" style={{color: 'black', fontSize:20}}>100%</td>
+                        <td style={{color: 'black', fontSize:20}}>100%</td>
                     </tr>
                     
                 </tbody>
