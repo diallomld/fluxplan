@@ -31,6 +31,11 @@ import Hypothese from "./pdf/projection/Hypothese";
 import PrevisionAnnee1 from "./pdf/projection/PrevisionAnnee1";
 import PrevisionAnnee3 from "./pdf/projection/PrevisionAnnee3";
 import CompteResultat from "./pdf/projection/CompteResultat";
+import Passif from "./pdf/projection/Passif";
+import Tresorerie from "./pdf/projection/Tresorerie";
+import Indicateur from "./pdf/projection/Indicateur";
+import SeuilRentabilite from "./pdf/projection/SeuilRentabilite";
+import AnalyseRisque from "./pdf/projection/AnalyseRisque";
 
 const  LandingPage = () => {
 
@@ -238,6 +243,44 @@ const  LandingPage = () => {
                 </div>
                 <div className="desc">
                   <CompteResultat/>
+                </div>
+                <div className="subtitle">
+                    <p>6.4 Bilans prévisionnels </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <Bilan/>
+                  <Passif/>
+                </div>
+                <div className="subtitle">
+                    <p>6.5 Plan de trésorerie de la première année </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <Tresorerie/>
+                </div>
+                <div className="subtitle">
+                    <p>6.6 Plan de financement </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <PlanFinancement/>
+                </div>
+                <div className="subtitle">
+                    <p>6.7 Etude de la rentabilité du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <b>• Seuil de rentabilité</b><br/>
+                    <SeuilRentabilite/><br/>
+                    <b>•	Indicateurs de mesure de rentabilité du projet</b>
+                    <Indicateur/>
+                </div>
+                <div className="title">
+                    <p>7. ANALYSE DES RISQUES </p>
+                </div>
+                <div className="desc">
+                    <AnalyseRisque />
                 </div>
             </div>
         <div className="chapitretwo-title" style={{marginTop:20}}>

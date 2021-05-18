@@ -238,7 +238,7 @@ const Chapitrethreep = () => {
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:30}}>hypotheses Chiffres d’affaires prévisionnels</caption>
+                <caption style={{color: 'black', fontSize:30}}>hypotheses</caption>
                 <TableHead>
                   <TableRow>
                     <StyledTableCell style={{ maxWidth: 300}}>hypothese</StyledTableCell>
