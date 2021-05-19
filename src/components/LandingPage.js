@@ -36,6 +36,8 @@ import Tresorerie from "./pdf/projection/Tresorerie";
 import Indicateur from "./pdf/projection/Indicateur";
 import SeuilRentabilite from "./pdf/projection/SeuilRentabilite";
 import AnalyseRisque from "./pdf/projection/AnalyseRisque";
+import PlanFinancement from "./pdf/projection/PlanFinancement";
+import Bilan from "./pdf/projection/Bilan.";
 
 const  LandingPage = () => {
 

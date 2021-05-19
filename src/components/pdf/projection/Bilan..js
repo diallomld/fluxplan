@@ -305,7 +305,6 @@ const Bilan = ()=>{
 
   React.useEffect(() => {
     getDate()
-    getDate2()
   }, []);
 
   return(
@@ -314,23 +313,22 @@ const Bilan = ()=>{
             <table>
                 <thead>
                     <tr>
-                        <th style={{ minWidth: 300}}>Actif</th>
-                        <th style={{ minWidth: 300 }} colSpan="3">Annee 1</th>
-                        <th style={{ minWidth: 300 }} colSpan="3">Annee 2</th>
-                        <th style={{ minWidth: 300 }} colSpan="3">Annee 3</th>
-                        <th style={{ maxWidth: 300 }} colSpan="3">Action</th>
+                        <th style={{ minWidth: 100}}>Actif</th>
+                        <th style={{ minWidth: 200 }} colSpan="3">Annee 1</th>
+                        <th style={{ minWidth: 200 }} colSpan="3">Annee 2</th>
+                        <th style={{ minWidth: 200 }} colSpan="3">Annee 3</th>
                     </tr>
                     <tr>
-                        <th style={{ minWidth: 300 }}></th>
-                        <th style={{ minWidth: 150 }}>Brut</th>
-                        <th style={{ minWidth: 200 }}>Amort. Et prov</th>
-                        <th style={{ minWidth: 150 }}>Net</th>
-                        <th style={{ minWidth: 150 }}>Brut</th>
-                        <th style={{ minWidth: 200 }}>Amort. Et prov</th>
-                        <th style={{ minWidth: 150 }}>Net</th>
-                        <th style={{ minWidth: 150 }}>Brut</th>
-                        <th style={{ minWidth: 200 }}>Amort. Et prov</th>
-                        <th style={{ minWidth: 150 }}>Net</th>
+                        <th></th>
+                        <th>Brut</th>
+                        <th>Amort. Et prov</th>
+                        <th>Net</th>
+                        <th>Brut</th>
+                        <th>Amort. Et prov</th>
+                        <th>Net</th>
+                        <th>Brut</th>
+                        <th>Amort. Et prov</th>
+                        <th>Net</th>
                     </tr>
                 </thead>
                 <tbody>

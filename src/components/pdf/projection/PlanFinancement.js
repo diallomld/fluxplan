@@ -140,12 +140,11 @@ const PlanFinancement = ()=>{
             <table>
                 <thead>
                 <tr>
-                    <th style={{ minWidth: 300}}></th>
-                    <th style={{ minWidth: 150}}>Année 0</th>
-                    <th style={{ minWidth: 150 }}>Annee 1</th>
-                    <th style={{ minWidth: 150 }}>Annee 2</th>
-                    <th style={{ minWidth: 150 }}>Annee 3</th>
-                    <th style={{ minWidth: 100 }}>Action</th>
+                    <th style={{ minWidth: 200}}></th>
+                    <th>Année 0</th>
+                    <th>Annee 1</th>
+                    <th>Annee 2</th>
+                    <th>Annee 3</th>
                   
                 </tr>
                 </thead>
@@ -166,16 +165,6 @@ const PlanFinancement = ()=>{
                             <td>{item.invest1}</td>
                             <td>{item.invest2}</td>
                             <td>{item.invest3}</td>
-                            <td rowSpan="18">
-                                <div className="delete">
-                                  <div className="edit">
-                                    <EditIcon style={{color:'blue'}} onClick={() => handleModif(item.docIdd, index)} />
-                                  </div>
-                                  <div className="delet">
-                                    <DeleteIcon style={{color:'red'}} onClick={() => deleteplan(item.docIdd)} />
-                                  </div>
-                                </div>
-                            </td>
                         </tr>
                         <tr>
                             <td>Variation du Besoin en fonds de roulement</td>

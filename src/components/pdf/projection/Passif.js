@@ -25,7 +25,6 @@ const Passif = ()=>{
     const [totalpassifa3,setTotalpassifa3] = React.useState()
 
       const getDate = () => {
-        setLoad2(true)
         return firebasee
           .firestore()
           .collection("bilan-passif")
@@ -126,7 +125,6 @@ const Passif = ()=>{
             
             });
             setPassif(dat);
-            setLoad2(false)
           })
           .catch((err) => console.log(err));
       };
@@ -141,14 +139,12 @@ const Passif = ()=>{
             <table>
                 <thead>
                     <tr>
-                        <th style={{ minWidth: 300}}>Passif</th>
-                        <th style={{ minWidth: 200 }}>Annee 1</th>
-                        <th style={{ minWidth: 200 }}>Annee 2</th>
-                        <th style={{ minWidth: 200 }}>Annee 3</th>
-                        <th style={{ minWidth: 150 }}>Action</th>
+                        <th style={{ minWidth: 200}}>Passif</th>
+                        <th style={{ minWidth: 150 }}>Annee 1</th>
+                        <th style={{ minWidth: 150 }}>Annee 2</th>
+                        <th style={{ minWidth: 150 }}>Annee 3</th>
                     </tr>
                     <tr>
-                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>

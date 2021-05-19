@@ -34,7 +34,7 @@ const AnalyseRisque = ()=>{
 
   return(
     <>
-        {cout.length > 0 ? (
+        {risque.length > 0 ? (
             <table>
                 <thead>
                 <tr>
@@ -43,7 +43,7 @@ const AnalyseRisque = ()=>{
                 </tr>
                 </thead>
                 <tbody>
-                    {cout.map((item, index) => {
+                    {risque.map((item, index) => {
                     return (
                         <>
                         <tr key={index}>

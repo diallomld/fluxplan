@@ -797,19 +797,19 @@ const Tresorerie = ()=>{
             <table>
                 <thead>
                     <tr>
-                        <th style={{ minWidth: 300}}></th>
-                        <th style={{ minWidth: 150}}>Mois 1</th>
-                        <th style={{ minWidth: 150}}>Mois 2</th>
-                        <th style={{ minWidth: 150}}>Mois 3</th>
-                        <th style={{ minWidth: 150}}>Mois 4</th>
-                        <th style={{ minWidth: 150}}>Mois 5</th>
-                        <th style={{ minWidth: 150}}>Mois 6</th>
-                        <th style={{ minWidth: 150}}>Mois 7</th>
-                        <th style={{ minWidth: 150}}>Mois 8</th>
-                        <th style={{ minWidth: 150}}>Mois 9</th>
-                        <th style={{ minWidth: 150}}>Mois 10</th>
-                        <th style={{ minWidth: 150}}>Mois 11</th>
-                        <th style={{ minWidth: 150}}>Mois 12</th>
+                        <th style={{ minWidth: 50}}></th>
+                        <th>Mois 1</th>
+                        <th>Mois 2</th>
+                        <th>Mois 3</th>
+                        <th>Mois 4</th>
+                        <th>Mois 5</th>
+                        <th>Mois 6</th>
+                        <th>Mois 7</th>
+                        <th>Mois 8</th>
+                        <th>Mois 9</th>
+                        <th>Mois 10</th>
+                        <th>Mois 11</th>
+                        <th>Mois 12</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -817,7 +817,7 @@ const Tresorerie = ()=>{
                     return (
                         <>
                             <tr style={{backgroundColor:'#18A4F6'}}>
-                                <td><b>Solde de debut de mois</b></td>
+                                <td style={{ minWidth: 50}}><b>Solde de debut de mois</b></td>
                                 <td><b>{soldeDebutDuMois1}</b></td>
                                 <td><b>{soldeDebutDuMois2}</b></td>
                                 <td><b>{soldeDebutDuMois3}</b></td>
@@ -1435,11 +1435,6 @@ const Tresorerie = ()=>{
                         </>
                     );
                     })}
-                    <tr>
-                    <td style={{color: 'black', fontSize:30}}>Total Investissements</td>
-                    <td colSpan="3" style={{color: 'black', fontSize:30}}>{total} FCFA</td>
-
-                    </tr>
                     
                 </tbody>
             </table>
