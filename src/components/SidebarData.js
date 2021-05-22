@@ -1,10 +1,8 @@
 import React from "react";
 
-import * as FaIcons from "react-icons/fa";
 import * as IoIcons from "react-icons/io";
 import * as AiIcons from "react-icons/ai";
 import * as RiIcons from "react-icons/ri";
-import GetAppIcon from "@material-ui/icons/GetApp";
 
 export const SidebarData = [
   {
@@ -206,17 +204,6 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
       },
     ],
-  },
-
-  {
-    title: "ANALYSE DES RISQUES",
-    path: "/analyse",
-    icon: <IoIcons.IoMdFunnel />,
-  },
-  {
-    title: "TELECHARGER",
-    path: "/download",
-    icon: <IoIcons.IoMdDownload />,
   },
 ];
 
