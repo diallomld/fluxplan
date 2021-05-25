@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
   },
   nested: {
     paddingLeft: theme.spacing(4),
@@ -118,7 +118,7 @@ function Sidebar(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} style={{backgroundColor:"black"}}>
-          <img style={{ width: 280+'px', height:80 }} src={require("../assets/le-logo.jpeg").default} />
+          <img className="img" src={require("../assets/le-logo.jpeg").default} />
           
           <ExitToAppIcon className="logout" onClick={() => handleClick2()} />
       </div>
@@ -171,7 +171,7 @@ function Sidebar(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" style={{backgroundColor:'#14abc3'}} className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
