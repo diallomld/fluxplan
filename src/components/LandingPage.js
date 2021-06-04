@@ -49,7 +49,7 @@ const  LandingPage = () => {
     doc.html(document.querySelector("#capture"),{
         callback: function(pdf) {
             //console.log(pdf)
-            pdf.save("myPdf.pdf");
+            pdf.save("mon-business-plan.pdf");
             //document.getElementById("capture").hidden = true;
         }
     },[30,30,30,30])
@@ -57,6 +57,14 @@ const  LandingPage = () => {
 
     return (
         <div className="chapitretwo">
+            <div className="chapitretwo-title" style={{marginTop:20}}>
+                <h3>Télécharge le business plan pour start-up</h3>
+                <h4>Fluxplan</h4>
+                <div style={{margin: 20}}>    
+                    <img src={pdf} width="150" />
+                </div>
+            </div>
+            <button onClick={jsPDFform} className="bouton">download</button>
            <div id="capture" className="projet">
                 <div className="title">
                     <p>1. LE PROJET</p>
@@ -285,15 +293,8 @@ const  LandingPage = () => {
                     <AnalyseRisque />
                 </div>
             </div>
-        <div className="chapitretwo-title" style={{marginTop:20}}>
-            <h3>Télécharge le business plan pour start-up</h3>
-            <h4>Fluxplan</h4>
-            <div style={{margin: 20}}>    
-                <img src={pdf} width="150" />
-            </div>
+        
         </div>
-            <button onClick={jsPDFform}>download</button>
-      </div>
     );
 }
 //ReactDOM.render(<LandingPage />, document.getElementById('root'));

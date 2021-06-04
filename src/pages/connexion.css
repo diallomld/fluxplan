@@ -1,0 +1,55 @@
+.MuiTypography-h5{
+    margin-right: 93px !important;
+}
+.makeStyles-avatar-2{
+    margin-right: 58px !important;
+}
+
+@media screen and (min-width: 900px) {
+    .MuiAvatar-circle{
+        margin-right: 93px;
+        margin-left: 132px !important;
+    }
+    .MuiBox-root-17 {
+        margin-right: 100px !important;
+    }
+    .makeStyles-avatar-2{
+        margin-right: 58px !important;
+    }
+}
+@media screen and (max-width: 900px) {
+    .MuiAvatar-circle{
+        margin-right: 93px;
+        margin-left: 106px !important;
+    }
+}
+
+@media screen and (min-device-width: 480px) and (max-device-width: 1024px){
+    .logo{
+        width: 38%;
+    }
+     .MuiAppBar-root {
+        min-width: 768px !important;
+    }
+    .MuiBox-root{
+	    margin-left: -100px !important;
+    }
+    .tab{
+        margin-left: 600px !important;
+    }
+    .plus{
+        margin-left: 600px;
+    }
+    .MuiCard-root{
+        margin-left: 600px !important;
+    }
+    .MuiTypography-h6 {
+        margin-left: 300px !important;
+    }
+    .MuiTable-root{
+        margin-left: 40px !important
+    }
+    .tab{
+        margin-left: 50px;
+    }
+}

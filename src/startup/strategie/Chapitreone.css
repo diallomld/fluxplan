@@ -41,10 +41,9 @@ table {
       background-color: rgb(8, 214, 204) !important;
       width: 150px !important;
   }
-  @media (max-width: 900px){
+  @media screen and (max-width: 900px){
     .chapitretwo{
-        width:100% !important;
-        margin-left:0 !important;
+        max-width: 400px !important;
     }
     .chapitretwo-title{
        margin:20px;
@@ -52,8 +51,6 @@ table {
     }
     table {
         margin-top: 60px;
-        
-        
       }
     
     

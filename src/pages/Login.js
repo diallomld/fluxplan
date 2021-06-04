@@ -19,6 +19,7 @@ import { useHistory } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import MainHeader from "../components/header/MainHeader";
 import { useGlobalContext } from "../context/context";
+import "./connexion.css";
 
 function Copyright() {
   return (
@@ -41,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(1),
+    margin: 'auto',
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '72%',
+    width: '100%',
     marginTop: 8+'px',
   },
   submit: {
