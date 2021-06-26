@@ -1041,7 +1041,7 @@ const Tresorerie = ()=>{
                                 <td>{item.autrecaissem11}</td>
                                 <td>{item.autrecaissem12}</td>
                             </tr>
-                            <tr style={{backgroundColor:"#87bfad"}}>
+                            <tr style={{backgroundColor:"#18A4F6"}}>
                                 <td> <b>Total encaissements d'exploitation</b> </td>
                                 <td><b>{totalExploit1}</b></td>
                                 <td><b>{totalExploit2}</b></td>
@@ -1191,7 +1191,7 @@ const Tresorerie = ()=>{
                                 <td><b>{totalDecaisseHorsexploit11}</b></td>
                                 <td><b>{totalDecaisseHorsexploit12}</b></td>
                             </tr>
-                            <tr style={{backgroundColor:"#87bfad"}}>
+                            <tr style={{backgroundColor:"#18A4F6"}}>
                                 <td> <b>Exploitation </b> </td>
                                 <td></td>
                                 <td></td>
@@ -1341,7 +1341,7 @@ const Tresorerie = ()=>{
                                 <td>{item.tvadecaissem11}</td>
                                 <td>{item.tvadecaissem12}</td>
                             </tr>
-                            <tr style={{backgroundColor:"#87bfad"}}>
+                            <tr style={{backgroundColor:"#18A4F6"}}>
                                 <td> <b>Total décaissements d'exploitation  </b> </td>
                                 <td><b>{totalDecaisseExploit1}</b></td>
                                 <td><b>{totalDecaisseExploit2}</b></td>

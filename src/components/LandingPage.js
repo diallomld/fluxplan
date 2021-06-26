@@ -57,15 +57,18 @@ const  LandingPage = () => {
 
     return (
         <div className="chapitretwo">
-            <div className="chapitretwo-title" style={{marginTop:20}}>
-                <h3>Télécharge le business plan pour start-up</h3>
-                <h4>Fluxplan</h4>
-                <div style={{margin: 20}}>    
+            <div className="chapitretwo-title">
+                <h3>Télécharge le business plan pour start-up</h3><br/>
+                <div>    
                     <img src={pdf} width="150" />
                 </div>
             </div>
             <button onClick={jsPDFform} className="bouton">download</button>
-           <div id="capture" className="projet">
+        
+            <div className="pdf">
+
+           
+            <div id="capture" className="projet">
                 <div className="title">
                     <p>1. LE PROJET</p>
                 </div>
@@ -293,8 +296,9 @@ const  LandingPage = () => {
                     <AnalyseRisque />
                 </div>
             </div>
-        
+            </div>
         </div>
+        
     );
 }
 //ReactDOM.render(<LandingPage />, document.getElementById('root'));

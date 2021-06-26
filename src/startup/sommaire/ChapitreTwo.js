@@ -52,21 +52,18 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const Chapitreone = () => {
-  const initialvalues = {
-    besoin: "",
-  };
+const ChapitreTwosommaire = () => {
   const editObject = {
     besoin: "",
+    solution: "",
   };
   const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
-  const [besoin, setBesoin] = React.useState([]);
+  const [besoinSolution, setBesoinSolution] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorSolutions, setErrorSolutions] = React.useState(true);
 
   const classes = useStyles();
 
@@ -84,23 +81,9 @@ const Chapitreone = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-        case 'solutions':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorSolutions(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorSolutions(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
-    setEditTable(besoin[index])
+    setEditTable(besoinSolution[index])
     //console.log(editTable);
     setShow(!show);
     if(show){
@@ -109,26 +92,28 @@ const Chapitreone = () => {
       setIdDoc(id);
     }
   };
-  const editBesoin = (e) => {
+  const editBesoinSolution = (e) => {
     e.preventDefault();
     setLoad(true)
     //setShow(!show)
     firebasee
       .firestore()
-      .collection("besoins")
+      .collection("besoin-solution")
       .doc(idDoc)
       .set(
         {
           besoin: editTable.besoin,
+          solution: editTable.solution,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
-        console.log("data" + data);
+        console.log("data edit" + data);
         //setLoad(false)
         setEditTable({
-          besoin:"",
+            besoin:"",
+            solution:"",
         })
         setOpen(true)
       })
@@ -136,11 +121,11 @@ const Chapitreone = () => {
     setToggle(!toggle);
     setIdDoc("");
   };
-  const deleteBesoin = (id) => {
+  const deleteBesoinSolution = (id) => {
     setLoad(true)
     firebasee
       .firestore()
-      .collection("besoins")
+      .collection("besoin-solution")
       .doc(id)
       .delete()
       .then(() => {
@@ -155,7 +140,7 @@ const Chapitreone = () => {
     setLoad(true)
     return firebasee
       .firestore()
-      .collection("besoins")
+      .collection("besoin-solution")
       .where("userId", "==", userId)
       .get()
       .then((data) => {
@@ -163,31 +148,33 @@ const Chapitreone = () => {
         data.forEach((doc) => {
           dat.push({
             besoin: doc.data().besoin,
+            solution: doc.data().solution,
             id: doc.data().userId,
             docIdd: doc.id,
           });
         });
-        setBesoin(dat);
+        setBesoinSolution(dat);
         setLoad(false)
       })
       .catch((err) => console.log(err));
   };
-
-  const validationSchema = Yup.object().shape({
-    besoin: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
- })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
-      .collection("besoins")
+      .collection("besoin-solution")
       .add({
-          besoin: values.besoin,
-          userId: userId,
+            besoin: editTable.besoin,
+            solution: editTable.solution,
+            userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        setEditTable({
+            besoin:"",
+            solution:"",
+        })
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -223,32 +210,34 @@ const Chapitreone = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {besoin.length > 0 ? (
+      {besoinSolution.length > 0 ? (
         <div className="tab">
           
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:30}}>Besoin ou problème à résoudre</caption>
+                <caption style={{color: 'black', fontSize:30}}>Besoins/Solutions</caption>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell style={{maxWidth:100}}>Problémes/Besoins</StyledTableCell>
-                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell>
+                    <StyledTableCell style={{minWidth:200, maxWidth:300}}>Le besoin ou problème à résoudre</StyledTableCell>
+                    <StyledTableCell style={{minWidth:200, maxWidth:300}}>Notre solution/Produits/Services</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {besoin.map((item, index) => {
+                  {besoinSolution.map((item, index) => {
                       return (
                         <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                           
                               <TableCell>{item.besoin}</TableCell>
+                              <TableCell>{item.solution}</TableCell>
                               <TableCell>
                                 <div className="delete">
                                   <div className="edit">
                                     <EditIcon onClick={() => handleModif(item.docIdd, index)} />
                                   </div>
                                   <div className="delet">
-                                    <DeleteIcon onClick={() => deleteBesoin(item.docIdd)} />
+                                    <DeleteIcon onClick={() => deleteBesoinSolution(item.docIdd)} />
                                   </div>
                                 </div>
                               </TableCell>
@@ -269,18 +258,16 @@ const Chapitreone = () => {
                 <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell style={{ maxWidth: 300 }}>Solutions/Besoin</StyledTableCell> 
-                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell> 
+                    <StyledTableCell style={{minWidth:200, maxWidth:300}}>Le besoin ou problème à résoudre</StyledTableCell>
+                    <StyledTableCell style={{minWidth:200, maxWidth:300}}>Notre solution/Produits/Services</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow hover role="checkbox" tabIndex={-1}>
-                          <TableCell>......besoins......</TableCell>
-                          <TableCell>......besoins......</TableCell>
-                    </TableRow>
-                    <TableRow hover role="checkbox" tabIndex={-1}>
-                          <TableCell>......besoins......</TableCell>
-                          <TableCell>......besoins......</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
                     </TableRow>
                 </TableBody>
               </Table>
@@ -311,7 +298,7 @@ const Chapitreone = () => {
             <form
               noValidate
               className={`${!show && "show"}`}
-              onSubmit={editBesoin}
+              onSubmit={editBesoinSolution}
             >
               <div className="input">
                 
@@ -321,16 +308,28 @@ const Chapitreone = () => {
                   required
                   fullWidth
                   id="besoin"
-                  label="Les solutions/Besoins"
+                  label="besoin/Problemes"
                   name="besoin"
                   autoFocus
                   multiline
-                  rows="5"
+                  rowsMax={10}
+                  rows="8"
                   value={editTable.besoin}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorSolutions? false: true}
-                  helperText={!errorSolutions? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                 <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="solution"
+                  label="solutions"
+                  name="solution"
+                  multiline
+                  rowsMax={10}
+                  rows="8"
+                  value={editTable.solution}
+                  onChange={handleChange}
                 />
                 <Button
                   type="submit"
@@ -338,7 +337,6 @@ const Chapitreone = () => {
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorSolutions ? false: true}
 
                 >
                   Modifier
@@ -353,44 +351,50 @@ const Chapitreone = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-              <Form>
-                <div className="input">
-                  
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="besoin"
-                    label="Problémes/Besoins"
-                    name="besoin"
-                    autoFocus
-                    multiline
-                    rows={4}
-                    rowsMax={8}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="besoin" />}
-                    error={props.errors.solutions&&props.touched.solutions}
-                  />
-                   <Button
-                    type="submit"
-                    className="plus-icon"
-                    style={{ width: 300}}
-                    endIcon={<SaveIcon/>}
-                    style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.solutions ? true: false}
-                    
-                  >
-                    Enregistrer
-                </Button>
-                </div>
-              </Form>
-              )}
-          </Formik>
+               <form onSubmit={onSubmit}>
+                    <div className="input">
+                        
+                        <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="besoin"
+                        label="besoin/Problemes"
+                        name="besoin"
+                        autoFocus
+                        multiline
+                        rowsMax={10}
+                        rows="8"
+                        value={editTable.besoin}
+                        onChange={handleChange}
+                        />
+                        <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="solution"
+                        label="solutions"
+                        name="solution"
+                        multiline
+                        rowsMax={10}
+                        rows="8"
+                        value={editTable.solution}
+                        onChange={handleChange}
+                        />  
+                        <Button
+                            type="submit"
+                            className="plus-icon"
+                            style={{ width: 300}}
+                            endIcon={<SaveIcon/>}
+                            style={{color: 'white', background:'#18A4F6'}} 
+                            
+                        >
+                            Enregistrer
+                        </Button>
+                    </div>
+                </form>
             </CardContent>
           </Card>
         </>
@@ -399,4 +403,4 @@ const Chapitreone = () => {
   );
 };
 
-export default Chapitreone
+export default ChapitreTwosommaire

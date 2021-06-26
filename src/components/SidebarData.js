@@ -6,6 +6,50 @@ import * as RiIcons from "react-icons/ri";
 
 export const SidebarData = [
   {
+    title: "SOMMAIRE EXECUTIF",
+    path: "/sommaire",
+    icon: <AiIcons.AiFillProject />,
+    iconClosed: <RiIcons.RiArrowDownFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "Entreprise",
+        path: "/sommaire/entreprise",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Besoin & Solutions",
+        path: "/sommaire/besoin-solution",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "L’équipe dirigeante",
+        path: "/sommaire/equipe",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Marché",
+        path: "/sommaire/marche",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Concurrence & Avantage",
+        path: "/sommaire/concurence",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Prévisions financières",
+        path: "/sommaire/prevision",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Besoin de financement de (montant)",
+        path: "/sommaire/financement",
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ],
+  },
+  {
     title: "LE PROJET",
     path: "/projet",
     icon: <AiIcons.AiFillProject />,
@@ -118,7 +162,7 @@ export const SidebarData = [
     ],
   },
   {
-    title: "STRATEGIE & MARKETING MIX",
+    title: "LE MARKETING",
     path: "/strategie",
     icon: <AiIcons.AiOutlineTrademarkCircle />,
     iconClosed: <RiIcons.RiArrowDownFill />,
@@ -142,7 +186,75 @@ export const SidebarData = [
     ],
   },
   {
-    title: "PROJECTIONS FINANCIERES",
+    title: "LES MOYENS",
+    path: "/moyen",
+    icon: <AiIcons.AiOutlineTrademarkCircle />,
+    iconClosed: <RiIcons.RiArrowDownFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "Moyens humains",
+        path: "/moyen/humains",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Immobilisations incorporelles",
+        path: "/moyen/incorporelles",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Immobilisations corporelles",
+        path: "/moyen/corporelles",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Immobilisations financières",
+        path: "/moyen/financieres",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Stock marchandises/matières",
+        path: "/moyen/stock",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Charges d’exploitation",
+        path: "/moyen/charge",
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ],
+  },
+  {
+    title: "LE FINANCEMENT",
+    path: "/financement",
+    icon: <AiIcons.AiOutlineTrademarkCircle />,
+    iconClosed: <RiIcons.RiArrowDownFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "Coût du projet",
+        path: "/financement/cout",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Besoin de financement du projet",
+        path: "/financement/besoin",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Mode de financement",
+        path: "/financement/mode",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Caractéristiques de l’emprunt",
+        path: "/financement/emprunt",
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ],
+  },
+  {
+    title: "LES PREVISIONS FINANCIERES",
     path: "/projection",
     icon: <AiIcons.AiOutlineTransaction />,
     iconClosed: <RiIcons.RiArrowDownFill />,

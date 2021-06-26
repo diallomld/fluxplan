@@ -13,6 +13,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { useHistory } from "react-router-dom";
 import MainHeader from "../components/header/MainHeader";
 import { useGlobalContext } from "../context/context";
+import './inscription.css'
 
 function Copyright() {
   return (
@@ -98,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(2,0,0),
+    marginLeft: 10 + 'px' + '!important',
     backgroundColor: theme.palette.secondary.main,
   },
 }));
@@ -247,7 +249,7 @@ const Inscription = () => {
             </Button>
           )}
         </form>
-        <Link to="/" style={{fontSize : 20+"px"}}>{"Vous avez deja un compte? Se connecter"}</Link>
+        <p className="lien"><Link to="/" style={{fontSize : 20+"px"}}>{"Vous avez deja un compte? Se connecter"}</Link></p>
       </div>
       <Box mt={2}>
         <Copyright />

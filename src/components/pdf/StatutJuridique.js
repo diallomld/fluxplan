@@ -48,39 +48,39 @@ const StatutJuridique = ()=>{
                     return (
                         <>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Denomination</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Denomination</td>
                             <td>{item.denomination}</td>
                         </tr>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Nom commercial</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Nom commercial</td>
                             <td>{item.nom}</td>
                         </tr>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Sigle</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Sigle</td>
                             <td>{item.sigle}</td>
                         </tr>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Forme Juridique</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Forme Juridique</td>
                             <td>{item.juridique}</td>
                         </tr>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Objet Social</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Objet Social</td>
                             <td>{item.social}</td>
                         </tr>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Siége Social</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Siége Social</td>
                             <td>{item.siege}</td>
                         </tr>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Capital Social</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Capital Social</td>
                             <td>{item.capital}</td>
                         </tr>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Téléphone</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Téléphone</td>
                             <td>{item.telephone}</td>
                         </tr>
                         <tr>
-                            <td style={{backgroundColor:"rgb(30, 199, 199)", color:"white", fontSize:20}}>Courriel</td>
+                            <td style={{backgroundColor:"#18A4F6", color:"white", fontSize:20}}>Courriel</td>
                             <td >{item.courriel}</td>
                         </tr>
                         </>

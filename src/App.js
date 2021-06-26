@@ -53,6 +53,16 @@ import Chapitrehuit from "./startup/projection/chapitrehuit"
 import Chapitreneuf from "./startup/projection/chapitreneuf";
 import Chapitredix from "./startup/projection/chapitredix";
 import Chapitreonze from "./startup/projection/chapitreonze";
+import Entreprise from "./startup/sommaire/Entreprise";
+import ChapitreTwosommaire from "./startup/sommaire/ChapitreTwo";
+import ChapitreThreesommaire from "./startup/sommaire/ChapitreThree";
+import ChapitreFoursommaire from "./startup/sommaire/ChapitreFour";
+import ChapitreFivesommaire from "./startup/sommaire/ChapitreFive";
+import ChapitreSixsommaire from "./startup/sommaire/ChapitreSix";
+import ChapitreOnMoyen from "./startup/moyens/ChapitreOne";
+import ChapitreTwoMoyen from "./startup/moyens/ChapitreTwo";
+import ChapitreThreeMoyen from "./startup/moyens/ChapitreThree";
+import ChapitreFourMoyen from "./startup/moyens/ChapitreFour";
 
 function App() {
   var id = localStorage.getItem("userId");
@@ -76,6 +86,36 @@ function App() {
         <Router>
           <Sidebar />
           <Switch>
+            <Route exact path="/sommaire/entreprise">
+              <Entreprise />
+            </Route>
+            <Route exact path="/sommaire/besoin-solution">
+              <ChapitreTwosommaire />
+            </Route>
+            <Route exact path="/sommaire/marche">
+              <ChapitreThreesommaire />
+            </Route>
+            <Route exact path="/sommaire/concurence">
+              <ChapitreFoursommaire />
+            </Route>
+            <Route exact path="/sommaire/prevision">
+              <ChapitreFivesommaire />
+            </Route>
+            <Route exact path="/sommaire/financement">
+              <ChapitreSixsommaire />
+            </Route>
+            <Route exact path="/moyen/humains">
+              <ChapitreOnMoyen />
+            </Route>
+            <Route exact path="/moyen/financieres">
+              <ChapitreFourMoyen />
+            </Route>
+            <Route exact path="/moyen/incorporelles">
+              <ChapitreTwoMoyen />
+            </Route>
+            <Route exact path="/moyen/corporelles">
+              <ChapitreThreeMoyen />
+            </Route>
             <Route exact path="/projet/resoudre">
               <Chapitreone />
             </Route>

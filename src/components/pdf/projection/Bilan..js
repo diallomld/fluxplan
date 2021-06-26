@@ -434,7 +434,7 @@ const Bilan = ()=>{
                                     <td>{item.financeamorta3}</td>
                                     <td>{item.financebruta3-item.financeamorta3}</td>
                                 </tr>
-                                <tr hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#87bfad"}}>
+                                <tr hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#18A4F6"}}>
                                     <td><b> ACTIF CIRCULANT</b></td>
                                     <td><b>{acbruta1}</b></td>
                                     <td><b>{acamorta1}</b></td>
@@ -470,7 +470,7 @@ const Bilan = ()=>{
                                     <td>{item.creanceamorta3}</td>
                                     <td>{item.creancebruta3-item.creanceamorta3}</td>
                                 </tr>
-                                <tr hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#87bfad"}}>
+                                <tr hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#18A4F6"}}>
                                     <td><b>TRESORERIE ACTIF</b></td>
                                     <td><b>{tabruta1}</b></td>
                                     <td><b>{taamorta1}</b></td>

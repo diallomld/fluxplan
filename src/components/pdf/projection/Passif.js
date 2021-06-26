@@ -209,7 +209,7 @@ const Passif = ()=>{
                                         <td>{item.provisiona2}</td>
                                         <td>{item.provisiona3}</td>
                                 </tr>
-                                <tr hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#87bfad"}}>
+                                <tr hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#18A4F6"}}>
                                         <td><b>PASSIF CIRCULANT</b></td>
                                         <td><b>{pca1}</b></td>
                                         <td><b>{pca2}</b></td>
@@ -240,7 +240,7 @@ const Passif = ()=>{
                                         <td>{item.etata3}</td>
                                 </tr>
                                 
-                                <tr hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#87bfad"}}>
+                                <tr hover role="checkbox" tabIndex={-1} style={{backgroundColor:"#18A4F6"}}>
                                         <td><b>TRESORERIE PASSIF </b></td>
                                         <td><b>{tpa1}</b></td>
                                         <td><b>{tpa2}</b></td>

@@ -32,9 +32,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
-
 const useStyles = makeStyles({
   root: {
     width: '50%',
@@ -52,12 +49,11 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const Chapitreone = () => {
-  const initialvalues = {
-    besoin: "",
-  };
+const ChapitreSixsommaire = () => {
   const editObject = {
-    besoin: "",
+    investissement: 0,
+    bfr: 0,
+    apport: 0,
   };
   const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
@@ -66,13 +62,15 @@ const Chapitreone = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorSolutions, setErrorSolutions] = React.useState(true);
 
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const [totalBesoin, setTotalBesoin] = React.useState(0)
+  const [cout, setCout] = React.useState(0)
 
   const handleClose = () => {
     setOpen(false);
@@ -84,20 +82,6 @@ const Chapitreone = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-        case 'solutions':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorSolutions(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorSolutions(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(besoin[index])
@@ -109,26 +93,30 @@ const Chapitreone = () => {
       setIdDoc(id);
     }
   };
-  const editBesoin = (e) => {
+  const editConcurrence = (e) => {
     e.preventDefault();
     setLoad(true)
     //setShow(!show)
     firebasee
       .firestore()
-      .collection("besoins")
+      .collection("besoin-financement")
       .doc(idDoc)
       .set(
         {
-          besoin: editTable.besoin,
+          investissement: editTable.investissement,
+          bfr: editTable.bfr,
+          apport: editTable.apport,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
-        console.log("data" + data);
+        console.log("data edit" + data);
         //setLoad(false)
         setEditTable({
-          besoin:"",
+            investissement:0,
+            bfr:0,
+            apport:0,
         })
         setOpen(true)
       })
@@ -140,7 +128,7 @@ const Chapitreone = () => {
     setLoad(true)
     firebasee
       .firestore()
-      .collection("besoins")
+      .collection("besoin-financement")
       .doc(id)
       .delete()
       .then(() => {
@@ -155,39 +143,55 @@ const Chapitreone = () => {
     setLoad(true)
     return firebasee
       .firestore()
-      .collection("besoins")
+      .collection("besoin-financement")
       .where("userId", "==", userId)
       .get()
       .then((data) => {
         let dat = [];
+
+        let tcout = 0
+        let tbesoin = 0
         data.forEach((doc) => {
           dat.push({
-            besoin: doc.data().besoin,
+            investissement: doc.data().investissement,
+            bfr: doc.data().bfr,
+            apport: doc.data().apport,
             id: doc.data().userId,
             docIdd: doc.id,
           });
+
+          tcout = Number(doc.data().investissement) + Number(doc.data().bfr)
+
+          setCout(tcout)
+
+          tbesoin = Number(cout-doc.data().apport)
+
+          setTotalBesoin(tbesoin)
+
         });
         setBesoin(dat);
         setLoad(false)
       })
       .catch((err) => console.log(err));
   };
-
-  const validationSchema = Yup.object().shape({
-    besoin: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
- })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
-      .collection("besoins")
+      .collection("besoin-financement")
       .add({
-          besoin: values.besoin,
-          userId: userId,
+            investissement: editTable.investissement,
+            bfr: editTable.bfr,
+            apport: editTable.apport,
+            userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        setEditTable({
+            concurrence:"",
+            avantage:"",
+        })
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -229,20 +233,25 @@ const Chapitreone = () => {
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:30}}>Besoin ou problème à résoudre</caption>
+                <caption style={{color: 'black', fontSize:30}}>Besoin de financement de (montant)</caption>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell style={{maxWidth:100}}>Problémes/Besoins</StyledTableCell>
-                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell>
+                    <StyledTableCell style={{minWidth:250}}>Désignation</StyledTableCell>
+                    <StyledTableCell style={{minWidth:250}}>Montant</StyledTableCell>
+                    <StyledTableCell style={{minWidth:250}}>%</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {besoin.map((item, index) => {
                       return (
+                        <>
                         <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                           
-                              <TableCell>{item.besoin}</TableCell>
-                              <TableCell>
+                              <TableCell>Investissements</TableCell>
+                              <TableCell>{item.investissement}</TableCell>
+                              <TableCell>{Math.round(Number(item.investissement/cout)*100)}%</TableCell>
+                              <TableCell rowSpan="5">
                                 <div className="delete">
                                   <div className="edit">
                                     <EditIcon onClick={() => handleModif(item.docIdd, index)} />
@@ -253,6 +262,27 @@ const Chapitreone = () => {
                                 </div>
                               </TableCell>
                         </TableRow>
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                              <TableCell>Besoin en Fonds de Roulement (BFR)</TableCell>
+                              <TableCell>{item.bfr}</TableCell>
+                              <TableCell>{Math.round(Number(item.bfr/cout)*100)}%</TableCell>
+                        </TableRow>
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                              <TableCell><b>Coût du projet</b></TableCell>
+                              <TableCell><b>{cout}</b></TableCell>
+                              <TableCell>100 %</TableCell>
+                        </TableRow>
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                              <TableCell>Apport personnel</TableCell>
+                              <TableCell>{item.apport}</TableCell>
+                              <TableCell>{Math.round(Number(item.apport/cout)*100)}%</TableCell>
+                        </TableRow>
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                              <TableCell><b>Besoin de financement</b></TableCell>
+                              <TableCell><b>{totalBesoin}</b></TableCell>
+                              <TableCell>{Math.round(Number(totalBesoin/cout)*100)}%</TableCell>
+                        </TableRow>
+                      </>
                       );
                     })}
                 </TableBody>
@@ -268,19 +298,31 @@ const Chapitreone = () => {
               <Table stickyHeader aria-label="sticky table">
                 <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
                 <TableHead>
-                  <TableRow>
-                    <StyledTableCell style={{ maxWidth: 300 }}>Solutions/Besoin</StyledTableCell> 
-                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell> 
-                  </TableRow>
+                <TableRow>
+                    <StyledTableCell style={{minWidth:250}}>Désignation</StyledTableCell>
+                    <StyledTableCell style={{minWidth:250}}>Montant</StyledTableCell>
+                    <StyledTableCell style={{minWidth:250}}>%</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
+                 </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow hover role="checkbox" tabIndex={-1}>
-                          <TableCell>......besoins......</TableCell>
-                          <TableCell>......besoins......</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
                     </TableRow>
                     <TableRow hover role="checkbox" tabIndex={-1}>
-                          <TableCell>......besoins......</TableCell>
-                          <TableCell>......besoins......</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                    </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
                     </TableRow>
                 </TableBody>
               </Table>
@@ -311,26 +353,52 @@ const Chapitreone = () => {
             <form
               noValidate
               className={`${!show && "show"}`}
-              onSubmit={editBesoin}
+              onSubmit={editConcurrence}
             >
               <div className="input">
                 
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
+                  
                   fullWidth
-                  id="besoin"
-                  label="Les solutions/Besoins"
-                  name="besoin"
+                  id="investissement"
+                  label="Investissements"
+                  name="investissement"
                   autoFocus
                   multiline
-                  rows="5"
-                  value={editTable.besoin}
+                  rowsMax={10}
+                  rows="7"
+                  value={editTable.investissement}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorSolutions? false: true}
-                  helperText={!errorSolutions? 'Le champ doit étre remplit avec 3 caractére minimum':''}
+                />
+                 <TextField
+                  variant="outlined"
+                  margin="normal"
+                  
+                  fullWidth
+                  id="bfr"
+                  label="Besoin en Fonds de Roulement (BFR)"
+                  name="bfr"
+                  multiline
+                  rowsMax={10}
+                  rows="7"
+                  value={editTable.bfr}
+                  onChange={handleChange}
+                />
+                 <TextField
+                  variant="outlined"
+                  margin="normal"
+                  
+                  fullWidth
+                  id="apport"
+                  label="Apport personnel"
+                  name="apport"
+                  multiline
+                  rowsMax={10}
+                  rows="7"
+                  value={editTable.apport}
+                  onChange={handleChange}
                 />
                 <Button
                   type="submit"
@@ -338,7 +406,6 @@ const Chapitreone = () => {
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorSolutions ? false: true}
 
                 >
                   Modifier
@@ -353,44 +420,64 @@ const Chapitreone = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-              <Form>
-                <div className="input">
-                  
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="besoin"
-                    label="Problémes/Besoins"
-                    name="besoin"
-                    autoFocus
-                    multiline
-                    rows={4}
-                    rowsMax={8}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="besoin" />}
-                    error={props.errors.solutions&&props.touched.solutions}
-                  />
-                   <Button
-                    type="submit"
-                    className="plus-icon"
-                    style={{ width: 300}}
-                    endIcon={<SaveIcon/>}
-                    style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.solutions ? true: false}
-                    
-                  >
-                    Enregistrer
-                </Button>
-                </div>
-              </Form>
-              )}
-          </Formik>
+               <form onSubmit={onSubmit}>
+                    <div className="input">
+                        
+                        <TextField
+                        variant="outlined"
+                        margin="normal"
+                        
+                        fullWidth
+                        id="investissement"
+                        label="Investissements"
+                        name="investissement"
+                        autoFocus
+                        multiline
+                        rowsMax={10}
+                        rows="7"
+                        value={editTable.investissement}
+                        onChange={handleChange}
+                        />
+                        <TextField
+                        variant="outlined"
+                        margin="normal"
+                        
+                        fullWidth
+                        id="bfr"
+                        label="Besoin en Fonds de Roulement (BFR)"
+                        name="bfr"
+                        multiline
+                        rowsMax={10}
+                        rows="7"
+                        value={editTable.bfr}
+                        onChange={handleChange}
+                        />
+                        <TextField
+                        variant="outlined"
+                        margin="normal"
+                        
+                        fullWidth
+                        id="apport"
+                        label="Apport personnel"
+                        name="apport"
+                        multiline
+                        rowsMax={10}
+                        rows="7"
+                        value={editTable.apport}
+                        onChange={handleChange}
+                        />
+                        <Button
+                            type="submit"
+                            className="plus-icon"
+                            style={{ width: 300}}
+                            endIcon={<SaveIcon/>}
+                            style={{color: 'white', background:'#18A4F6'}} 
+                            
+                        >
+                            Enregistrer
+                        </Button>
+                    </div>
+                </form>
             </CardContent>
           </Card>
         </>
@@ -399,4 +486,4 @@ const Chapitreone = () => {
   );
 };
 
-export default Chapitreone
+export default ChapitreSixsommaire

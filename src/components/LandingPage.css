@@ -110,40 +110,60 @@ table {
       background-color: rgb(116, 116, 173) !important;
       width: 150px !important;
   }
-  @media (max-width: 900px){
-    .chapitretwo{
-        width:100% !important;
-        margin-left:0 !important;
-    }
-    .chapitretwo-title{
-       margin:20px;
-       margin-top: 80px;
-       
-    }
-    table {
-        margin-top: 60px;
-      }   
-}
 
+
+@media only screen and (min-width: 1440px) {
+    /* styles for browsers larger than 1440px; */
+    .app{
+        margin-left: 0px !important
+    }
+}
 @media screen and (min-device-width: 481px) and (max-device-width: 1024px){
     .projet{
-        margin: 25px 1px 1px 854px;
+        margin: 20px 10px 10px 20px;
     }
     .chapitretwo-title{
-        margin: 50px 10px 0px 600px;
+        margin: 150px 10px 0px 600px !important;
     }
     .bouton{
-        margin: 0px 10px 0px 600px;
+        margin: 14px 10px 0px 613px !important;
 
     }
+    .pdf{
+        max-width: 531px !important;
+        overflow: scroll;
+        max-height: 500px !important;
+        margin-left: -950px;
+    }
+    
 }
-@media only screen and (max-device-width: 480px) {
+
+@media only screen and (max-device-width: 640px) {
     /* styles for mobile browsers smaller than 480px; (iPhone) */
 
     .chapitretwo-title{
-        margin: 1px 2px 1px 600px;
+        margin: 1px 2px 1px 500px;
     }
     .bouton{
-        margin: 1px 2px 1px 600px;
+        margin: 1px 2px 1px 0px !important;
     }
  }
+ @media (max-device-width: 640px){
+    .chapitretwo-title {
+    /* margin: 20px; */
+        margin-left: 22px !important;
+        margin-top: 100px !important;
+    }
+    .chapitretwo-title >h3{
+        width: 200px !important;
+    }
+    .projet{
+        max-width: 531px !important;
+    }
+    .pdf{
+        max-width: 531px !important;
+        overflow: scroll;
+        max-height: 500px !important;
+        margin-left: -950px;
+    }
+}

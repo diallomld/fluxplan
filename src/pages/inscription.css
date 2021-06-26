@@ -1,0 +1,9 @@
+
+@media screen and (max-width: 900px) {
+    .MuiTypography-root{
+        margin-right: 0px !important;
+    }
+    .lien{
+        width: 202px !important;
+    }
+}

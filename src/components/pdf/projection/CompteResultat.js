@@ -243,7 +243,7 @@ const CompteResultat = ()=>{
                                 <td>{item.ca1}</td>
                                 <td>{item.ca2}</td>
                                 <td>{item.ca3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.ca1)+Number(item.ca2)+Number(item.ca3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.ca1)+Number(item.ca2)+Number(item.ca3)}</td>
 
                             </tr>
                             <tr>
@@ -251,10 +251,10 @@ const CompteResultat = ()=>{
                                 <td>{item.autreproduit1}</td>
                                 <td>{item.autreproduit2}</td>
                                 <td>{item.autreproduit3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.autreproduit1)+Number(item.autreproduit2)+Number(item.autreproduit3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.autreproduit1)+Number(item.autreproduit2)+Number(item.autreproduit3)}</td>
                                 
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b>TOTAL PRODUITS</b></td>
                                 <td>{Number(item.ca1)+Number(item.autreproduit1)}</td>
                                 <td>{Number(item.ca2)+Number(item.autreproduit2)}</td>
@@ -266,16 +266,16 @@ const CompteResultat = ()=>{
                                 <td>{item.am1}</td>
                                 <td>{item.am2}</td>
                                 <td>{item.am3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.am1)+Number(item.am2)+Number(item.am3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.am1)+Number(item.am2)+Number(item.am3)}</td>
                             </tr>
                             <tr>
                                 <td>Achats produits accessoires</td>
                                 <td>{item.ap1}</td>
                                 <td>{item.ap2}</td>
                                 <td>{item.ap3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.ap1)+Number(item.ap2)+Number(item.ap3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.ap1)+Number(item.ap2)+Number(item.ap3)}</td>
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b>MARGE BRUTE</b></td>
                                 <td>{totalBrut1}</td>
                                 <td>{totalBrut2}</td>
@@ -287,30 +287,30 @@ const CompteResultat = ()=>{
                                 <td>{item.autreAchat1}</td>
                                 <td>{item.autreAchat2}</td>
                                 <td>{item.autreAchat3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.autreAchat1)+Number(item.autreAchat2)+Number(item.autreAchat3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.autreAchat1)+Number(item.autreAchat2)+Number(item.autreAchat3)}</td>
                             </tr>
                             <tr>
                                 <td>Transport</td>
                                 <td>{item.transport1}</td>
                                 <td>{item.transport2}</td>
                                 <td>{item.transport3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.transport1)+Number(item.transport2)+Number(item.transport3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.transport1)+Number(item.transport2)+Number(item.transport3)}</td>
                             </tr>
                             <tr>
                                 <td>Services extérieurs</td>
                                 <td>{item.se1}</td>
                                 <td>{item.se2}</td>
                                 <td>{item.se3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.se1)+Number(item.se2)+Number(item.se3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.se1)+Number(item.se2)+Number(item.se3)}</td>
                             </tr>
                             <tr >
                                 <td><b>Total Consommations Intermédiaires</b></td>
                                 <td>{totalConsomable1}</td>
                                 <td>{totalConsomable2}</td>
                                 <td>{totalConsomable3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalConsomable}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalConsomable}</td>
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b>VALEUR AJOUTEE (VA)</b></td>
                                 <td>{Number(totalBrut1)-Number(totalConsomable1)}</td>
                                 <td>{Number(totalBrut2)-Number(totalConsomable2)}</td>
@@ -322,16 +322,16 @@ const CompteResultat = ()=>{
                                 <td>{item.impot1}</td>
                                 <td>{item.impot2}</td>
                                 <td>{item.impot3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalImpot}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalImpot}</td>
                             </tr>
                             <tr>
                                 <td>Frais de personnel</td>
                                 <td>{item.fraisp1}</td>
                                 <td>{item.fraisp2}</td>
                                 <td>{item.fraisp3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalFrais}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalFrais}</td>
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b>EXCEDENT BRUT D'EXPLOITATION (EBE)</b></td>
                                 <td>{totalExedent1}</td>
                                 <td>{totalExedent2}</td>
@@ -343,37 +343,37 @@ const CompteResultat = ()=>{
                                 <td>{item.reprise1}</td>
                                 <td>{item.reprise2}</td>
                                 <td>{item.reprise3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalReprise}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalReprise}</td>
                             </tr>
                             <tr>
                                 <td>Dotation aux Amortissements</td>
                                 <td>{item.dotation1}</td>
                                 <td>{item.dotation2}</td>
                                 <td>{item.dotation3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalDotation}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalDotation}</td>
                             </tr>
                             <tr>
                                 <td><b>RESULTAT D'EXPLOITATION</b></td>
                                 <td>{totalExploit1}</td>
                                 <td>{totalExploit2}</td>
                                 <td>{totalExploit3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalExploit}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalExploit}</td>
                             </tr>
                             <tr>
                                 <td>Produits Financiers</td>
                                 <td>{item.p1}</td>
                                 <td>{item.p2}</td>
                                 <td>{item.p3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalP}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalP}</td>
                             </tr>
                             <tr>
                                 <td>Frais Financiers</td>
                                 <td>{item.frais1}</td>
                                 <td>{item.frais2}</td>
                                 <td>{item.frais3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalFraisf}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalFraisf}</td>
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b>RESULTAT FINANCIER</b></td>
                                 <td>{totalFinancier1}</td>
                                 <td>{totalFinancier2}</td>
@@ -385,23 +385,23 @@ const CompteResultat = ()=>{
                                 <td>{item.phao1}</td>
                                 <td>{item.phao2}</td>
                                 <td>{item.phao3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.phao1)+Number(item.phao2)+Number(item.phao3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.phao1)+Number(item.phao2)+Number(item.phao3)}</td>
                             </tr>
                             <tr>
                                 <td>Charges HAO</td>
                                 <td>{item.chargehao1}</td>
                                 <td>{item.chargehao2}</td>
                                 <td>{item.chargehao3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{Number(item.chargehao1)+Number(item.chargehao2)+Number(item.chargehao3)}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{Number(item.chargehao1)+Number(item.chargehao2)+Number(item.chargehao3)}</td>
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b>RESULTAT HORS ACTIVITES ORDINAIRES</b></td>
                                 <td>{(Number(item.phao1))-(Number(item.chargehao1))}</td>
                                 <td>{(Number(item.phao2))-(Number(item.chargehao2))}</td>
                                 <td>{(Number(item.phao3))-(Number(item.chargehao3))}</td>
                                 <td>{totalOrdinaire}</td>
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b> RESULTAT BRUT</b></td>
                                 <td>{totalResultatBrut1}</td>
                                 <td>{totalResultatBrut2}</td>
@@ -413,16 +413,16 @@ const CompteResultat = ()=>{
                                 <td>{item.impot1}</td>
                                 <td>{item.impot2}</td>
                                 <td>{item.impot3}</td>
-                                <td style={{backgroundColor:'#19BBACCC', color:'black'}}>{totalBic}</td>
+                                <td style={{backgroundColor:'#18A4F6', color:'black'}}>{totalBic}</td>
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b> RESULTAT NET</b></td>
                                 <td>{totalResultatBrut1-item.impot1}</td>
                                 <td>{totalResultatBrut2-item.impot2}</td>
                                 <td>{totalResultatBrut3-item.impot3}</td>
                                 <td>{totalResultatBrut-totalBic}</td>
                             </tr>
-                            <tr style={{backgroundColor:'#19BBACCC', color:'black'}}>
+                            <tr style={{backgroundColor:'#18A4F6', color:'black'}}>
                                 <td><b>CASH Flow</b></td>
                                 <td>{(totalResultatBrut1-item.impot1)+item.dotation1}</td>
                                 <td>{(totalResultatBrut2-item.impot2)+item.dotation2}</td>
