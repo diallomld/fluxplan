@@ -63,6 +63,8 @@ import ChapitreOnMoyen from "./startup/moyens/ChapitreOne";
 import ChapitreTwoMoyen from "./startup/moyens/ChapitreTwo";
 import ChapitreThreeMoyen from "./startup/moyens/ChapitreThree";
 import ChapitreFourMoyen from "./startup/moyens/ChapitreFour";
+import ChapitreFiveMoyen from "./startup/moyens/ChapitreFive";
+import ChapitreSixMoyen from "./startup/moyens/ChapitreSix";
 
 function App() {
   var id = localStorage.getItem("userId");
@@ -115,6 +117,12 @@ function App() {
             </Route>
             <Route exact path="/moyen/corporelles">
               <ChapitreThreeMoyen />
+            </Route>
+            <Route exact path="/moyen/stock">
+              <ChapitreFiveMoyen />
+            </Route>
+            <Route exact path="/moyen/charge">
+              <ChapitreSixMoyen />
             </Route>
             <Route exact path="/projet/resoudre">
               <Chapitreone />
