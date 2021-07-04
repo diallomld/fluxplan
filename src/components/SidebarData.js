@@ -276,8 +276,13 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
       },
       {
-        title: "Chiffre d’affaires de la première année",
+        title: "Chiffre d’affaire prévisionnel de la première année",
         path: "/projection/prevision1",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Achats prévisionnels de la première année",
+        path: "/projection/achat",
         icon: <IoIcons.IoIosPaper />,
       },
       {
@@ -313,6 +318,25 @@ export const SidebarData = [
       {
         title: "Indicateurs de mesure de rentabilité",
         path: "/projection/indicateur",
+        icon: <IoIcons.IoIosPaper />,
+      },
+    ],
+  },
+  {
+    title: "PLANNING D’EXECUTION DU PROJET",
+    path: "/planning",
+    icon: <AiIcons.AiOutlineTransaction />,
+    iconClosed: <RiIcons.RiArrowDownFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    subNav: [
+      {
+        title: "Etat d’avancement du projet",
+        path: "/planning/etat",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "Planning d’exécution du projet",
+        path: "/planning/execution",
         icon: <IoIcons.IoIosPaper />,
       },
     ],

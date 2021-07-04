@@ -65,6 +65,13 @@ import ChapitreThreeMoyen from "./startup/moyens/ChapitreThree";
 import ChapitreFourMoyen from "./startup/moyens/ChapitreFour";
 import ChapitreFiveMoyen from "./startup/moyens/ChapitreFive";
 import ChapitreSixMoyen from "./startup/moyens/ChapitreSix";
+import ChapitreOneFinancement from "./startup/financement/ChapitreOne";
+import ChapitreTwoFinancement from "./startup/financement/ChapitreTwo";
+import ChapitreThreeFinancement from "./startup/financement/ChapitreThree";
+import ChapitreOnePlaning from "./startup/planning/ChapitreOne";
+import ChapitreTwoPlaning from "./startup/planning/ChapitreTwo";
+import AchaPrevision from "./startup/projection/AchatPrevision";
+import EquipeDirigeante from "./startup/sommaire/EquipeDirigeante";
 
 function App() {
   var id = localStorage.getItem("userId");
@@ -93,6 +100,9 @@ function App() {
             </Route>
             <Route exact path="/sommaire/besoin-solution">
               <ChapitreTwosommaire />
+            </Route>
+            <Route exact path="/sommaire/equipe">
+              <EquipeDirigeante />
             </Route>
             <Route exact path="/sommaire/marche">
               <ChapitreThreesommaire />
@@ -123,6 +133,21 @@ function App() {
             </Route>
             <Route exact path="/moyen/charge">
               <ChapitreSixMoyen />
+            </Route>
+            <Route exact path="/financement/cout">
+              <ChapitreOneFinancement />
+            </Route>
+            <Route exact path="/financement/besoin">
+              <ChapitreTwoFinancement />
+            </Route>
+            <Route exact path="/financement/mode">
+              <ChapitreThreeFinancement />
+            </Route>
+            <Route exact path="/planning/etat">
+              <ChapitreOnePlaning />
+            </Route>
+            <Route exact path="/planning/execution">
+              <ChapitreTwoPlaning />
             </Route>
             <Route exact path="/projet/resoudre">
               <Chapitreone />
@@ -195,6 +220,9 @@ function App() {
             </Route>
             <Route exact path="/projection/prevision1">
               <Chapitrefourp />
+            </Route>
+            <Route exact path="/projection/achat">
+              <AchaPrevision />
             </Route>
             <Route exact path="/projection/prevision2">
               <Chapitrefivep />

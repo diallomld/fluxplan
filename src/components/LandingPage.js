@@ -38,6 +38,11 @@ import SeuilRentabilite from "./pdf/projection/SeuilRentabilite";
 import AnalyseRisque from "./pdf/projection/AnalyseRisque";
 import PlanFinancement from "./pdf/projection/PlanFinancement";
 import Bilan from "./pdf/projection/Bilan.";
+import Entreprise from "./pdf/sommaire/Entreprise";
+import Besoin from "./pdf/sommaire/Besoin";
+import Solution from "./pdf/sommaire/Solution";
+import EquipeDirigeante from "./pdf/sommaire/EquipeDirigeante";
+import MarcheSommaire from "./pdf/sommaire/Marche";
 
 const  LandingPage = () => {
 
@@ -69,6 +74,44 @@ const  LandingPage = () => {
 
            
             <div id="capture" className="projet">
+                <div className="title">
+                    <p>SOMMAIRE EXECUTIF</p>
+                </div>
+                <div className="subtitle">
+                    <p>NOM DE L’ENTREPRISE</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Entreprise />
+                </div>
+                <div className="subtitle">
+                    <p>Le besoin ou problème à résoudre</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Besoin />
+                </div>
+                <div className="subtitle">
+                    <p>Notre solution/Produits/Services</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <Solution />
+                </div>
+                <div className="subtitle">
+                    <p>L’équipe dirigeante</p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <EquipeDirigeante />
+                </div>
+                <div className="subtitle">
+                    <p>Le marché </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <MarcheSommaire />
+                </div>
                 <div className="title">
                     <p>1. LE PROJET</p>
                 </div>

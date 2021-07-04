@@ -55,22 +55,10 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const Chapitrefourp = () => {
+const AchaPrevision = () => {
   const editObject = {
     produits: "",
     prix: "",
-    qm1: "",
-    qm2: "",
-    qm3: "",
-    qm4: "",
-    qm5: "",
-    qm6: "",
-    qm7: "",
-    qm8: "",
-    qm9: "",
-    qm10: "",
-    qm11: "",
-    qm12: "",
   };
   const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
@@ -95,6 +83,19 @@ const Chapitrefourp = () => {
   const [tCa10, setTCa10] = React.useState(0);
   const [tCa11, setTCa11] = React.useState(0);
   const [tCa12, setTCa12] = React.useState(0);
+  //get all qte
+  const [tqt1, setqt1] = React.useState(0);
+  const [tqt2, setqt2] = React.useState(0);
+  const [tqt3, setqt3] = React.useState(0);
+  const [tqt4, setqt4] = React.useState(0);
+  const [tqt5, setqt5] = React.useState(0);
+  const [tqt6, setqt6] = React.useState(0);
+  const [tqt7, setqt7] = React.useState(0);
+  const [tqt8, setqt8] = React.useState(0);
+  const [tqt9, setqt9] = React.useState(0);
+  const [tqt10, setqt10] = React.useState(0);
+  const [tqt11, setqt11] = React.useState(0);
+  const [tqt12, setqt12] = React.useState(0);
 
   let tCa = 0;
 
@@ -133,23 +134,11 @@ const Chapitrefourp = () => {
     //setShow(!show)
     firebasee
       .firestore()
-      .collection("prevision-annne1")
+      .collection("achat-prevision-annne1")
       .doc(idDoc)
       .set(
         {
           produits: editTable.produits,
-          qm1: editTable.qm1,
-          qm2: editTable.qm2,
-          qm3: editTable.qm3,
-          qm4: editTable.qm4,
-          qm5: editTable.qm5,
-          qm6: editTable.qm6,
-          qm7: editTable.qm7,
-          qm8: editTable.qm8,
-          qm9: editTable.qm9,
-          qm10: editTable.qm10,
-          qm11: editTable.qm11,
-          qm12: editTable.qm12,
           prix: editTable.prix,
           userId: userId,
         },
@@ -161,18 +150,6 @@ const Chapitrefourp = () => {
         setEditTable({
           produits: "",
           prix: "",
-          qm1: "",
-          qm2: "",
-          qm3: "",
-          qm4: "",
-          qm5: "",
-          qm6: "",
-          qm7: "",
-          qm8: "",
-          qm9: "",
-          qm10: "",
-          qm11: "",
-          qm12: "",
         })
         setOpen(true)
       })
@@ -184,7 +161,7 @@ const Chapitrefourp = () => {
     setLoad(true)
     firebasee
       .firestore()
-      .collection("prevision-annne1")
+      .collection("achat-prevision-annne1")
       .doc(id)
       .delete()
       .then(() => {
@@ -199,49 +176,37 @@ const Chapitrefourp = () => {
     setLoad(true)
     return firebasee
       .firestore()
-      .collection("prevision-annne1")
+      .collection("achat-prevision-annne1")
       .where("userId", "==", userId)
       .get()
       .then((data) => {
         let dat = [0];
-        let tabQte = [];
+        //let tabQte = [];
         let tabCa = [];
         data.forEach((doc) => {
           let som = 0;
           dat.push({
             produits: doc.data().produits,
-            qm1: doc.data().qm1,
-            qm2: doc.data().qm2,
-            qm3: doc.data().qm3,
-            qm4: doc.data().qm4,
-            qm5: doc.data().qm5,
-            qm6: doc.data().qm6,
-            qm7: doc.data().qm7,
-            qm8: doc.data().qm8,
-            qm9: doc.data().qm9,
-            qm10: doc.data().qm10,
-            qm11: doc.data().qm11,
-            qm12: doc.data().qm12,
             prix: doc.data().prix,
             id: doc.data().userId,
             docIdd: doc.id,
           });
-          tabQte.push(Number(doc.data().qm1)+Number(doc.data().qm2)+Number(doc.data().qm3)+Number(doc.data().qm4)+Number(doc.data().qm5)+Number(doc.data().qm6)+Number(doc.data().qm7)+Number(doc.data().qm8)+Number(doc.data().qm9)+Number(doc.data().qm10)+Number(doc.data().qm11)+Number(doc.data().qm12))
+          //tabQte.push(Number(doc.data().qm1)+Number(doc.data().qm2)+Number(doc.data().qm3)+Number(doc.data().qm4)+Number(doc.data().qm5)+Number(doc.data().qm6)+Number(doc.data().qm7)+Number(doc.data().qm8)+Number(doc.data().qm9)+Number(doc.data().qm10)+Number(doc.data().qm11)+Number(doc.data().qm12))
           
-          ca1+=(Number(doc.data().qm1)*Number(doc.data().prix))
-          ca2+=(Number(doc.data().qm2)*Number(doc.data().prix))
-          ca3+=(Number(doc.data().qm3)*Number(doc.data().prix))
-          ca4+=(Number(doc.data().qm4)*Number(doc.data().prix))
-          ca5+=(Number(doc.data().qm5)*Number(doc.data().prix))
-          ca6+=(Number(doc.data().qm6)*Number(doc.data().prix))
-          ca7+=(Number(doc.data().qm7)*Number(doc.data().prix))
-          ca8+=(Number(doc.data().qm8)*Number(doc.data().prix))
-          ca9+=(Number(doc.data().qm9)*Number(doc.data().prix))
-          ca10+=(Number(doc.data().qm10)*Number(doc.data().prix))
-          ca11+=(Number(doc.data().qm11)*Number(doc.data().prix))
-          ca12+=(Number(doc.data().qm12)*Number(doc.data().prix))
+          ca1+=(Number(tqt1)*Number(doc.data().prix))
+          ca2+=(Number(tqt2)*Number(doc.data().prix))
+          ca3+=(Number(tqt3)*Number(doc.data().prix))
+          ca4+=(Number(tqt4)*Number(doc.data().prix))
+          ca5+=(Number(tqt5)*Number(doc.data().prix))
+          ca6+=(Number(tqt6)*Number(doc.data().prix))
+          ca7+=(Number(tqt7)*Number(doc.data().prix))
+          ca8+=(Number(tqt8)*Number(doc.data().prix))
+          ca9+=(Number(tqt9)*Number(doc.data().prix))
+          ca10+=(Number(tqt10)*Number(doc.data().prix))
+          ca11+=(Number(tqt11)*Number(doc.data().prix))
+          ca12+=(Number(tqt12)*Number(doc.data().prix))
 
-          som = Number(Number(doc.data().qm1)+Number(doc.data().qm2)+Number(doc.data().qm3)+Number(doc.data().qm4)+Number(doc.data().qm5)+Number(doc.data().qm6)+Number(doc.data().qm7)+Number(doc.data().qm8)+Number(doc.data().qm9)+Number(doc.data().qm10)+Number(doc.data().qm11)+Number(doc.data().qm12))*Number(doc.data().prix)
+          som = Number(Number(tqt1)+Number(tqt2)+Number(tqt3)+Number(tqt4)+Number(tqt5)+Number(tqt6)+Number(tqt7)+Number(tqt8)+Number(tqt9)+Number(tqt10)+Number(tqt11)+Number(tqt12))*Number(doc.data().prix)
          
           tabCa.push(som)
         });
@@ -258,8 +223,7 @@ const Chapitrefourp = () => {
         setTCa10(ca10)
         setTCa11(ca11)
         setTCa12(ca12)
-
-        setTotalQm(tabQte)
+        
         setTotalCa(tabCa)
         tabCa.forEach(ca => {
           tCa+=ca 
@@ -272,46 +236,55 @@ const Chapitrefourp = () => {
       })
       .catch((err) => console.log(err));
   };
+  const getQte = () => {
+    setLoad(true)
+    return firebasee
+      .firestore()
+      .collection("prevision-annne1")
+      .where("userId", "==", userId)
+      .get()
+      .then((data) => {
+        let tabQte = [];
+        data.forEach((doc) => {
+          
+          tabQte.push(Number(doc.data().qm1)+Number(doc.data().qm2)+Number(doc.data().qm3)+Number(doc.data().qm4)+Number(doc.data().qm5)+Number(doc.data().qm6)+Number(doc.data().qm7)+Number(doc.data().qm8)+Number(doc.data().qm9)+Number(doc.data().qm10)+Number(doc.data().qm11)+Number(doc.data().qm12))
+          
+          setqt1(Number(doc.data().qm1))
+          setqt2(Number(doc.data().qm2))
+          setqt3(Number(doc.data().qm3))
+          setqt4(Number(doc.data().qm4))
+          setqt5(Number(doc.data().qm5))
+          setqt6(Number(doc.data().qm6))
+          setqt7(Number(doc.data().qm7))
+          setqt8(Number(doc.data().qm8))
+          setqt9(Number(doc.data().qm9))
+          setqt10(Number(doc.data().qm10))
+          setqt11(Number(doc.data().qm11))
+          setqt12(Number(doc.data().qm12))
+        });
+        // total ca affectation
+
+        setTotalQm(tabQte)
+        //console.table(prevision)
+        setLoad(false)
+      })
+      .catch((err) => console.log(err));
+  };
   const onSubmit = (e) => {
     e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
-      .collection("prevision-annne1")
+      .collection("achat-prevision-annne1")
       .add({
         produits: editTable.produits,
-        qm1: editTable.qm1,
-        qm2: editTable.qm2,
-        qm3: editTable.qm3,
-        qm4: editTable.qm4,
-        qm5: editTable.qm5,
-        qm6: editTable.qm6,
-        qm7: editTable.qm7,
-        qm8: editTable.qm8,
-        qm9: editTable.qm9,
-        qm10: editTable.qm10,
-        qm11: editTable.qm11,
-        qm12: editTable.qm12,
-        prix: editTable.prix,
         userId: userId,
       })
       .then(() => {
         setEditTable({
           produits: "",
           prix: "",
-          qm1: "",
-          qm2: "",
-          qm3: "",
-          qm4: "",
-          qm5: "",
-          qm6: "",
-          qm7: "",
-          qm8: "",
-          qm9: "",
-          qm10: "",
-          qm11: "",
-          qm12: "",
         })
         setOpen(true)
 
@@ -321,6 +294,7 @@ const Chapitrefourp = () => {
   }
 
   React.useEffect(() => {
+    getQte()
     getDate();
     //setTotal(0)
   }, [toggle]);
@@ -358,7 +332,7 @@ const Chapitrefourp = () => {
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:30}}>Chiffre d’affaires prévisionnel de la première année</caption>
+                <caption style={{color: 'black', fontSize:30}}>Achats prévisionnels de la première année</caption>
                 <TableHead>
                   <TableRow>
                     <TableCell colSpan="2"></TableCell>
@@ -395,18 +369,18 @@ const Chapitrefourp = () => {
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1}>
                             <TableCell>Quantité</TableCell>
-                            <TableCell>{item.qm1}</TableCell>
-                            <TableCell>{item.qm2}</TableCell>
-                            <TableCell>{item.qm3}</TableCell>
-                            <TableCell>{item.qm4}</TableCell>
-                            <TableCell>{item.qm5}</TableCell>
-                            <TableCell>{item.qm6}</TableCell>
-                            <TableCell>{item.qm7}</TableCell>
-                            <TableCell>{item.qm8}</TableCell>
-                            <TableCell>{item.qm9}</TableCell>
-                            <TableCell>{item.qm10}</TableCell>
-                            <TableCell>{item.qm11}</TableCell>
-                            <TableCell>{item.qm12}</TableCell>
+                            <TableCell>{tqt1}</TableCell>
+                            <TableCell>{tqt2}</TableCell>
+                            <TableCell>{tqt3}</TableCell>
+                            <TableCell>{tqt4}</TableCell>
+                            <TableCell>{tqt5}</TableCell>
+                            <TableCell>{tqt6}</TableCell>
+                            <TableCell>{tqt7}</TableCell>
+                            <TableCell>{tqt8}</TableCell>
+                            <TableCell>{tqt9}</TableCell>
+                            <TableCell>{tqt10}</TableCell>
+                            <TableCell>{tqt11}</TableCell>
+                            <TableCell>{tqt12}</TableCell>
                             <TableCell>{totalQm[index]} FCFA </TableCell>
                             <TableCell rowSpan="3">
                                 <div className="delete">
@@ -436,26 +410,26 @@ const Chapitrefourp = () => {
                             <TableCell>{item.prix*12} FCFA</TableCell>
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1}>
-                            <TableCell>Chiffre d'affaire</TableCell>
-                            <TableCell>{item.prix*item.qm1}</TableCell>
-                            <TableCell>{item.prix*item.qm2}</TableCell>
-                            <TableCell>{item.prix*item.qm3}</TableCell>
-                            <TableCell>{item.prix*item.qm4}</TableCell>
-                            <TableCell>{item.prix*item.qm5}</TableCell>
-                            <TableCell>{item.prix*item.qm6}</TableCell>
-                            <TableCell>{item.prix*item.qm7}</TableCell>
-                            <TableCell>{item.prix*item.qm8}</TableCell>
-                            <TableCell>{item.prix*item.qm9}</TableCell>
-                            <TableCell>{item.prix*item.qm10}</TableCell>
-                            <TableCell>{item.prix*item.qm11}</TableCell>
-                            <TableCell>{item.prix*item.qm12}</TableCell>
+                            <TableCell>Achats </TableCell>
+                            <TableCell>{item.prix*tqt1}</TableCell>
+                            <TableCell>{item.prix*tqt2}</TableCell>
+                            <TableCell>{item.prix*tqt3}</TableCell>
+                            <TableCell>{item.prix*tqt4}</TableCell>
+                            <TableCell>{item.prix*tqt5}</TableCell>
+                            <TableCell>{item.prix*tqt6}</TableCell>
+                            <TableCell>{item.prix*tqt7}</TableCell>
+                            <TableCell>{item.prix*tqt8}</TableCell>
+                            <TableCell>{item.prix*tqt9}</TableCell>
+                            <TableCell>{item.prix*tqt10}</TableCell>
+                            <TableCell>{item.prix*tqt11}</TableCell>
+                            <TableCell>{item.prix*tqt12}</TableCell>
                             <TableCell>{ totalCa[index]} FCFA</TableCell>
                         </TableRow>
                       </>
                       );
                     })}
                       <TableRow hover role="checkbox">
-                          <TableCell colSpan="2" style={{color: 'black', fontSize:18}}>Total chiffres d'affaires</TableCell>
+                          <TableCell colSpan="2" style={{color: 'black', fontSize:18}}>Total Achat</TableCell>
                           <TableCell>{tCa1}</TableCell>
                           <TableCell>{tCa2}</TableCell>
                           <TableCell>{tCa3}</TableCell>
@@ -546,7 +520,7 @@ const Chapitrefourp = () => {
                             <TableCell>....*12</TableCell>
                         </TableRow>
                     <TableRow hover role="checkbox" tabIndex={-1}>
-                            <TableCell>Chiffre d'affaire</TableCell>
+                            <TableCell>Achat</TableCell>
                             <TableCell>..........</TableCell>
                             <TableCell>..........</TableCell>
                             <TableCell>..........</TableCell>
@@ -562,7 +536,7 @@ const Chapitrefourp = () => {
                             <TableCell>....*12</TableCell>
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1}>
-                          <TableCell colSpan="2" style={{color: 'black', fontSize:15}}>Total chiffres d'affaires</TableCell>
+                          <TableCell colSpan="2" style={{color: 'black', fontSize:15}}>Total Achat</TableCell>
                           <TableCell>.......</TableCell>
                           <TableCell>.......</TableCell>
                           <TableCell>.......</TableCell>
@@ -645,199 +619,6 @@ const Chapitrefourp = () => {
                     startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
                   }}
                 />
-                
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm1"
-                  label="Quantité mois 1"
-                  name="qm1"
-                  autoComplete="qm1"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm1}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm2"
-                  label="Quantité mois 2"
-                  name="qm2"
-                  autoComplete="qm2"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm2}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm3"
-                  label="Quantité mois 3"
-                  name="qm3"
-                  autoComplete="qm3"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm3}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm4"
-                  label="Quantité mois 4"
-                  name="qm4"
-                  autoComplete="qm4"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm4}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm5"
-                  label="Quantité mois 5"
-                  name="qm5"
-                  autoComplete="qm5"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm5}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm6"
-                  label="Quantité mois 6"
-                  name="qm6"
-                  autoComplete="qm6"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm6}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm7"
-                  label="Quantité mois 7"
-                  name="qm7"
-                  autoComplete="qm7"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm7}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm8"
-                  label="Quantité mois 8"
-                  name="qm8"
-                  autoComplete="qm8"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm8}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm9"
-                  label="Quantité mois 9"
-                  name="qm9"
-                  autoComplete="qm9"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm9}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm10"
-                  label="Quantité mois 10"
-                  name="qm10"
-                  autoComplete="qm10"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm10}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm11"
-                  label="Quantité mois 11"
-                  name="qm11"
-                  autoComplete="qm11"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm11}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="qm12"
-                  label="Quantité mois 12"
-                  name="qm12"
-                  autoComplete="qm12"
-                  InputLabelProps= {{
-                    shrink: true,
-                  }}
-                  value={editTable.qm12}
-                  onChange={handleChange}
-                  style={{ width: 200, margin: 30 }}
-                />
                 <Button
                   type="submit"
                   className="plus-icon"
@@ -896,198 +677,7 @@ const Chapitrefourp = () => {
                       }}
                     />
                     
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm1"
-                      label="Quantité mois 1"
-                      name="qm1"
-                      autoComplete="qm1"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm1}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm2"
-                      label="Quantité mois 2"
-                      name="qm2"
-                      autoComplete="qm2"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm2}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm3"
-                      label="Quantité mois 3"
-                      name="qm3"
-                      autoComplete="qm3"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm3}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm4"
-                      label="Quantité mois 4"
-                      name="qm4"
-                      autoComplete="qm4"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm4}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm5"
-                      label="Quantité mois 5"
-                      name="qm5"
-                      autoComplete="qm5"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm5}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm6"
-                      label="Quantité mois 6"
-                      name="qm6"
-                      autoComplete="qm6"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm6}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm7"
-                      label="Quantité mois 7"
-                      name="qm7"
-                      autoComplete="qm7"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm7}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm8"
-                      label="Quantité mois 8"
-                      name="qm8"
-                      autoComplete="qm8"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm8}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm9"
-                      label="Quantité mois 9"
-                      name="qm9"
-                      autoComplete="qm9"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm9}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm10"
-                      label="Quantité mois 10"
-                      name="qm10"
-                      autoComplete="qm10"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm10}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm11"
-                      label="Quantité mois 11"
-                      name="qm11"
-                      autoComplete="qm11"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm11}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="qm12"
-                      label="Quantité mois 12"
-                      name="qm12"
-                      autoComplete="qm12"
-                      InputLabelProps= {{
-                        shrink: true,
-                      }}
-                      value={editTable.qm12}
-                      onChange={handleChange}
-                      style={{ width: 200, margin: 30 }}
-                    />
+                   
                     <Button
                       type="submit"
                       className="plus-icon"
@@ -1108,4 +698,4 @@ const Chapitrefourp = () => {
   );
 };
 
-export default Chapitrefourp
+export default AchaPrevision
