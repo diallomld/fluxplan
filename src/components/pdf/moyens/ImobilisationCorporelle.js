@@ -163,13 +163,13 @@ const ImobilisationCorporelle = ()=>{
             <table>
                 <thead>
                 <tr>
-                    <th style={{minWidth:200}}>Désignation </th>
-                    <th style={{minWidth:100}}>Quantité</th>
-                    <th style={{minWidth:100}}>Coût unitaire</th>
-                    <th style={{minWidth:100}}>Montant</th>
-                    <th style={{minWidth:100}}>Date d’acquisition</th>
-                    <th style={{minWidth:100}}>Durée amortissement (en an)</th>
-                    <th style={{minWidth:100}}>Amortissement annuel</th>
+                    <th>Désignation </th>
+                    <th>Quantité</th>
+                    <th>Coût unitaire</th>
+                    <th>Montant</th>
+                    <th>Date d’acquisition</th>
+                    <th>Durée amortissement (en an)</th>
+                    <th>Amortissement annuel</th>
                 </tr>
                 </thead>
                 <tbody>

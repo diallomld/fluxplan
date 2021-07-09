@@ -42,7 +42,7 @@ const Avantage = ()=>{
             avantage.map((item, index) => {
                 return (
                     <>
-                    <p key={index}> - {item.avantage}</p>
+                    <p key={index}> - {item.avantage}</p><br/>
                     </>
                 )
             })

@@ -152,9 +152,9 @@ const BesoinFinancement = ()=>{
             <table>
                 <thead>
                 <tr>
-                    <th style={{minWidth:250}}>Désignation</th>
-                    <th style={{minWidth:250}}>Montant</th>
-                    <th style={{minWidth:250}}>%</th>
+                    <th style={{minWidth:150}}>Désignation</th>
+                    <th>Montant</th>
+                    <th>%</th>
                 </tr>
                 </thead>
                 <tbody>

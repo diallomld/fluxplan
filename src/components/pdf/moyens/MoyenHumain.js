@@ -56,13 +56,13 @@ const MoyenHumain = ()=>{
             <table>
                 <thead>
                 <tr>
-                    <th style={{minWidth:100}}>Poste</th>
-                    <th style={{minWidth:100}}>Salaire brut mensuel</th>
-                    <th style={{minWidth:100}}>Salaire brut annuel</th>
-                    <th style={{minWidth:100}}>Date arrivée</th>
-                    <th style={{minWidth:100}}>Diplôme</th>
-                    <th style={{minWidth:200}}>Expérience</th>
-                    <th style={{minWidth:200}}>Principale mission </th>
+                    <th>Poste</th>
+                    <th>Salaire brut mensuel</th>
+                    <th>Salaire brut annuel</th>
+                    <th>Date arrivée</th>
+                    <th>Diplôme</th>
+                    <th>Expérience</th>
+                    <th>Principale mission </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -85,7 +85,6 @@ const MoyenHumain = ()=>{
                         <td>Total</td>
                         <td>{totalMensuel}</td>
                         <td>{totalAnuel}</td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

@@ -79,6 +79,7 @@ const Chapitrefourp = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
+  
   const [totalQm, setTotalQm] = React.useState([]);
   const [totalCa, setTotalCa] = React.useState([]);
   const [totalCat, setTotalCat] = React.useState([]);

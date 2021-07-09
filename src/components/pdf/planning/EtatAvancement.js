@@ -41,7 +41,6 @@ const EtatAvancementPlaning = ()=>{
                 <tr>
                     <th style={{minWidth:200}}>Actions déjà accomplies </th>
                     <th style={{minWidth:100}}>Date</th>
-                    <th style={{ minWidth: 100 }}>Action</th>
                 </tr>
                 </thead>
                 <tbody>

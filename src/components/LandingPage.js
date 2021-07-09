@@ -58,6 +58,7 @@ import BesoinFinancement from "./pdf/financement/BesoinFinancement";
 import ModeFiancement from "./pdf/financement/ModeFinancement";
 import EtatAvancementPlaning from "./pdf/planning/EtatAvancement";
 import PlanningProjet from "./pdf/planning/PlaningProjet";
+import AchatPrevision from "./pdf/projection/AchatPrevision";
 
 const  LandingPage = () => {
 
@@ -361,7 +362,7 @@ const  LandingPage = () => {
                 </div>
                 {/* fin fiancement*/}
                 <div className="title">
-                    <p>5. PROJECTIONS FINANCIERES </p>
+                    <p>5. PREVISIONS FINANCIERES </p>
                 </div>
                 <div className="subtitle">
                     <p>5.1 Coût du projet </p>
@@ -382,10 +383,12 @@ const  LandingPage = () => {
                     <hr/>
                 </div>
                 <div className="desc">
-                    <b>• Hypothèses</b><br/>
+                    <b>• Hypothèses</b><br/><br/>
                   <Hypothese/>
                     <br/><b>•  Chiffre d’affaires prévisionnel de la première année</b><br/><br/>
                   <PrevisionAnnee1/>
+                    <b>• Achats prévisionnels de la première année </b><br/><br/>
+                  <AchatPrevision/>
                     <b>•  Chiffre d’affaires prévisionnel sur 3 ans </b><br/><br/>
                   <PrevisionAnnee3/>
                 </div>

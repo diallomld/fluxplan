@@ -40,7 +40,7 @@ const PlanningProjet = ()=>{
             <table>
                 <thead>
                 <tr>
-                    <th style={{minWidth:200}}>Activité </th>
+                    <th style={{minWidth:100}}>Activité </th>
                     <th>Mois 1</th>
                     <th>Mois 2</th>
                     <th>Mois 3</th>
