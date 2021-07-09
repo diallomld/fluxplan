@@ -43,6 +43,21 @@ import Besoin from "./pdf/sommaire/Besoin";
 import Solution from "./pdf/sommaire/Solution";
 import EquipeDirigeante from "./pdf/sommaire/EquipeDirigeante";
 import MarcheSommaire from "./pdf/sommaire/Marche";
+import ConcurenceSommaire from "./pdf/sommaire/Concurence";
+import AvantageSommaire from "./pdf/sommaire/Avantage";
+import PrevisionFinanciere from "./pdf/sommaire/PrevisionFinanciere";
+import BesoinFiancementSommaire from "./pdf/sommaire/BesoinFinancement";
+import MoyenHumain from "./pdf/moyens/MoyenHumain";
+import MoyenProduction from "./pdf/moyens/MoyenProduction";
+import ImobilisationCorporelle from "./pdf/moyens/ImobilisationCorporelle";
+import ImmobFinanciere from "./pdf/moyens/Financiere";
+import Stock from "./pdf/moyens/Stock";
+import ChargesExploitation from "./pdf/moyens/ChargesExploitation";
+import CoutProjet from "./pdf/financement/Cout";
+import BesoinFinancement from "./pdf/financement/BesoinFinancement";
+import ModeFiancement from "./pdf/financement/ModeFinancement";
+import EtatAvancementPlaning from "./pdf/planning/EtatAvancement";
+import PlanningProjet from "./pdf/planning/PlaningProjet";
 
 const  LandingPage = () => {
 
@@ -111,6 +126,34 @@ const  LandingPage = () => {
                 </div>
                 <div className="desc">
                     <MarcheSommaire />
+                </div>
+                <div className="subtitle">
+                    <p>La concurrence </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <ConcurenceSommaire />
+                </div>
+                <div className="subtitle">
+                    <p>Avantage concurrentiel </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <AvantageSommaire />
+                </div>
+                <div className="subtitle">
+                    <p>Prévisions financières  </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <PrevisionFinanciere />
+                </div>
+                <div className="subtitle">
+                    <p>Besoin de financement de (montant)  </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <BesoinFiancementSommaire />
                 </div>
                 <div className="title">
                     <p>1. LE PROJET</p>
@@ -241,7 +284,7 @@ const  LandingPage = () => {
                     <Prescripteur />
                 </div>
                 <div className="title">
-                    <p>4. STRATEGIE ET MARKETING MIX </p>
+                    <p>4. MARKETING </p>
                 </div>
                 <div className="subtitle">
                     <p>4.1 Stratégie Marketing </p>
@@ -264,6 +307,59 @@ const  LandingPage = () => {
                 <div className="desc">
                   <PlanAction/>
                 </div>
+                <div className="title">
+                    <p>5. LES MOYENS </p>
+                </div>
+                <div className="subtitle">
+                    <p>5.1 Moyens humains </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <MoyenHumain/>
+                </div>
+                <div className="subtitle">
+                    <p>5.2 Moyens de production </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <b>Immobilisations incorporelles</b><br/><br/>
+                    <MoyenProduction/><br/><br/>
+                    <b>Immobilisations corporelles</b><br/><br/>
+                    <ImobilisationCorporelle/><br/><br/>
+                    <b>Immobilisations fianciere</b><br/><br/>
+                    <ImmobFinanciere/><br/><br/>
+                    <b>Stock de marchandises/matières premières de démarrage ou renforcement</b><br/><br/>
+                    <Stock/><br/><br/>
+                    <b>Charges d’exploitation</b><br/><br/>
+                    <ChargesExploitation/>
+                </div>
+                {/* debut fiancement*/}
+                <div className="title">
+                    <p>6. LE FINANCEMENT </p>
+                </div>
+                <div className="subtitle">
+                    <p>6.1 Coût du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <CoutProjet/>
+                </div>
+                <div className="subtitle">
+                    <p>6.2 Besoin de financement du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                  <BesoinFinancement/>
+                </div>
+                <div className="subtitle">
+                    <p>6.3 Financement du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <b>Mode de financement</b><br/><br/>
+                    <ModeFiancement/><br/><br/>
+                </div>
+                {/* fin fiancement*/}
                 <div className="title">
                     <p>5. PROJECTIONS FINANCIERES </p>
                 </div>
@@ -338,6 +434,25 @@ const  LandingPage = () => {
                 <div className="desc">
                     <AnalyseRisque />
                 </div>
+                {/** debut planing */}
+                <div className="title">
+                    <p>8. PLANNING D’EXECUTION DU PROJET </p>
+                </div>
+                <div className="subtitle">
+                    <p>8.1 Etat d’avancement du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <EtatAvancementPlaning />
+                </div>
+                <div className="subtitle">
+                    <p>8.2 Planning d’exécution du projet </p>
+                    <hr/>
+                </div>
+                <div className="desc">
+                    <PlanningProjet />
+                </div>
+                {/** fin planing */}
             </div>
             </div>
         </div>

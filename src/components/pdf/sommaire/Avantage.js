@@ -3,43 +3,44 @@ import React from "react"
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
 
-const Besoin = ()=>{
+const AvantageSommaire = ()=>{
   
     const { userId } = useGlobalContext();
-    const [besoin, setBesoin] = React.useState([]);
+    const [avantage, setAvantage] = React.useState([]);
 
     const getDate = () => {
         return firebasee
           .firestore()
-          .collection("besoin-solution")
+          .collection("concurrence-avantage")
           .where("userId", "==", userId)
           .get()
           .then((data) => {
             let dat = [];
             data.forEach((doc) => {
               dat.push({
-                besoin: doc.data().besoin,
-                solution: doc.data().solution,
+                
+                concurrence: doc.data().concurrence,
+                avantage: doc.data().avantage,
                 id: doc.data().userId,
                 docIdd: doc.id,
               });
             });
-            setBesoin(dat);
+            setAvantage(dat);
           })
           .catch((err) => console.log(err));
-      };
+    };
   React.useEffect(() => {
     getDate();
   }, []);
 
   return(
     <>
-    { besoin.length>0 ? (
+    { avantage.length>0 ? (
             
-            besoin.map((item, index) => {
+            avantage.map((item, index) => {
                 return (
                     <>
-                        <p>-{item.besoin}</p>
+                        <p>-{item.avantage}</p>
                     </>
                 )
             })
@@ -52,4 +53,4 @@ const Besoin = ()=>{
 
 }
 
-export default Besoin
+export default AvantageSommaire

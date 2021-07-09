@@ -818,13 +818,13 @@ const ChapitreSixMoyen = () => {
                         </>
                       );
                     })}
-                        <TableRow hover role="checkbox" tabIndex={-1}>
-                            <TableCell><b>Total charges d’exploitation</b> </TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                        </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                        <TableCell><b>Total charges d’exploitation</b> </TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                        <TableCell></TableCell>
+                    </TableRow>
                 </TableBody>
               </Table>
             </TableContainer>

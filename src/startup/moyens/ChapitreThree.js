@@ -895,15 +895,15 @@ const ChapitreThreeMoyen = () => {
                         </>
                       );
                     })}
-                        <TableRow hover role="checkbox" tabIndex={-1}>
-                            <TableCell><b>Total</b> </TableCell>
-                            <TableCell>{tqte}</TableCell>
-                            <TableCell>{tcout}</TableCell>
-                            <TableCell>{tmontant}</TableCell>
-                            <TableCell></TableCell>
-                            <TableCell>{tduree}</TableCell>
-                            <TableCell>{tamort}</TableCell>
-                        </TableRow>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                        <TableCell><b>Total</b> </TableCell>
+                        <TableCell>{tqte}</TableCell>
+                        <TableCell>{tcout}</TableCell>
+                        <TableCell>{tmontant}</TableCell>
+                        <TableCell></TableCell>
+                        <TableCell>{tduree}</TableCell>
+                        <TableCell>{tamort}</TableCell>
+                    </TableRow>
                 </TableBody>
               </Table>
             </TableContainer>
