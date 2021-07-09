@@ -1,7 +1,7 @@
 import React from "react"
 
-import { useGlobalContext } from "../../context/context";
-import { firebasee } from "../../context/firebase";
+import { useGlobalContext } from "../../../context/context";
+import { firebasee } from "../../../context/firebase";
 
 const PrevisionFinanciere = ()=>{
   

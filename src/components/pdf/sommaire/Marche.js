@@ -1,7 +1,7 @@
 import React from "react"
 
-import { useGlobalContext } from "../../context/context";
-import { firebasee } from "../../context/firebase";
+import { useGlobalContext } from "../../../context/context";
+import { firebasee } from "../../../context/firebase";
 
 const MarcheSommaire = ()=>{
   
@@ -42,7 +42,7 @@ const MarcheSommaire = ()=>{
                     <>
                         <li><b>Marché visé : </b>{item.besoin}</li>
                         <li><b>Taille du marché : </b>{item.taille}</li>
-                        <li><b>Tandance : </b>{item.tandance}</li>
+                        <li><b>Tandance : </b>{item.tandance}</li><br/>
                     </>
                 )
             })

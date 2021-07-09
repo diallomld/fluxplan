@@ -1,7 +1,7 @@
 import React from "react"
 
-import { useGlobalContext } from "../../context/context";
-import { firebasee } from "../../context/firebase";
+import { useGlobalContext } from "../../../context/context";
+import { firebasee } from "../../../context/firebase";
 
 const Besoin = ()=>{
   
@@ -39,7 +39,7 @@ const Besoin = ()=>{
             besoin.map((item, index) => {
                 return (
                     <>
-                        <p>-{item.besoin}</p>
+                        <p>-{item.besoin}</p><br/>
                     </>
                 )
             })

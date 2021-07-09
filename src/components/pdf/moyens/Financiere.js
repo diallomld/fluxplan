@@ -1,7 +1,7 @@
 import React from "react"
 
-import { useGlobalContext } from "../../context/context";
-import { firebasee } from "../../context/firebase";
+import { useGlobalContext } from "../../../context/context";
+import { firebasee } from "../../../context/firebase";
 
 const ImmobFinanciere = ()=>{
   
@@ -75,7 +75,7 @@ const ImmobFinanciere = ()=>{
 
   return(
     <>
-        {equipe.length > 0 ? (
+        {financiere.length > 0 ? (
             <table>
                 <thead>
                 <tr>
@@ -87,7 +87,7 @@ const ImmobFinanciere = ()=>{
                 </tr>
                 </thead>
                 <tbody>
-                    {equipe.map((item, index) => {
+                    {financiere.map((item, index) => {
                     return (
                         <>
                         <tr>

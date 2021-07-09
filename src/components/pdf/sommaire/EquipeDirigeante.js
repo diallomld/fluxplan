@@ -1,7 +1,7 @@
 import React from "react"
 
-import { useGlobalContext } from "../../context/context";
-import { firebasee } from "../../context/firebase";
+import { useGlobalContext } from "../../../context/context";
+import { firebasee } from "../../../context/firebase";
 
 const EquipeDirigeante = ()=>{
   
@@ -65,7 +65,7 @@ const EquipeDirigeante = ()=>{
                 </tbody>
             </table>
         ) : (
-            <p>Cette partie n'a pas encore été remplis</p>
+            <><p>Cette partie n'a pas encore été remplis</p><br/></>
         )}
     </>
   )

@@ -1,7 +1,7 @@
 import React from "react"
 
-import { useGlobalContext } from "../../context/context";
-import { firebasee } from "../../context/firebase";
+import { useGlobalContext } from "../../../context/context";
+import { firebasee } from "../../../context/firebase";
 
 const ConcurenceSommaire = ()=>{
   
@@ -40,7 +40,7 @@ const ConcurenceSommaire = ()=>{
             concurence.map((item, index) => {
                 return (
                     <>
-                        <p>-{item.concurrence}</p>
+                        <p>-{item.concurrence}</p><br/>
                     </>
                 )
             })
