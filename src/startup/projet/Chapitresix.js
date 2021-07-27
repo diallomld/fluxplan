@@ -32,9 +32,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
-
 const useStyles = makeStyles({
   root: {
     width: '50%',
@@ -53,17 +50,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitresix = () => {
-  const initialvalues = {
-    denomination: "",
-    nom: "",
-    sigle: "",
-    juridique: "",
-    social: "",
-    siege: "",
-    capital: "",
-    telephone: "",
-    courriel: "",
-  };
   const editObject = {
     denomination: "",
     nom: "",
@@ -108,91 +94,6 @@ const Chapitresix = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-        case 'denomination':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorDenomination(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorDenomination(false)
-          }
-        break;
-        case 'nom':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorNom(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorNom(false)
-          }
-        break;
-        case 'sigle':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorSigle(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorSigle(false)
-          }
-        break;
-        case 'juridique':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorJuridique(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorJuridique(false)
-          }
-        break;
-        case 'social':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorSocial(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorSocial(false)
-          }
-        break;
-        case 'siege':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorSiege(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorSiege(false)
-          }
-        break;
-        case 'capital':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorCapital(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorCapital(false)
-          }
-        break;
-        case 'telephone':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorTelephone(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorTelephone(false)
-          }
-        break;
-        case 'courriel':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorCourriel(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorCourriel(false)
-          }
-        break;
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(statut[index])
@@ -286,38 +187,26 @@ const Chapitresix = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  const validationSchema = Yup.object().shape({
-    denomination: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    sigle: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    nom: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    juridique: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    social: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    siege: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    capital: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    telephone: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    courriel: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
- })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("statutjuridique")
       .add({
-        denomination: values.denomination,
-        sigle: values.sigle,
-        nom: values.nom,
-        juridique: values.juridique,
-        social: values.social,
-        siege: values.siege,
-        capital: values.capital,
-        telephone: values.telephone,
-        courriel: values.courriel,
+        denomination: editTable.denomination,
+        sigle: editTable.sigle,
+        nom: editTable.nom,
+        juridique: editTable.juridique,
+        social: editTable.social,
+        siege: editTable.siege,
+        capital: editTable.capital,
+        telephone: editTable.telephone,
+        courriel: editTable.courriel,
         userId: userId,
       })
       .then(() => {
-        props.resetForm()
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -487,164 +376,127 @@ const Chapitresix = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="denomination"
                   label="Dénomination / Raison sociale"
                   name="denomination"
                   autoFocus
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.denomination}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorDenomination? false: true}
-                  helperText={!errorDenomination? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="nom"
                   label="Nom commercial "
                   name="nom"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.nom}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorNom? false: true}
-                  helperText={!errorNom? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="sigle"
                   label="Sigle"
                   name="sigle"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.sigle}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorSigle? false: true}
-                  helperText={!errorSigle? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="juridique"
                   label="Forme juridique"
                   name="juridique"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.juridique}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorJuridique? false: true}
-                  helperText={!errorJuridique? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="social"
                   label="Objet social"
                   name="social"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.social}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorSocial? false: true}
-                  helperText={!errorSocial? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="siege"
                   label="Siege Social"
                   name="siege"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.siege}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorSiege? false: true}
-                  helperText={!errorSiege? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="capital"
                   label="capital Social"
                   name="capital"
                   multiline
-                  rows="2"
+                  rows="5"
                   rowsMax={5}
                   value={editTable.capital}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorCapital? false: true}
-                  helperText={!errorCapital? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="telephone"
                   label="Télephone"
                   name="telephone"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.telephone}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorTelephone? false: true}
-                  helperText={!errorTelephone? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="courriel"
                   label="Courriel"
                   name="courriel"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.courriel}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorCourriel? false: true}
-                  helperText={!errorCourriel? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <Button
                   type="submit"
                   className="plus-icon"
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorCourriel || errorTelephone || errorCapital || errorDenomination || errorJuridique || errorNom || errorSiege || errorSigle || errorSocial ? false: true}
                 >
                   Modifier
                 </Button>
@@ -658,164 +510,137 @@ const Chapitresix = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-              <Form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
                   
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="denomination"
-                    label="Dénomination / Raison sociale"
-                    name="denomination"
-                    autoFocus
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="denomination" />}
-                    error={props.errors.denomination&&props.touched.denomination}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="denomination"
+                  label="Dénomination / Raison sociale"
+                  name="denomination"
+                  autoFocus
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.denomination}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="nom"
-                    label="Nom commercial "
-                    name="nom"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="nom" />}
-                    error={props.errors.nom&&props.touched.nom}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="nom"
+                  label="Nom commercial "
+                  name="nom"
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.nom}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="sigle"
-                    label="Sigle"
-                    name="sigle"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="sigle" />}
-                    error={props.errors.sigle&&props.touched.sigle}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="sigle"
+                  label="Sigle"
+                  name="sigle"
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.sigle}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="juridique"
-                    label="Forme juridique"
-                    name="juridique"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="juridique" />}
-                    error={props.errors.juridique&&props.touched.juridique}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="juridique"
+                  label="Forme juridique"
+                  name="juridique"
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.juridique}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="social"
-                    label="Objet social"
-                    name="social"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="social" />}
-                    error={props.errors.social&&props.touched.social}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="social"
+                  label="Objet social"
+                  name="social"
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.social}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="siege"
-                    label="Siege Social"
-                    name="siege"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="siege" />}
-                    error={props.errors.siege&&props.touched.siege}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="siege"
+                  label="Siege Social"
+                  name="siege"
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.siege}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="capital"
-                    label="capital Social"
-                    name="capital"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="capital" />}
-                    error={props.errors.capital&&props.touched.capital}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="capital"
+                  label="capital Social"
+                  name="capital"
+                  multiline
+                  rows="5"
+                  rowsMax={5}
+                  value={editTable.capital}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="telephone"
-                    label="Télephone"
-                    name="telephone"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="telephone" />}
-                    error={props.errors.telephone&&props.touched.telephone}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="telephone"
+                  label="Télephone"
+                  name="telephone"
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.telephone}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="courriel"
-                    label="Courriel"
-                    name="courriel"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="courriel" />}
-                    error={props.errors.courriel&&props.touched.courriel}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="courriel"
+                  label="Courriel"
+                  name="courriel"
+                  multiline
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.courriel}
+                  onChange={handleChange}
                   />
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={(props.errors.denomination || props.errors.nom || props.errors.sigle || props.errors.juridique || props.errors.siege || props.errors.telephone || props.errors.courriel || props.errors.social || props.errors.capital) ? true: false}
-                    
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

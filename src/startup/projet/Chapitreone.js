@@ -32,8 +32,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
 
 const useStyles = makeStyles({
   root: {
@@ -53,9 +51,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitreone = () => {
-  const initialvalues = {
-    besoin: "",
-  };
   const editObject = {
     besoin: "",
   };
@@ -66,7 +61,6 @@ const Chapitreone = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorSolutions, setErrorSolutions] = React.useState(true);
 
   const classes = useStyles();
 
@@ -84,20 +78,6 @@ const Chapitreone = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-        case 'solutions':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorSolutions(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorSolutions(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(besoin[index])
@@ -173,21 +153,18 @@ const Chapitreone = () => {
       .catch((err) => console.log(err));
   };
 
-  const validationSchema = Yup.object().shape({
-    besoin: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
- })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("besoins")
       .add({
-          besoin: values.besoin,
+          besoin: editTable.besoin,
           userId: userId,
       })
       .then(() => {
-        props.resetForm()
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -305,7 +282,7 @@ const Chapitreone = () => {
         )}
         { idDoc ? (
           <>
-        <Card>
+          <Card>
           <CardContent>
 
             <form
@@ -318,7 +295,6 @@ const Chapitreone = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="besoin"
                   label="Les solutions/Besoins"
@@ -329,16 +305,13 @@ const Chapitreone = () => {
                   value={editTable.besoin}
                   onChange={handleChange}
                   style={{ width: 200, marginRight: 10 }}
-                  error={errorSolutions? false: true}
-                  helperText={!errorSolutions? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+               />
                 <Button
                   type="submit"
                   className="plus-icon"
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorSolutions ? false: true}
 
                 >
                   Modifier
@@ -353,44 +326,34 @@ const Chapitreone = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-              <Form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
                   
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="besoin"
-                    label="Problémes/Besoins"
-                    name="besoin"
-                    autoFocus
-                    multiline
-                    rows={4}
-                    rowsMax={8}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="besoin" />}
-                    error={props.errors.solutions&&props.touched.solutions}
-                  />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="besoin"
+                      label="Les solutions/Besoins"
+                      name="besoin"
+                      autoFocus
+                      multiline
+                      rows="5"
+                      value={editTable.besoin}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                    />
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.solutions ? true: false}
                     
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

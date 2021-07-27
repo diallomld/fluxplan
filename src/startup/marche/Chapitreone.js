@@ -7,6 +7,17 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
+
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -50,7 +61,16 @@ const Chapitreone = () => {
   const [analyse, setAnalyse] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+  const [load, setLoad] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
   const classes = useStyles();
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -60,7 +80,6 @@ const Chapitreone = () => {
     });
   };
   const handleModif = (id) => {
-    
     setShow(!show);
     if(show){
       setIdDoc("");
@@ -70,7 +89,7 @@ const Chapitreone = () => {
   };
   const editAnalyse = (e) => {
     e.preventDefault();
-
+    setLoad(true)
     firebasee
       .firestore()
       .collection("analyse-marche")
@@ -86,7 +105,7 @@ const Chapitreone = () => {
         { merge: true }
       )
       .then((data) => {
-        console.log("data" + data);
+        setOpen(true)
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
@@ -104,6 +123,8 @@ const Chapitreone = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setShow(!show)
+    setLoad(true)
     firebasee
       .firestore()
       .collection("analyse-marche")
@@ -116,12 +137,14 @@ const Chapitreone = () => {
       })
       .then(() => {
         console.log("add");
+        setOpen(true)
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
     alert("Analyse marché Ajouté");
   };
   const getDate = () => {
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("analyse-marche")
@@ -141,6 +164,7 @@ const Chapitreone = () => {
         });
 
         setAnalyse(dat);
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
@@ -152,6 +176,31 @@ const Chapitreone = () => {
   //console.log(mission);
   return (
     <div className="chapitretwo">
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
+      
       {analyse.length > 0 ? (
      <div className="tab">
           
@@ -232,18 +281,20 @@ const Chapitreone = () => {
      </Paper>
     </div>
      )}
-
-      <div className="chapitretwo-title">
-        <p>Analyse du marché </p>
-      </div>
-      <div className="plus">
-        {!show && (
-          <Button className="plus-icon" onClick={() => setShow(!show)}>
-            Ajouter
-          </Button>
+    {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
+        <>
+        <div className="plus">
+          {!show && (
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
+              Ajouter
+            </Button>
+          )}
+        </div>
+        </>
         )}
-      </div>
-      <div>
         { idDoc ? (
         <form
           noValidate
@@ -254,7 +305,6 @@ const Chapitreone = () => {
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="nature"
               label="Nature du marché "
@@ -263,12 +313,12 @@ const Chapitreone = () => {
               autoFocus
               value={credentital.nature}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              rowsMax={6}
+              rows="3"
             />
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="localisation"
               label="Localisation du marché"
@@ -276,12 +326,12 @@ const Chapitreone = () => {
               autoFocus
               value={credentital.localisation}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              rowsMax={6}
+              rows="3"
             />
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="taille"
               label="Taille du marché "
@@ -289,12 +339,12 @@ const Chapitreone = () => {
               autoFocus
               value={credentital.taille}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              rowsMax={6}
+              rows="3"
             />
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="tendance"
               label="Tendance du marché"
@@ -302,7 +352,8 @@ const Chapitreone = () => {
               autoFocus
               value={credentital.tendance}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              rowsMax={6}
+              rows="3"
             />
 
             <Button
@@ -324,10 +375,9 @@ const Chapitreone = () => {
         >
           <div className="input">
             
-            <TextField
+          <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="nature"
               label="Nature du marché "
@@ -336,12 +386,12 @@ const Chapitreone = () => {
               autoFocus
               value={credentital.nature}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              rowsMax={6}
+              rows="3"
             />
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="localisation"
               label="Localisation du marché"
@@ -349,12 +399,12 @@ const Chapitreone = () => {
               autoFocus
               value={credentital.localisation}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              rowsMax={6}
+              rows="3"
             />
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="taille"
               label="Taille du marché "
@@ -362,12 +412,12 @@ const Chapitreone = () => {
               autoFocus
               value={credentital.taille}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              rowsMax={6}
+              rows="3"
             />
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               id="tendance"
               label="Tendance du marché"
@@ -375,7 +425,8 @@ const Chapitreone = () => {
               autoFocus
               value={credentital.tendance}
               onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
+              rowsMax={6}
+              rows="3"
             />
             <Button
                 type="submit"
@@ -388,7 +439,6 @@ const Chapitreone = () => {
           </div>
         </form>
         )}
-      </div>
     </div>
   );
 };

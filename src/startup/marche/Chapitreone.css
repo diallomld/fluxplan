@@ -1,61 +1,50 @@
-
-.chapitretwo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-    margin-left:100px;  
-    padding-top: 10px;
-    
+.chapitreone{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  margin-left:100px;  
+  
 }
-
-
-.chapitretwo-title>h1{
-    font-size:1rem;
-
+.chapitreone-title>h1{
+  font-size:1rem;
+ 
+  margin-top:50px;
 }
-
-
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 40%;
-    margin-bottom: 30px;
-    
-    
+.textarea-div{
+  width: 30%;
+  margin-top: 20px;
+}
+.textarea{
+  width: 100% !important;
+  border: 0.5px solid blue !important;
+ 
+ 
+}
+.edit{
+  color: blue;
+}
+.delet{
+  color: brown;
+}
+@media (max-width: 900px){
+  .chapitreone{
+      width:100% !important;
+      margin-left:0 !important;
+  }
+  .chapitreone-title{
+     margin:20px;
+     margin-top: 50px;
+  }
+  .textarea-div{
+      width: 90%;
+      margin-top: 20px;
+  }
+  .textarea{
+      width:80% !important;
   }
   
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-    font-size: 13px;
-  }
   
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
-  .btn{
-      color:white;
-      background-color: #18A4F6 !important;
-      width: 150px !important;
-  }
-  @media screen and (max-width: 900px){
-    .chapitretwo{
-        width:100% !important;
-        margin-left:0 !important;
-    }
-    .chapitretwo-title{
-       margin:20px;
-       
-    }
-    table {
-        margin-top: 60px; 
-      }
-    
-    
-    
-    
-    
+  
 }

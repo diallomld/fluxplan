@@ -32,9 +32,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
-
 const useStyles = makeStyles({
   root: {
     width: '50%',
@@ -53,11 +50,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitrefive = () => {
-  const initialvalues = {
-    mission: "",
-    vision: "",
-    objectif: "",
-  };
   const editObject = {
     mission: "",
     vision: "",
@@ -90,38 +82,6 @@ const Chapitrefive = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-        case 'mission':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorMission(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorMission(false)
-          }
-        break;
-        case 'vision':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorVision(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorVision(false)
-          }
-        break;
-        case 'objectif':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorObjectif(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorObjectif(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(mission[index])
@@ -203,26 +163,20 @@ const Chapitrefive = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  const validationSchema = Yup.object().shape({
-    mission: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    vision: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    object: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
- })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("mission-vision-objectif")
       .add({
-        mission: values.mission,
-        vision: values.vision,
-        objectif: values.objectif,
+        mission: editTable.mission,
+        vision: editTable.vision,
+        objectif: editTable.objectif,
         userId: userId,
       })
       .then(() => {
-        props.resetForm()
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -363,63 +317,50 @@ const Chapitrefive = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="mission"
-                  label="mission"
+                  label="Mission"
                   name="mission"
                   autoFocus
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="7"
+                  rowsMax={15}
                   value={editTable.mission}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorMission? false: true}
-                  helperText={!errorMission? 'Le champ doit étre remplit avec 3 caractére minimum':''}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="vision"
                   label="Vision "
                   name="vision"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="7"
+                  rowsMax={15}
                   value={editTable.vision}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorVision? false: true}
-                  helperText={!errorVision? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="objectif"
-                  label="objectif des processus de paiement"
+                  label="Objectifs"
                   name="objectif"
                   multiline
-                  rows="5"
-                  rowsMax={10}
+                  rows="7"
+                  rowsMax={15}
                   value={editTable.objectif}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorObjectif? false: true}
-                  helperText={!errorObjectif? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <Button
                   type="submit"
                   className="plus-icon"
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorObjectif || errorMission || errorVision ? false: true}
                 >
                   Modifier
                 </Button>
@@ -433,75 +374,61 @@ const Chapitrefive = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-              <Form>
+              <form onSubmit={onsubmit}>
                 <div className="input">
                   
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="mission"
-                    label="mission"
-                    name="mission"
-                    autoFocus
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="mission" />}
-                    error={props.errors.mission&&props.touched.mission}
-                    />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="vision"
-                    label="Vision "
-                    name="vision"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="vision" />}
-                    error={props.errors.vision&&props.touched.vision}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="mission"
+                  label="Mission"
+                  name="mission"
+                  autoFocus
+                  multiline
+                  rows="7"
+                  rowsMax={15}
+                  value={editTable.mission}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="vision"
+                  label="Vision "
+                  name="vision"
+                  multiline
+                  rows="7"
+                  rowsMax={15}
+                  value={editTable.vision}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="objectif"
-                    label="Objectifs"
-                    name="objectif"
-                    multiline
-                    rows="5"
-                    rowsMax={10}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="objectif" />}
-                    error={props.errors.objectif&&props.touched.objectif}
+                
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="objectif"
+                  label="Objectifs"
+                  name="objectif"
+                  multiline
+                  rows="7"
+                  rowsMax={15}
+                  value={editTable.objectif}
+                  onChange={handleChange}
                   />
 
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
-                    style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.mission || props.errors.vision || props.errors.objectif ? true: false}
-                    
+                    style={{color: 'white', background:'#18A4F6'}}
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

@@ -32,9 +32,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
-
 const useStyles = makeStyles({
   root: {
     width: '50%',
@@ -53,11 +50,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitreseven = () => {
-  const initialvalues = {
-    action: "",
-    responsable: "",
-    date: "",
-  };
   const editObject = {
     action: "",
     responsable: "",
@@ -90,29 +82,6 @@ const Chapitreseven = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-        case 'action':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorAction(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorAction(false)
-          }
-        break;
-        case 'responsable':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorResponsable(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorResponsable(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(avancement[index])
@@ -193,26 +162,20 @@ const Chapitreseven = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  const validationSchema = Yup.object().shape({
-    action: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    responsable: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    date: Yup.date("Entrer une date valid").required("Ce champ est obligatoire"),
- })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("etat-avancement")
       .add({
-        action: values.action,
-        responsable: values.responsable,
-        date: values.date,
+        action: editTable.action,
+        responsable: editTable.responsable,
+        date: editTable.date,
         userId: userId,
       })
       .then(() => {
-        props.resetForm()
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -353,7 +316,6 @@ const Chapitreseven = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="action"
                   label="Actions accomplies"
@@ -364,14 +326,10 @@ const Chapitreseven = () => {
                   rowsMax={10}
                   value={editTable.action}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorAction ? false: true}
-                  helperText={!errorAction ? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="responsable"
                   label="Responsable "
@@ -381,27 +339,19 @@ const Chapitreseven = () => {
                   rowsMax={5}
                   value={editTable.responsable}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorResponsable? false: true}
-                  helperText={!errorResponsable? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="date"
                   label="Date"
                   name="date"
-                  multiline
                   type="date"
                   value={editTable.date}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorDate? false: true}
-                  helperText={!errorDate? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <Button
                   type="submit"
                   className="plus-icon"
@@ -422,75 +372,59 @@ const Chapitreseven = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-              <Form>
+              <form>
                 <div className="input">
                   
-                  <Field as={TextField}
+                  <TextField
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="action"
-                    label="Actions Accomplies"
+                    label="Actions accomplies"
                     name="action"
                     autoFocus
                     multiline
                     rows="5"
                     rowsMax={10}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="action" />}
-                    error={props.errors.action&&props.touched.action}
+                    value={editTable.action}
+                    onChange={handleChange}
                     />
-                  <Field as={TextField}
+                  <TextField
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="responsable"
-                    label="responsable "
+                    label="Responsable "
                     name="responsable"
                     multiline
                     rows="2"
                     rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="responsable" />}
-                    error={props.errors.responsable&&props.touched.responsable}
-                  />
-                  <Field as={TextField}
+                    value={editTable.responsable}
+                    onChange={handleChange}
+                    />
+                  
+                  <TextField
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="date"
                     label="Date"
                     name="date"
-                    multiline
                     type="date"
-                    rowsMax={10}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="date" />}
-                    error={props.errors.date&&props.touched.date}
-                  />
+                    value={editTable.date}
+                    onChange={handleChange}
+                    />
 
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.action || props.errors.responsable || props.errors.date ? true: false}
-                    
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

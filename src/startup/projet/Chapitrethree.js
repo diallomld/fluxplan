@@ -53,12 +53,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitrethree = () => {
-  const initialvalues = {
-    produit: "",
-    description: "",
-    revenu: "",
-    model: "",
-  };
   const editObject = {
     produit: "",
     description: "",
@@ -93,56 +87,6 @@ const Chapitrethree = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-        case 'description':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorDesc(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorDesc(false)
-          }
-        break;
-        case 'produit':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorProduit(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorProduit(false)
-          }
-        break;
-        case 'model':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorModel(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorModel(false)
-          }
-        break;
-        case 'revenu':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorRevenu(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorRevenu(false)
-          }
-        break;
-        case 'revenu':
-          if (value.length > 3) {
-            //console.log("montant" + value);
-            setErrorRevenu(true)
-          } else {
-            //console.error("montant non valide "); 
-            setErrorRevenu(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(business[index])
@@ -227,27 +171,27 @@ const Chapitrethree = () => {
       .catch((err) => console.log(err));
   };
 
-  const validationSchema = Yup.object().shape({
+ /* const validationSchema = Yup.object().shape({
     produit: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
     model: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
     revenu: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
     description: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
- })
-  const onSubmit = (values, props) => {
+ })*/
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("businessmodel")
       .add({
-        produit: values.produit,
-        model: values.model,
-        revenu: values.revenu,
-        description: values.description,
+        produit: editTable.produit,
+        model: editTable.model,
+        revenu: editTable.revenu,
+        description: editTable.description,
         userId: userId,
       })
       .then(() => {
-        props.resetForm()
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -393,71 +337,55 @@ const Chapitrethree = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="produit"
                   label="produit/service"
                   name="produit"
                   autoFocus
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.produit}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorProduit? false: true}
-                  helperText={!errorProduit? 'Le champ doit étre remplit avec 3 caractére minimum':''}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="model"
                   label="Nom du business model "
                   name="model"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.model}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorModel? false: true}
-                  helperText={!errorModel? 'Le champ doit étre remplit avec 3 caractére minimum':''}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="revenu"
                   label="Flux de revenus"
                   name="revenu"
                   multiline
-                  rows="2"
-                  rowsMax={5}
+                  rows="5"
+                  rowsMax={10}
                   value={editTable.revenu}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorRevenu? false: true}
-                  helperText={!errorRevenu? 'Le champ doit étre remplit avec 3 caractére minimum':''}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="description"
                   label="Description des processus de paiement"
                   name="description"
                   multiline
-                  rows="5"
+                  rows="7"
                   rowsMax={10}
                   value={editTable.description}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorDesc? false: true}
-                  helperText={!errorDesc? 'Le champ doit étre remplit avec 3 caractére minimum':''}
                 />
                 <Button
                   type="submit"
@@ -465,8 +393,6 @@ const Chapitrethree = () => {
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorDesc || errorProduit || errorRevenu || errorModel ? false: true}
-
                 >
                   Modifier
                 </Button>
@@ -480,90 +406,73 @@ const Chapitrethree = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-              <Form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
                   
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="produit"
-                    label="produit/service"
-                    name="produit"
-                    autoFocus
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="produit" />}
-                    error={props.errors.produit&&props.touched.produit}
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="produit"
+                      label="produit/service"
+                      name="produit"
+                      autoFocus
+                      multiline
+                      rows="5"
+                      rowsMax={10}
+                      value={editTable.produit}
+                      onChange={handleChange}
                     />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="model"
-                    label="Nom du business model "
-                    name="model"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="model" />}
-                    error={props.errors.model&&props.touched.model}
-                  />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="revenu"
-                    label="Flux de revenus"
-                    name="revenu"
-                    multiline
-                    rows="2"
-                    rowsMax={5}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="revenu" />}
-                    error={props.errors.revenu&&props.touched.revenu}
-                  />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="description"
-                    label="Description des processus de paiement"
-                    name="description"
-                    multiline
-                    rows="5"
-                    rowsMax={10}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="description" />}
-                    error={props.errors.description&&props.touched.description}
-                  />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="model"
+                      label="Nom du business model "
+                      name="model"
+                      multiline
+                      rows="5"
+                      rowsMax={10}
+                      value={editTable.model}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="revenu"
+                      label="Flux de revenus"
+                      name="revenu"
+                      multiline
+                      rows="5"
+                      rowsMax={10}
+                      value={editTable.revenu}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="description"
+                      label="Description des processus de paiement"
+                      name="description"
+                      multiline
+                      rows="7"
+                      rowsMax={10}
+                      value={editTable.description}
+                      onChange={handleChange}
+                    />
 
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.revenu || props.errors.description  || props.errors.produit || props.errors.model  ? true: false}
-                    
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>
