@@ -7,6 +7,21 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
+import SaveIcon from '@material-ui/icons/Save';
+import Edit from '@material-ui/icons/Edit';
+import Add from '@material-ui/icons/Add';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -17,48 +32,61 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import Add from '@material-ui/icons/Add';
-
 const useStyles = makeStyles({
-    root: {
-      width: '50%',
-    },
-    container: {
-      maxHeight: 400,
-    },
-  });
-  
-  const StyledTableCell = withStyles((theme) => ({
-    head: {
-      backgroundColor: '#18A4F6',
-      color: theme.palette.common.white,
-      
-      fontSize: 20,
-    },
-  }))(TableCell);
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    fontSize: 20,
+  },
+}))(TableCell);
 
 const Chapitretfour = () => {
-  const initialState = {
+  const editObject = {
     partenaire: "",
   };
-  const { userId, load } = useGlobalContext();
-  const [credentital, setCredentital] = React.useState(initialState);
+  const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
-  const [partenaire, setPartenaire] = React.useState([]);
+  const [entreprise, setEntreprise] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
-  
+  const [load, setLoad] = React.useState(false);
+  const [editTable, setEditTable] = React.useState(editObject);
+
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const emptyChamp = () => {
+    setEditTable({
+      partenaire: ""
+    })
+  };
   
   const handleChange = (e) => {
     var { name, value } = e.target;
-    setCredentital({
-      ...credentital,
+    setEditTable({
+      ...editTable,
       [name]: value,
     });
   };
-  const handleModif = (id) => {
-    
+  const handleModif = (id,index) => {
+    setEditTable(entreprise[index])
+    //console.log(editTable);
     setShow(!show);
     if(show){
       setIdDoc("");
@@ -66,54 +94,45 @@ const Chapitretfour = () => {
       setIdDoc(id);
     }
   };
-  const editPartenaire = (e) => {
+  const editEntreprise = (e) => {
     e.preventDefault();
-
+    setLoad(true)
+    //setShow(!show)
     firebasee
       .firestore()
       .collection("partenaire")
       .doc(idDoc)
       .set(
         {
-          partenaire: credentital.partenaire,
+          partenaire: editTable.partenaire,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
-        console.log("data" + data);
+        setOpen(true)
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
     setIdDoc("");
   };
-  const deletePartenaire = (id) => {
+  const deleteEntreprise = (id) => {
+    setLoad(true)
     firebasee
       .firestore()
       .collection("partenaire")
       .doc(id)
       .delete()
-      .then(() => console.log("deleted"))
-      .catch((err) => console.log(err));
-    setToggle(!toggle);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    firebasee
-      .firestore()
-      .collection("partenaire")
-      .add({
-        partenaire: credentital.partenaire,
-        userId: userId,
-      })
       .then(() => {
-        console.log("add");
+        console.log("deleted")
+        setLoad(false)
+        setOpen(true)
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
-    alert("Ajouté");
   };
   const getDate = () => {
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("partenaire")
@@ -128,166 +147,213 @@ const Chapitretfour = () => {
             docIdd: doc.id,
           });
         });
-
-        setPartenaire(dat);
+        setEntreprise(dat);
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault()
+    setShow(!show)
+    setLoad(true)
+    firebasee
+      .firestore()
+      .collection("partenaire")
+      .add({
+            partenaire: editTable.partenaire,
+            userId: userId,
+      })
+      .then(() => {
+        emptyChamp()
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle(!toggle);
+  }
+
   React.useEffect(() => {
     getDate();
   }, [toggle]);
-  //console.log("pro");
-  //console.log(mission);
   return (
     <div className="chapitretwo">
-      {partenaire.length > 0 ? (
-      <div className="tab">
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {entreprise.length > 0 ? (
+        <div className="tab">
           
-      <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <caption style={{color: 'black', fontSize:18}}> Partenaires</caption>
-            <TableHead>
-              <TableRow>
-                <StyledTableCell style={{minWidth:300}}>Partenaire</StyledTableCell>
-                <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {partenaire.map((item, index) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                      
-                          <TableCell>{item.partenaire}</TableCell>
-                          <TableCell>
-                            <div className="delete">
-                              <div className="edit">
-                                <EditIcon onClick={() => handleModif(item.docIdd, index)} />
-                              </div>
-                              <div className="delet">
-                                <DeleteIcon onClick={() => deletePartenaire(item.docIdd)} />
-                              </div>
-                            </div>
-                          </TableCell>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}}>Partenaires</caption>
+                <TableHead>
+                  <TableRow><StyledTableCell style={{minWidth:300}}>Partenaire</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {entreprise.map((item, index) => {
+                      return (
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                            
+                              <TableCell>{item.partenaire}</TableCell>
+                              <TableCell>
+                                <div className="delete">
+                                  <div className="edit">
+                                    <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                  </div>
+                                  <div className="delet">
+                                    <DeleteIcon onClick={() => deleteEntreprise(item.docIdd)} />
+                                  </div>
+                                </div>
+                              </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
+        </div>
+      ) : (
+        <div className="tab">
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
+                <TableHead>
+                    <TableRow><StyledTableCell style={{minWidth:300}}>Partenaire</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
                     </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-      
-    </div>
-  ) : (
-    <div className="tab">
-      <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <caption style={{color: 'black', fontSize:20}} >Cette partie n'a pas encore été remplit</caption>
-            <TableHead>
-              <TableRow>
-                <StyledTableCell style={{ minWidth: 300 }}>Partenaire</StyledTableCell> 
-                <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell> 
-              </TableRow>
-            </TableHead>
-            <TableBody>
-                <TableRow hover role="checkbox" tabIndex={-1}>
-                      <TableCell>............</TableCell>
-                      <TableCell>.......</TableCell>
-                </TableRow>
-                <TableRow hover role="checkbox" tabIndex={-1}>
-                      <TableCell>............</TableCell>
-                      <TableCell>......</TableCell>
-                </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </div>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+        </div>
       )}
 
-      <div className="chapitretwo-title">
-        <p>Les partenaire </p>
-      </div>
-      <div className="plus">
-        {!show && (
-          <Button className="plus-icon" onClick={() => setShow(!show)}>
-            Ajouter
-          </Button>
+      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
+        <>
+        <div className="plus">
+          {!show && (
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
+              Ajouter
+            </Button>
+          )}
+        </div>
+        </>
         )}
-      </div>
-      <div>
         { idDoc ? (
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={editPartenaire}
-        >
-          <div className="input">
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="partenaire"
-              label="Partenaires clés"
-              name="partenaire"
-              autoFocus
-              multiline
-              value={credentital.partenaire}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
+          <>
+        <Card>
+          <CardContent>
 
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
+            <form
+              noValidate
+              className={`${!show && "show"}`}
+              onSubmit={editEntreprise}
             >
-              Modifier
-            </Button>
-          </div>
-        </form>
-          
-        ): (
+              <div className="input">
+                
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  multiline
+                  fullWidth
+                  autoFocus
+                  rows="10"
+                  rowsMax={15}
+                  id="partenaire"
+                  label="Partenaires clés"
+                  name="partenaire"
+                  value={editTable.partenaire}
+                  onChange={handleChange}
+                />
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
 
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={handleSubmit}
-        >
-          <div className="input">
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
             
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="partenaire"
-              label="Partenaires clés"
-              name="partenaire"
-              autoFocus
-              multiline
-              value={credentital.partenaire}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-
-            <Button
-                type="submit"
-                className="btn"
-                style={{ width: 300}}
-                onClick={() => setShow(!show)}
-              >
-                Ajouter
-            </Button>
-          </div>
-        </form>
+        </CardContent>
+        </Card>
+        </>
+        ): (
+          <>
+          <Card variant="outlined" className={`${!show && "show"}`}>
+            <CardContent>
+               <form onSubmit={onSubmit}>
+                    <div className="input">
+                        
+                      <TextField
+                          variant="outlined"
+                          margin="normal"
+                          multiline
+                          fullWidth
+                          autoFocus
+                          rows="8"
+                          rowsMax={15}
+                          id="partenaire"
+                          label="Partenaires clés"
+                          name="partenaire"
+                          value={editTable.partenaire}
+                          onChange={handleChange}
+                        />
+                        <Button
+                          type="submit"
+                          className="plus-icon"
+                          endIcon={<SaveIcon/>}
+                          style={{color: 'white', background:'#18A4F6'}}   
+                        >
+                            Enregistrer
+                        </Button>
+                    </div>
+                </form>
+            </CardContent>
+          </Card>
+        </>
         )}
-      </div>
     </div>
   );
 };
 
-export default Chapitretfour;
+export default Chapitretfour

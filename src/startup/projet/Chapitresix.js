@@ -68,15 +68,6 @@ const Chapitresix = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorDenomination, setErrorDenomination] = React.useState(true);
-  const [errorNom, setErrorNom] = React.useState(true);
-  const [errorSigle, setErrorSigle] = React.useState(true);
-  const [errorJuridique, setErrorJuridique] = React.useState(true);
-  const [errorSocial, setErrorSocial] = React.useState(true);
-  const [errorSiege, setErrorSiege] = React.useState(true);
-  const [errorCapital, setErrorCapital] = React.useState(true);
-  const [errorTelephone, setErrorTelephone] = React.useState(true);
-  const [errorCourriel, setErrorCourriel] = React.useState(true);
 
   const classes = useStyles();
 

@@ -322,6 +322,7 @@ const Chapitresix = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="nom"
                   label="Nom prescripteur"
                   name="nom"
@@ -337,6 +338,7 @@ const Chapitresix = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="localisation"
                   label="Localisation"
                   name="localisation"
@@ -349,6 +351,7 @@ const Chapitresix = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="produit"
                   label="Produits/Services "
                   name="produit"
@@ -361,6 +364,7 @@ const Chapitresix = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="statut"
                   label="statuts"
                   name="statut"
@@ -395,6 +399,7 @@ const Chapitresix = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="nom"
                       label="Nom prescripteur"
                       name="nom"
@@ -410,6 +415,7 @@ const Chapitresix = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="localisation"
                       label="Localisation"
                       name="localisation"
@@ -422,6 +428,7 @@ const Chapitresix = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="produit"
                       label="Produits/Services "
                       name="produit"
@@ -434,6 +441,7 @@ const Chapitresix = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="statut"
                       label="statuts"
                       name="statut"

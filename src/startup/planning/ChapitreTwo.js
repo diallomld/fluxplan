@@ -535,6 +535,7 @@ const ChapitreTwoPlaning = () => {
                 variant="outlined"
                 margin="normal"
                 fullWidth
+                multiline
                 id="activite"
                 label="activites"
                 name="activite"
@@ -550,6 +551,7 @@ const ChapitreTwoPlaning = () => {
                 type="mois"
                 select
                 fullWidth
+
                 id="mois"
                 label="mois"
                 name="mois"
@@ -599,6 +601,7 @@ const ChapitreTwoPlaning = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="activite"
                         label="activites"
                         name="activite"
@@ -614,6 +617,7 @@ const ChapitreTwoPlaning = () => {
                         type="mois"
                         select
                         fullWidth
+
                         id="mois"
                         label="mois"
                         name="mois"
@@ -638,7 +642,6 @@ const ChapitreTwoPlaning = () => {
                       <Button
                           type="submit"
                           className="plus-icon"
-                          style={{ width: 300}}
                           endIcon={<SaveIcon/>}
                           style={{color: 'white', background:'#18A4F6'}} 
                           

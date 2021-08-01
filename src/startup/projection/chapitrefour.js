@@ -615,7 +615,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="produits"
                   label="produits"
@@ -630,7 +629,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="prix"
                   label="Prix unitaire"
@@ -650,7 +648,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm1"
                   label="Quantité mois 1"
@@ -666,7 +663,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm2"
                   label="Quantité mois 2"
@@ -682,7 +678,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm3"
                   label="Quantité mois 3"
@@ -698,7 +693,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm4"
                   label="Quantité mois 4"
@@ -714,7 +708,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm5"
                   label="Quantité mois 5"
@@ -730,7 +723,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm6"
                   label="Quantité mois 6"
@@ -746,7 +738,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm7"
                   label="Quantité mois 7"
@@ -762,7 +753,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm8"
                   label="Quantité mois 8"
@@ -778,7 +768,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm9"
                   label="Quantité mois 9"
@@ -794,7 +783,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm10"
                   label="Quantité mois 10"
@@ -810,7 +798,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm11"
                   label="Quantité mois 11"
@@ -826,7 +813,6 @@ const Chapitrefourp = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="qm12"
                   label="Quantité mois 12"
@@ -865,7 +851,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="produits"
                       label="produits"
@@ -880,7 +865,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="prix"
                       label="Prix unitaire"
@@ -900,7 +884,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm1"
                       label="Quantité mois 1"
@@ -916,7 +899,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm2"
                       label="Quantité mois 2"
@@ -932,7 +914,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm3"
                       label="Quantité mois 3"
@@ -948,7 +929,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm4"
                       label="Quantité mois 4"
@@ -964,7 +944,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm5"
                       label="Quantité mois 5"
@@ -980,7 +959,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm6"
                       label="Quantité mois 6"
@@ -996,7 +974,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm7"
                       label="Quantité mois 7"
@@ -1012,7 +989,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm8"
                       label="Quantité mois 8"
@@ -1028,7 +1004,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm9"
                       label="Quantité mois 9"
@@ -1044,7 +1019,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm10"
                       label="Quantité mois 10"
@@ -1060,7 +1034,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm11"
                       label="Quantité mois 11"
@@ -1076,7 +1049,6 @@ const Chapitrefourp = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="qm12"
                       label="Quantité mois 12"
@@ -1092,7 +1064,6 @@ const Chapitrefourp = () => {
                     <Button
                       type="submit"
                       className="plus-icon"
-                      style={{ width: 300}}
                       endIcon={<SaveIcon/>}
                       style={{color: 'white', background:'#18A4F6'}}
                         >

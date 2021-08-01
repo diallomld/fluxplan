@@ -72,6 +72,7 @@ import ChapitreOnePlaning from "./startup/planning/ChapitreOne";
 import ChapitreTwoPlaning from "./startup/planning/ChapitreTwo";
 import AchaPrevision from "./startup/projection/AchatPrevision";
 import EquipeDirigeante from "./startup/sommaire/EquipeDirigeante";
+import ChapitreFourFinancement from "./startup/financement/ChapitreFour";
 
 function App() {
   var id = localStorage.getItem("userId");
@@ -142,6 +143,9 @@ function App() {
             </Route>
             <Route exact path="/financement/mode">
               <ChapitreThreeFinancement />
+            </Route>
+            <Route exact path="/financement/emprunt">
+              <ChapitreFourFinancement />
             </Route>
             <Route exact path="/planning/etat">
               <ChapitreOnePlaning />

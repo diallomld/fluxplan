@@ -32,9 +32,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
-
 const useStyles = makeStyles({
   root: {
     width: '50%',
@@ -53,12 +50,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Entreprise = () => {
-  const initialvalues = {
-    nom: "",
-    adresse: "",
-    tel: "",
-    email: "",
-  };
   const editObject = {
     nom: "",
     adresse: "",
@@ -324,56 +315,52 @@ const Entreprise = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="nom"
                   label="Nom/entreprise"
                   name="nom"
                   autoFocus
                   multiline
-                  minRows="5"
+                  rows="3"
                   value={editTable.nom}
                   onChange={handleChange}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="adresse"
                   label="adresse/entreprise"
                   name="adresse"
                   autoFocus
                   multiline
-                  minRows="5"
+                  rows="3"
                   value={editTable.adresse}
                   onChange={handleChange}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="tel"
                   label="tel/entreprise"
                   name="tel"
                   autoFocus
                   multiline
-                  minRows="5"
+                  rows="3"
                   value={editTable.tel}
                   onChange={handleChange}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="email"
                   label="email/entreprise"
                   name="email"
                   autoFocus
                   multiline
-                  minRows="5"
+                  rows="3"
                   value={editTable.email}
                   onChange={handleChange}
                 />
@@ -402,64 +389,60 @@ const Entreprise = () => {
                         
                         <TextField
                         variant="outlined"
-                        margin="normal"
-                        required
+                        margin="normal" 
                         fullWidth
                         id="nom"
                         label="Nom/entreprise"
                         name="nom"
                         autoFocus
                         multiline
-                        minRows="5"
+                        rows="3"
                         value={editTable.nom}
                         onChange={handleChange}
                         />
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
+    
                         fullWidth
                         id="adresse"
                         label="adresse/entreprise"
                         name="adresse"
                         autoFocus
                         multiline
-                        minRows="5"
+                        rows="3"
                         value={editTable.adresse}
                         onChange={handleChange}
                         />
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="tel"
                         label="tel/entreprise"
                         name="tel"
                         autoFocus
                         multiline
-                        minRows="5"
+                        rows="3"
                         value={editTable.tel}
                         onChange={handleChange}
                         />
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="email"
                         label="email/entreprise"
                         name="email"
                         autoFocus
                         multiline
-                        minRows="5"
+                        rows="3"
                         value={editTable.email}
                         onChange={handleChange}
                         />
                         <Button
                             type="submit"
                             className="plus-icon"
-                            style={{ width: 300}}
                             endIcon={<SaveIcon/>}
                             style={{color: 'white', background:'#18A4F6'}} 
                             

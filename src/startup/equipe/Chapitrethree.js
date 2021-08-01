@@ -5,6 +5,23 @@ import { firebasee } from "../../context/firebase";
 import "./Chapitreone.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
+import SaveIcon from '@material-ui/icons/Save';
+import Edit from '@material-ui/icons/Edit';
+import Add from '@material-ui/icons/Add';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -16,48 +33,66 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 const useStyles = makeStyles({
-    root: {
-      width: '50%',
-    },
-    container: {
-      maxHeight: 400,
-    },
-  });
-  
-  const StyledTableCell = withStyles((theme) => ({
-    head: {
-      backgroundColor: '#18A4F6',
-      color: theme.palette.common.white,
-      
-      fontSize: 20,
-    },
-  }))(TableCell);
+  root: {
+    width: '50%',
+  },
+  container: {
+    maxHeight: 400,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#18A4F6',
+    color: theme.palette.common.white,
+    fontSize: 20,
+  },
+}))(TableCell);
 
 const Chapitrethree = () => {
-  const initialState = {
+  const editObject = {
     nombre: "",
     poste: "",
     profil: "",
     mission: "",
   };
   const { userId } = useGlobalContext();
-  const [credentital, setCredentital] = React.useState(initialState);
   const [show, setShow] = React.useState(false);
-  const [personnel, setPersonnel] = React.useState([]);
+  const [entreprise, setEntreprise] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+  const [load, setLoad] = React.useState(false);
+  const [editTable, setEditTable] = React.useState(editObject);
 
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const emptyChamp = () => {
+    setEditTable({
+      nombre: "",
+      poste: "",
+      profil: "",
+      mission: "",
+    })
+  };
   
   const handleChange = (e) => {
     var { name, value } = e.target;
-    setCredentital({
-      ...credentital,
+    setEditTable({
+      ...editTable,
       [name]: value,
     });
   };
-  const handleModif = (id) => {
-    
+  const handleModif = (id,index) => {
+    setEditTable(entreprise[index])
+    //console.log(editTable);
     setShow(!show);
     if(show){
       setIdDoc("");
@@ -65,60 +100,52 @@ const Chapitrethree = () => {
       setIdDoc(id);
     }
   };
-  const editPersonnel = (e) => {
+  const editEntreprise = (e) => {
     e.preventDefault();
-
+    setLoad(true)
+    //setShow(!show)
     firebasee
       .firestore()
       .collection("personnel")
       .doc(idDoc)
       .set(
         {
-          nombre: credentital.nombre,
-          poste: credentital.poste,
-          profil: credentital.profil,
-          mission: credentital.mission,
+          nombre: editTable.nombre,
+          poste: editTable.poste,
+          profil: editTable.profil,
+          mission: editTable.mission,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
-        console.log("data" + data);
+        console.log("data edit" + data);
+        //setLoad(false)
+        setEditTable({
+        })
+        setOpen(true)
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
     setIdDoc("");
   };
-  const deletePersonnel = (id) => {
+  const deleteEntreprise = (id) => {
+    setLoad(true)
     firebasee
       .firestore()
       .collection("personnel")
       .doc(id)
       .delete()
-      .then(() => console.log("deleted"))
-      .catch((err) => console.log(err));
-    setToggle(!toggle);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    firebasee
-      .firestore()
-      .collection("personnel")
-      .add({
-        nombre: credentital.nombre,
-        poste: credentital.poste,
-        profil: credentital.profil,
-        mission: credentital.mission,
-        userId: userId,
-      })
       .then(() => {
-        console.log("add");
+        console.log("deleted")
+        setLoad(false)
+        setOpen(true)
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
-    alert("Ajouté");
   };
   const getDate = () => {
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("personnel")
@@ -136,262 +163,310 @@ const Chapitrethree = () => {
             docIdd: doc.id,
           });
         });
-
-        setPersonnel(dat);
+        setEntreprise(dat);
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault()
+    setShow(!show)
+    setLoad(true)
+    firebasee
+      .firestore()
+      .collection("personnel")
+      .add({
+            nombre: editTable.nombre,
+            poste: editTable.poste,
+            profil: editTable.profil,
+            mission: editTable.mission,
+            userId: userId,
+      })
+      .then(() => {
+        emptyChamp()
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle(!toggle);
+  }
+
   React.useEffect(() => {
     getDate();
   }, [toggle]);
-  //console.log("pro");
-  //console.log(mission);
   return (
     <div className="chapitretwo">
-      {personnel.length > 0 ? (
-      <div className="tab">
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {entreprise.length > 0 ? (
+        <div className="tab">
           
-      <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <caption style={{color: 'black', fontSize:18}}> Personnel</caption>
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Poste</StyledTableCell>
-                <StyledTableCell>Nombre</StyledTableCell>
-                <StyledTableCell>Profil</StyledTableCell>
-                <StyledTableCell style={{minWidth:300}}>Missions et tâches</StyledTableCell>
-                <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {personnel.map((item, index) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                      
-                          <TableCell>{item.poste}</TableCell>
-                          <TableCell>{item.nombre}</TableCell>
-                          <TableCell>{item.profil}</TableCell>
-                          <TableCell>{item.mission}</TableCell>
-                          <TableCell>
-                            <div className="delete">
-                              <div className="edit">
-                                <EditIcon onClick={() => handleModif(item.docIdd, index)} />
-                              </div>
-                              <div className="delet">
-                                <DeleteIcon onClick={() => deletePersonnel(item.docIdd)} />
-                              </div>
-                            </div>
-                          </TableCell>
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}}>Personnel</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Poste</StyledTableCell>
+                    <StyledTableCell>Nombre</StyledTableCell>
+                    <StyledTableCell>Profil</StyledTableCell>
+                    <StyledTableCell style={{minWidth:300}}>Missions et tâches</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {entreprise.map((item, index) => {
+                      return (
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                            
+                              <TableCell>{item.poste}</TableCell>
+                              <TableCell>{item.nombre}</TableCell>
+                              <TableCell>{item.profil}</TableCell>
+                              <TableCell>{item.mission}</TableCell>
+                              <TableCell>
+                                <div className="delete">
+                                  <div className="edit">
+                                    <EditIcon onClick={() => handleModif(item.docIdd, index)} />
+                                  </div>
+                                  <div className="delet">
+                                    <DeleteIcon onClick={() => deleteEntreprise(item.docIdd)} />
+                                  </div>
+                                </div>
+                              </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          
+        </div>
+      ) : (
+        <div className="tab">
+          <Paper className={classes.root}>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Poste</StyledTableCell>
+                    <StyledTableCell>Nombre</StyledTableCell>
+                    <StyledTableCell>Profil</StyledTableCell>
+                    <StyledTableCell style={{minWidth:300}}>Missions et tâches</StyledTableCell>
+                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow hover role="checkbox" tabIndex={-1}>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
+                          <TableCell>............</TableCell>
                     </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-      
-    </div>
-  ) : (
-    <div className="tab">
-      <Paper className={classes.root}>
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <caption style={{color: 'black', fontSize:20}} >Cette partie n'a pas encore été remplit</caption>
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Poste</StyledTableCell>
-                <StyledTableCell>Nombre</StyledTableCell>
-                <StyledTableCell>Profil</StyledTableCell>
-                <StyledTableCell style={{minWidth:300}}>Missions et tâches</StyledTableCell>
-                <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-                <TableRow hover role="checkbox" tabIndex={-1}>
-                      <TableCell>............</TableCell>
-                      <TableCell>............</TableCell>
-                      <TableCell>............</TableCell>
-                      <TableCell>............</TableCell>
-                      <TableCell>.......</TableCell>
-                </TableRow>
-                <TableRow hover role="checkbox" tabIndex={-1}>
-                      <TableCell>............</TableCell>
-                      <TableCell>............</TableCell>
-                      <TableCell>............</TableCell>
-                      <TableCell>............</TableCell>
-                      <TableCell>......</TableCell>
-                </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </div>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+        </div>
       )}
 
-      <div className="chapitretwo-title">
-        <p>Le Personnel </p>
-      </div>
-      <div className="plus">
-        {!show && (
-          <Button className="plus-icon" onClick={() => setShow(!show)}>
-            Ajouter
-          </Button>
+      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
+        <>
+        <div className="plus">
+          {!show && (
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
+              Ajouter
+            </Button>
+          )}
+        </div>
+        </>
         )}
-      </div>
-      <div>
         { idDoc ? (
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={editPersonnel}
-        >
-          <div className="input">
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="poste"
-              label="Poste"
-              name="poste"
-              autoFocus
-              value={credentital.poste}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="nombre"
-              label="Nombre"
-              name="nombre"
-              autoComplete="nombre"
-              autoFocus
-              type="number"
-              value={credentital.nombre}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="profil"
-              label="Profil"
-              name="profil"
-              autoFocus
-              value={credentital.profil}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="mission"
-              label="Missions et tâches"
-              name="mission"
-              multiline
-              autoFocus
-              value={credentital.mission}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
+          <>
+        <Card>
+          <CardContent>
 
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
+            <form
+              noValidate
+              className={`${!show && "show"}`}
+              onSubmit={editEntreprise}
             >
-              Modifier
-            </Button>
-          </div>
-        </form>
-          
-        ): (
+              <div className="input">
+                
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  multiline
+                  fullWidth
+                  autoFocus
+                  rows="4"
+                  rowsMax={10}
+                  id="poste"
+                  label="Poste"
+                  name="poste"
+                  value={editTable.poste}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  multiline
+                  id="nombre"
+                  label="Nombre"
+                  name="nombre"
+                  autoComplete="nombre"
+                  type="number"
+                  value={editTable.nombre}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  multiline
+                  fullWidth
+                  id="profil"
+                  label="Profil"
+                  name="profil"
+                  rows="5"
+                  rowsMax={10}
+                  value={editTable.profil}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  multiline
+                  fullWidth
+                  id="mission"
+                  label="Missions et tâches"
+                  name="mission"
+                  rows="8"
+                  rowsMax={15}
+                  value={editTable.mission}
+                  onChange={handleChange}
+                />
+                
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
 
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={handleSubmit}
-        >
-          <div className="input">
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
             
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="poste"
-              label="Poste"
-              name="poste"
-              autoFocus
-              value={credentital.poste}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="nombre"
-              label="Nombre"
-              name="nombre"
-              autoComplete="nombre"
-              autoFocus
-              type="number"
-              value={credentital.nombre}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="profil"
-              label="Profil"
-              name="profil"
-              autoFocus
-              value={credentital.profil}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="mission"
-              label="Missions et tâches"
-              name="mission"
-              multiline
-              autoFocus
-              value={credentital.mission}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-
-            <Button
-                type="submit"
-                className="btn"
-                onClick={() => setShow(!show)}
-              >
-                Ajouter
-            </Button>
-          </div>
-        </form>
+        </CardContent>
+        </Card>
+        </>
+        ): (
+          <>
+          <Card variant="outlined" className={`${!show && "show"}`}>
+            <CardContent>
+               <form onSubmit={onSubmit}>
+                    <div className="input">
+                        
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          multiline
+                          fullWidth
+                          autoFocus
+                          rows="4"
+                          rowsMax={10}
+                          id="poste"
+                          label="Poste"
+                          name="poste"
+                          value={editTable.poste}
+                          onChange={handleChange}
+                        />
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          multiline
+                          id="nombre"
+                          label="Nombre"
+                          name="nombre"
+                          autoComplete="nombre"
+                          type="number"
+                          value={editTable.nombre}
+                          onChange={handleChange}
+                        />
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          multiline
+                          fullWidth
+                          id="profil"
+                          label="Profil"
+                          name="profil"
+                          rows="5"
+                          rowsMax={10}
+                          value={editTable.profil}
+                          onChange={handleChange}
+                        />
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          multiline
+                          fullWidth
+                          id="mission"
+                          label="Missions et tâches"
+                          name="mission"
+                          rows="8"
+                          rowsMax={15}
+                          value={editTable.mission}
+                          onChange={handleChange}
+                        />
+                        <Button
+                            type="submit"
+                            className="plus-icon"
+                            endIcon={<SaveIcon/>}
+                            style={{color: 'white', background:'#18A4F6'}} 
+                            
+                        >
+                            Enregistrer
+                        </Button>
+                    </div>
+                </form>
+            </CardContent>
+          </Card>
+        </>
         )}
-      </div>
     </div>
   );
 };
 
-export default Chapitrethree;
+export default Chapitrethree

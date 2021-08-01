@@ -546,7 +546,6 @@ const ChapitreTwoFinancement = () => {
                         <Button
                             type="submit"
                             className="plus-icon"
-                            style={{ width: 300}}
                             endIcon={<SaveIcon/>}
                             style={{color: 'white', background:'#18A4F6'}} 
                             

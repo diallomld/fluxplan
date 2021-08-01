@@ -20,11 +20,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-
-import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -34,9 +31,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
 
 const useStyles = makeStyles({
   root: {
@@ -57,10 +51,7 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Analyse = () => {
-  const initialvalues = {
-    risques: "",
-    solutions: "",
-  };
+  
   const editObject = {
     risques: "",
     solutions: "",
@@ -72,8 +63,6 @@ const Analyse = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorRisques, setErrorRisques] = React.useState(true);
-  const [errorSolutions, setErrorSolutions] = React.useState(true);
 
   const classes = useStyles();
 
@@ -84,6 +73,12 @@ const Analyse = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const initForm = () => {
+    setEditTable({
+      risques: "",
+      solutions: "",
+    })
+  };
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -91,29 +86,6 @@ const Analyse = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-      case 'risques':
-          if (value.length >=3) {
-            //console.log("elements " + value);
-            setErrorRisques(true)
-          } else {
-            //console.error("prevision non valide");
-            setErrorRisques(false)
-          }
-          break;
-          case 'solutions':
-            if (value.length > 3) {
-              //console.log("montant" + value);
-              setErrorSolutions(true)
-            } else {
-              //console.error("montant non valide "); 
-              setErrorSolutions(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(risque[index])
@@ -141,12 +113,7 @@ const Analyse = () => {
         { merge: true }
       )
       .then((data) => {
-        console.log("data" + data);
-        //setLoad(false)
-        setEditTable({
-          risques:"",
-          solutions:"",
-        })
+        initForm()
         setOpen(true)
       })
       .catch((err) => console.error(err));
@@ -191,23 +158,20 @@ const Analyse = () => {
       .catch((err) => console.log(err));
   };
 
-  const validationSchema = Yup.object().shape({
-    risques: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    solutions: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
- })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("analyse-risque")
       .add({
-          risques: values.risques,
-          solutions: values.solutions,
+          risques: editTable.risques,
+          solutions: editTable.solutions,
           userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        initForm()
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -341,44 +305,36 @@ const Analyse = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="risques"
                   label="Les risques du projet"
                   name="risques"
                   autoFocus
                   multiline
-                  rows="5"
+                  rows="8"
+                  rowsMax={15}
                   value={editTable.risques}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorRisques? false: true}
-                  helperText={!errorRisques? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="solutions"
                   label="Les solutions du projet"
                   name="solutions"
-                  autoFocus
+                  rows="8"
+                  rowsMax={15}
                   multiline
-                  rows="5"
                   value={editTable.solutions}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorSolutions? false: true}
-                  helperText={!errorSolutions? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <Button
                   type="submit"
                   className="plus-icon"
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorRisques || errorSolutions ? false: true}
 
                 >
                   Modifier
@@ -393,57 +349,46 @@ const Analyse = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-              <Form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="risques"
-                    label="Les risques"
-                    name="risques"
-                    autoFocus
-                    multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="risques" />}
-                    error={props.errors.risques&&props.touched.risques}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="risques"
+                  label="Les risques du projet"
+                  name="risques"
+                  autoFocus
+                  multiline
+                  rows="8"
+                  rowsMax={15}
+                  value={editTable.risques}
+                  onChange={handleChange}
                   />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="solutions"
-                    label="Les solutions"
-                    name="solutions"
-                    autoFocus
-                    multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="solutions" />}
-                    error={props.errors.solutions&&props.touched.solutions}
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="solutions"
+                  label="Les solutions du projet"
+                  name="solutions"
+                  rows="8"
+                  rowsMax={15}
+                  multiline
+                  value={editTable.solutions}
+                  onChange={handleChange}
                   />
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.solutions|| props.errors.risques ? true: false}
                     
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

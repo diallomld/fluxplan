@@ -311,7 +311,6 @@ const ChapitreThreesommaire = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="marche"
                   label="marche visé"
@@ -326,7 +325,6 @@ const ChapitreThreesommaire = () => {
                  <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="taille"
                   label="taille"
@@ -340,7 +338,6 @@ const ChapitreThreesommaire = () => {
                  <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="tandance"
                   label="tandance"
@@ -377,8 +374,7 @@ const ChapitreThreesommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
-                        fullWidth
+                              fullWidth
                         id="marche"
                         label="marche visé"
                         name="marche"
@@ -392,8 +388,7 @@ const ChapitreThreesommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
-                        fullWidth
+                              fullWidth
                         id="taille"
                         label="taille"
                         name="taille"
@@ -406,8 +401,7 @@ const ChapitreThreesommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
-                        fullWidth
+                              fullWidth
                         id="tandance"
                         label="tandance"
                         name="tandance"

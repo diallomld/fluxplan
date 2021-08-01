@@ -150,8 +150,8 @@ const Chapitrehuit = () => {
     autres3:"",
     capacite0:"",
     capacite1:"",
-    capacite1:"",
     capacite2:"",
+    capacite3:"",
   };
   const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
@@ -777,7 +777,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="invest0"
                   label="Investissements Année 0"
@@ -794,7 +793,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="invest1"
                   label="Investissements Année 1"
@@ -811,7 +809,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Investissements Année 2"
                   id="invest2"
@@ -827,7 +824,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Investissements Année 3"
                   id="invest3"
@@ -843,7 +839,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="variation0"
                   label="Variation du Besoin en fonds de roulement Année 0"
@@ -860,7 +855,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="variation1"
                   label="Variation du Besoin en fonds de roulement Année 1"
@@ -877,7 +871,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Variation du Besoin en fonds de roulement Année 2"
                   id="variation2"
@@ -893,7 +886,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Variation du Besoin en fonds de roulement Année 3"
                   id="variation3"
@@ -909,7 +901,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="rembourse0"
                   label="Remboursement emprunt Année 0"
@@ -926,7 +917,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="rembourse1"
                   label="Remboursement emprunt Année 1"
@@ -943,7 +933,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Remboursement emprunt Année 2"
                   id="rembourse2"
@@ -959,7 +948,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Remboursement emprunt Année 3"
                   id="rembourse3"
@@ -976,7 +964,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="dividende0"
                   label="Dividende Année 0"
@@ -993,7 +980,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="dividende1"
                   label="Dividende Année 1"
@@ -1010,7 +996,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Dividende Année 2"
                   id="dividende2"
@@ -1026,7 +1011,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Dividende Année 3"
                   id="dividende3"
@@ -1042,7 +1026,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apportp0"
                   label="Apports personnel Année 0"
@@ -1059,7 +1042,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apportp1"
                   label="Apports personnel Année 1"
@@ -1076,7 +1058,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports personnel Année 2"
                   id="apportp2"
@@ -1092,7 +1073,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports personnel Année 3"
                   id="apportp3"
@@ -1108,7 +1088,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apportp0"
                   label="Apports personnel Année 0"
@@ -1125,7 +1104,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apportp1"
                   label="Apports personnel Année 1"
@@ -1142,7 +1120,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports personnel Année 2"
                   id="apportp2"
@@ -1158,7 +1135,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports personnel Année 3"
                   id="apportp3"
@@ -1174,7 +1150,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apporta0"
                   label="Apports des associés Année 0"
@@ -1191,7 +1166,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apporta1"
                   label="Apports des associés Année 1"
@@ -1208,7 +1182,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports des associés Année 2"
                   id="apporta2"
@@ -1224,7 +1197,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports des associés Année 3"
                   id="apporta3"
@@ -1241,7 +1213,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="emprunt0"
                   label="Emprunts Année 0"
@@ -1258,7 +1229,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="emprunt1"
                   label="Emprunts Année 1"
@@ -1275,7 +1245,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Emprunts Année 2"
                   id="emprunt2"
@@ -1291,7 +1260,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Emprunts Année 3"
                   id="emprunt3"
@@ -1308,7 +1276,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="subvention0"
                   label="Subventions Année 0"
@@ -1325,7 +1292,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="subvention1"
                   label="Subventions Année 1"
@@ -1342,7 +1308,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Subventions Année 2"
                   id="subvention2"
@@ -1358,7 +1323,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Subventions Année 3"
                   id="subvention3"
@@ -1375,7 +1339,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="aides0"
                   label="Aides Année 0"
@@ -1392,7 +1355,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="aides1"
                   label="Aides Année 1"
@@ -1409,7 +1371,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Aides Année 2"
                   id="aides2"
@@ -1425,7 +1386,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Aides Année 3"
                   id="aides3"
@@ -1442,7 +1402,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="autres0"
                   label="Autres Année 0"
@@ -1459,7 +1418,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="autres1"
                   label="Autres Année 1"
@@ -1476,7 +1434,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Autres Année 2"
                   id="autres2"
@@ -1492,7 +1449,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Autres Année 3"
                   id="autres3"
@@ -1509,7 +1465,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="capacite0"
                   label="Capacité d'autofinancement (hors subvention) Année 0"
@@ -1526,7 +1481,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="capacite1"
                   label="Capacité d'autofinancement (hors subvention Année 1"
@@ -1543,7 +1497,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Capacité d'autofinancement (hors subvention Année 2"
                   id="capacite2"
@@ -1559,7 +1512,6 @@ const Chapitrehuit = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Capacité d'autofinancement (hors subvention Année 3"
                   id="capacite3"
@@ -1603,7 +1555,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="invest0"
                   label="Investissements Année 0"
@@ -1618,7 +1569,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="invest1"
                   label="Investissements Année 1"
@@ -1633,7 +1583,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Investissements Année 2"
                   id="invest2"
@@ -1647,7 +1596,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Investissements Année 3"
                   id="invest3"
@@ -1661,7 +1609,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="variation0"
                   label="Variation du Besoin en fonds de roulement Année 0"
@@ -1676,7 +1623,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="variation1"
                   label="Variation du Besoin en fonds de roulement Année 1"
@@ -1691,7 +1637,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Variation du Besoin en fonds de roulement Année 2"
                   id="variation2"
@@ -1705,7 +1650,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Variation du Besoin en fonds de roulement Année 3"
                   id="variation3"
@@ -1719,7 +1663,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="rembourse0"
                   label="Remboursement emprunt Année 0"
@@ -1734,7 +1677,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="rembourse1"
                   label="Remboursement emprunt Année 1"
@@ -1749,7 +1691,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Remboursement emprunt Année 2"
                   id="rembourse2"
@@ -1763,7 +1704,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Remboursement emprunt Année 3"
                   id="rembourse3"
@@ -1778,7 +1718,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="dividende0"
                   label="Dividende Année 0"
@@ -1793,7 +1732,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="dividende1"
                   label="Dividende Année 1"
@@ -1808,7 +1746,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Dividende Année 2"
                   id="dividende2"
@@ -1822,7 +1759,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Dividende Année 3"
                   id="dividende3"
@@ -1836,7 +1772,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apportp0"
                   label="Apports personnel Année 0"
@@ -1851,7 +1786,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apportp1"
                   label="Apports personnel Année 1"
@@ -1866,7 +1800,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports personnel Année 2"
                   id="apportp2"
@@ -1880,7 +1813,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports personnel Année 3"
                   id="apportp3"
@@ -1894,7 +1826,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apportp0"
                   label="Apports personnel Année 0"
@@ -1909,7 +1840,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apportp1"
                   label="Apports personnel Année 1"
@@ -1924,7 +1854,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports personnel Année 2"
                   id="apportp2"
@@ -1938,7 +1867,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports personnel Année 3"
                   id="apportp3"
@@ -1952,7 +1880,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apporta0"
                   label="Apports des associés Année 0"
@@ -1967,7 +1894,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="apporta1"
                   label="Apports des associés Année 1"
@@ -1982,7 +1908,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports des associés Année 2"
                   id="apporta2"
@@ -1996,7 +1921,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Apports des associés Année 3"
                   id="apporta3"
@@ -2011,7 +1935,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="emprunt0"
                   label="Emprunts Année 0"
@@ -2026,7 +1949,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="emprunt1"
                   label="Emprunts Année 1"
@@ -2041,7 +1963,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Emprunts Année 2"
                   id="emprunt2"
@@ -2055,7 +1976,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Emprunts Année 3"
                   id="emprunt3"
@@ -2070,7 +1990,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="subvention0"
                   label="Subventions Année 0"
@@ -2085,7 +2004,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="subvention1"
                   label="Subventions Année 1"
@@ -2100,7 +2018,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Subventions Année 2"
                   id="subvention2"
@@ -2114,7 +2031,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Subventions Année 3"
                   id="subvention3"
@@ -2129,7 +2045,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="aides0"
                   label="Aides Année 0"
@@ -2144,7 +2059,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="aides1"
                   label="Aides Année 1"
@@ -2159,7 +2073,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Aides Année 2"
                   id="aides2"
@@ -2173,7 +2086,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Aides Année 3"
                   id="aides3"
@@ -2188,7 +2100,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="autres0"
                   label="Autres Année 0"
@@ -2203,7 +2114,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="autres1"
                   label="Autres Année 1"
@@ -2218,7 +2128,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Autres Année 2"
                   id="autres2"
@@ -2232,7 +2141,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Autres Année 3"
                   id="autres3"
@@ -2247,7 +2155,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="capacite0"
                   label="Capacité d'autofinancement (hors subvention) Année 0"
@@ -2262,7 +2169,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="capacite1"
                   label="Capacité d'autofinancement (hors subvention Année 1"
@@ -2277,7 +2183,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Capacité d'autofinancement (hors subvention Année 2"
                   id="capacite2"
@@ -2291,7 +2196,6 @@ const Chapitrehuit = () => {
                 <Field as={TextField}
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   label="Capacité d'autofinancement (hors subvention Année 3"
                   id="capacite3"
@@ -2306,7 +2210,6 @@ const Chapitrehuit = () => {
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}}
                   >

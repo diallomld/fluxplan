@@ -32,9 +32,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
-
 const useStyles = makeStyles({
   root: {
     width: '50%',
@@ -305,7 +302,6 @@ const ChapitreTwosommaire = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="besoin"
                   label="besoin/Problemes"
@@ -320,7 +316,6 @@ const ChapitreTwosommaire = () => {
                  <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="solution"
                   label="solutions"
@@ -357,8 +352,7 @@ const ChapitreTwosommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
-                        fullWidth
+                              fullWidth
                         id="besoin"
                         label="besoin/Problemes"
                         name="besoin"
@@ -372,8 +366,7 @@ const ChapitreTwosommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
-                        fullWidth
+                              fullWidth
                         id="solution"
                         label="solutions"
                         name="solution"

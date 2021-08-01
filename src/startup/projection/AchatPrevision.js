@@ -589,7 +589,6 @@ const AchaPrevision = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="produits"
                   label="produits"
@@ -604,7 +603,6 @@ const AchaPrevision = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="prix"
                   label="Prix unitaire"
@@ -646,7 +644,6 @@ const AchaPrevision = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="produits"
                       label="produits"
@@ -661,7 +658,6 @@ const AchaPrevision = () => {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="prix"
                       label="Prix unitaire"

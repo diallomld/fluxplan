@@ -294,6 +294,7 @@ const Chapitrefive = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="avantage"
                   label="Avantage Concurentiel"
                   name="avantage"
@@ -331,6 +332,7 @@ const Chapitrefive = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="avantage"
                         label="Avantage Concurentiel"
                         name="avantage"

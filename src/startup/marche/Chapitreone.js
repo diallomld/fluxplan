@@ -28,6 +28,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import Add from '@material-ui/icons/Add';
+import Edit from "@material-ui/icons/Edit";
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles({
     root: {
@@ -79,7 +81,9 @@ const Chapitreone = () => {
       [name]: value,
     });
   };
-  const handleModif = (id) => {
+  const handleModif = (id,index) => {
+    setCredentital(analyse[index])
+    //console.log(editTable);
     setShow(!show);
     if(show){
       setIdDoc("");
@@ -306,6 +310,7 @@ const Chapitreone = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
               id="nature"
               label="Nature du marché "
               name="nature"
@@ -320,6 +325,7 @@ const Chapitreone = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
               id="localisation"
               label="Localisation du marché"
               name="localisation"
@@ -333,6 +339,7 @@ const Chapitreone = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
               id="taille"
               label="Taille du marché "
               name="taille"
@@ -346,6 +353,7 @@ const Chapitreone = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
               id="tendance"
               label="Tendance du marché"
               name="tendance"
@@ -358,8 +366,10 @@ const Chapitreone = () => {
 
             <Button
               type="submit"
-              className="btn"
+              className="plus-icon"
               onClick={() => setShow(!show)}
+              endIcon={<Edit/>}
+              style={{color: 'white', background:'#18A4F6'}}
             >
               Modifier
             </Button>
@@ -379,6 +389,7 @@ const Chapitreone = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
               id="nature"
               label="Nature du marché "
               name="nature"
@@ -393,6 +404,7 @@ const Chapitreone = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
               id="localisation"
               label="Localisation du marché"
               name="localisation"
@@ -406,6 +418,7 @@ const Chapitreone = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
               id="taille"
               label="Taille du marché "
               name="taille"
@@ -419,6 +432,7 @@ const Chapitreone = () => {
               variant="outlined"
               margin="normal"
               fullWidth
+              multiline
               id="tendance"
               label="Tendance du marché"
               name="tendance"
@@ -430,9 +444,10 @@ const Chapitreone = () => {
             />
             <Button
                 type="submit"
-                className="btn"
-                style={{ width: 300}}
+                className="plus-icon"
                 onClick={() => setShow(!show)}
+                endIcon={<SaveIcon/>}
+                style={{color: 'white', background:'#18A4F6'}}
               >
                 Ajouter
             </Button>

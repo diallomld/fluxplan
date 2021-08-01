@@ -60,7 +60,6 @@ const Chapitrefour = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorDesc, setErrorDesc] = React.useState(true);
 
   const classes = useStyles();
 

@@ -60,9 +60,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitrethreep = () => {
-  const initialvalues = {
-    hypothese: "",
-  };
   const editObject = {
     hypothese: "",
   };
@@ -73,7 +70,6 @@ const Chapitrethreep = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorHypothese, setErrorHypothese] = React.useState(true);
 
   const classes = useStyles();
 
@@ -91,20 +87,6 @@ const Chapitrethreep = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-      case 'hypothese':
-          if (value.length >=3) {
-            //console.log("hypothese " + value);
-            setErrorHypothese(true)
-          } else {
-            //console.error("hypothese non valide");
-            setErrorHypothese(false)
-          }
-          break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(hypothese[index])
@@ -179,21 +161,21 @@ const Chapitrethreep = () => {
       .catch((err) => console.log(err));
   };
 
-  const validationSchema = Yup.object().shape({
-    hypothese: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-   })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("hypothese")
       .add({
-          hypothese: values.hypothese,
+          hypothese: editTable.hypothese,
           userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        setEditTable({
+          hypothese:"",
+        })
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -330,27 +312,23 @@ const Chapitrethreep = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="hypothese"
                   label="hypothese"
                   name="hypothese"
                   autoFocus
                   multiline
-                  rows="5"
+                  rows="8"
+                  rowsMax={15}
                   value={editTable.hypothese}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorHypothese? false: true}
-                  helperText={!errorHypothese? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                 />
                 <Button
                   type="submit"
                   className="plus-icon"
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorHypothese ? false: true}
 
                 >
                   Modifier
@@ -365,42 +343,33 @@ const Chapitrethreep = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-          >
-            {(props) => (
-              <Form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
-                  <Field as={TextField}
+                  <TextField
                     variant="outlined"
                     margin="normal"
                     fullWidth
-                    required
                     id="hypothese"
                     label="hypothese"
                     name="hypothese"
                     autoFocus
                     multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="hypothese" />}
-                    error={props.errors.hypothese&&props.touched.hypothese}
+                    rows="8"
+                    rowsMax={15}
+                    value={editTable.hypothese}
+                    onChange={handleChange}
                   />
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.montant|| props.errors.hypothese ? true: false}
                     
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

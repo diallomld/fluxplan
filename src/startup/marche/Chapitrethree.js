@@ -340,6 +340,7 @@ const Chapitrethree = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="nom"
                   label="Nom fournisseur"
                   name="nom"
@@ -355,6 +356,7 @@ const Chapitrethree = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="localisation"
                   label="Localisation"
                   name="localisation"
@@ -367,6 +369,7 @@ const Chapitrethree = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="produit"
                   label="Produits "
                   name="produit"
@@ -379,6 +382,7 @@ const Chapitrethree = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="achat"
                   label="% des achats"
                   name="achat"
@@ -391,6 +395,7 @@ const Chapitrethree = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="mode"
                   label="Mode de règlement"
                   name="mode"
@@ -403,6 +408,7 @@ const Chapitrethree = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="delai"
                   label="Délais de règlement"
                   name="delai"
@@ -438,6 +444,7 @@ const Chapitrethree = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="nom"
                           label="Nom fournisseur"
                           name="nom"
@@ -453,6 +460,7 @@ const Chapitrethree = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="localisation"
                           label="Localisation"
                           name="localisation"
@@ -465,6 +473,7 @@ const Chapitrethree = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="produit"
                           label="Produits "
                           name="produit"
@@ -477,6 +486,7 @@ const Chapitrethree = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="achat"
                           label="% des achats"
                           name="achat"
@@ -489,6 +499,7 @@ const Chapitrethree = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="mode"
                           label="Mode de règlement"
                           name="mode"
@@ -501,6 +512,7 @@ const Chapitrethree = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="delai"
                           label="Délais de règlement"
                           name="delai"

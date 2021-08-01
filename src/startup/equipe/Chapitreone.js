@@ -5,6 +5,23 @@ import { firebasee } from "../../context/firebase";
 import "./Chapitreone.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+
+import SaveIcon from '@material-ui/icons/Save';
+import Edit from '@material-ui/icons/Edit';
+import Add from '@material-ui/icons/Add';
+import CheckCircle from "@material-ui/icons/CheckCircle";
+import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -28,13 +45,12 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#18A4F6',
     color: theme.palette.common.white,
-    
     fontSize: 20,
   },
 }))(TableCell);
 
 const Chapitreone = () => {
-  const initialState = {
+  const editObject = {
     accosie: "",
     telephone: "",
     nationalite: "",
@@ -43,92 +59,88 @@ const Chapitreone = () => {
     capital: "",
   };
   const { userId } = useGlobalContext();
-  const [credentital, setCredentital] = React.useState(initialState);
   const [show, setShow] = React.useState(false);
-  const [promoteur, setPromoteur] = React.useState([]);
+  const [entreprise, setEntreprise] = React.useState([]);
   const [toggle, setToggle] = React.useState(false);
   const [idDoc, setIdDoc] = React.useState("");
+  const [load, setLoad] = React.useState(false);
+  const [editTable, setEditTable] = React.useState(editObject);
+
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   
   const handleChange = (e) => {
     var { name, value } = e.target;
-    setCredentital({
-      ...credentital,
+    setEditTable({
+      ...editTable,
       [name]: value,
     });
   };
-  const handleModif = (id) => {
-    console.log("id "+id);
+  const handleModif = (id,index) => {
+    setEditTable(entreprise[index])
+    //console.log(editTable);
     setShow(!show);
     if(show){
       setIdDoc("");
-      console.log('modif handle no ' +idDoc + show);
     }else{
       setIdDoc(id);
-      console.log('modif handle yes ' +idDoc + show);
     }
   };
-  const editPromoteur = (e) => {
+  const editEntreprise = (e) => {
     e.preventDefault();
-    console.log("iddoc");
-    console.log(idDoc);
-    console.log("iddoc");
-
+    setLoad(true)
+    //setShow(!show)
     firebasee
       .firestore()
       .collection("promoteur")
       .doc(idDoc)
       .set(
         {
-          accosie: credentital.accosie,
-          telephone: credentital.telephone,
-          nationalite: credentital.nationalite,
-          diplome: credentital.diplome,
-          experience: credentital.experience,
-          capital: credentital.capital,
+          accosie: editTable.accosie,
+          telephone: editTable.telephone,
+          nationalite: editTable.nationalite,
+          diplome: editTable.diplome,
+          experience: editTable.experience,
+          capital: editTable.capital,
           userId: userId,
         },
         { merge: true }
       )
       .then((data) => {
-        console.log("data" + data);
+        console.log("data edit" + data);
+        //setLoad(false)
+        setEditTable({
+        })
+        setOpen(true)
       })
       .catch((err) => console.error(err));
     setToggle(!toggle);
     setIdDoc("");
   };
-  const deletePromoteur = (id) => {
+  const deleteEntreprise = (id) => {
+    setLoad(true)
     firebasee
       .firestore()
       .collection("promoteur")
       .doc(id)
       .delete()
-      .then(() => console.log("deleted"))
-      .catch((err) => console.log(err));
-    setToggle(!toggle);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    firebasee
-      .firestore()
-      .collection("promoteur")
-      .add({
-        accosie: credentital.accosie,
-        telephone: credentital.telephone,
-        nationalite: credentital.nationalite,
-        diplome: credentital.diplome,
-        experience: credentital.experience,
-        capital: credentital.capital,
-        userId: userId,
-      })
       .then(() => {
-        console.log("add");
+        console.log("deleted")
+        setLoad(false)
+        setOpen(true)
       })
       .catch((err) => console.log(err));
     setToggle(!toggle);
-    alert("Ajouté");
   };
   const getDate = () => {
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("promoteur")
@@ -138,7 +150,7 @@ const Chapitreone = () => {
         let dat = [];
         data.forEach((doc) => {
           dat.push({
-
+            
             accosie: doc.data().accosie,
             telephone: doc.data().telephone,
             nationalite: doc.data().nationalite,
@@ -149,25 +161,72 @@ const Chapitreone = () => {
             docIdd: doc.id,
           });
         });
-
-        setPromoteur(dat);
+        setEntreprise(dat);
+        setLoad(false)
       })
       .catch((err) => console.log(err));
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault()
+    setShow(!show)
+    setLoad(true)
+    firebasee
+      .firestore()
+      .collection("promoteur")
+      .add({
+            accosie: editTable.accosie,
+            telephone: editTable.telephone,
+            nationalite: editTable.nationalite,
+            diplome: editTable.diplome,
+            experience: editTable.experience,
+            capital: editTable.capital,
+            userId: userId,
+      })
+      .then(() => {
+        setEditTable({})
+        setOpen(true)
+      })
+      .catch((err) => console.log(err));
+    setToggle(!toggle);
+  }
+
   React.useEffect(() => {
     getDate();
   }, [toggle]);
-  //console.log("pro");
-  //console.log(mission);
   return (
     <div className="chapitretwo">
-      {promoteur.length > 0 ? (
-        <div className="tab">          
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText>
+          <p><h3>L'opperation a eté effectué avec success</h3></p>
+          </DialogContentText>
+          <DialogContentText style={{ marginLeft:50+'%', color:'green' }}>
+            <VerifiedUserRoundedIcon/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions disableSpacing={true}>
+          <Button autoFocus onClick={handleClose} style={{ marginRight:25+'%', backgroundColor:'#18A4F6', color:'white', fontSize:20 }}
+            endIcon={<CheckCircle/>}
+            size="large"
+          >
+            Je confirme
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {entreprise.length > 0 ? (
+        <div className="tab">
+          
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:18}}> Promoteurs</caption>
+                <caption style={{color: 'black', fontSize:30}}>Infos Entreprise</caption>
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>Nom associé</StyledTableCell>
@@ -180,7 +239,7 @@ const Chapitreone = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {promoteur.map((item, index) => {
+                  {entreprise.map((item, index) => {
                       return (
                         <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                           
@@ -196,7 +255,7 @@ const Chapitreone = () => {
                                     <EditIcon onClick={() => handleModif(item.docIdd, index)} />
                                   </div>
                                   <div className="delet">
-                                    <DeleteIcon onClick={() => deletePromoteur(item.docIdd)} />
+                                    <DeleteIcon onClick={() => deleteEntreprise(item.docIdd)} />
                                   </div>
                                 </div>
                               </TableCell>
@@ -214,16 +273,16 @@ const Chapitreone = () => {
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:20}} >Cette partie n'a pas encore été remplit</caption>
+                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
                 <TableHead>
-                  <TableRow>                    
+                  <TableRow>
                     <StyledTableCell>Nom associé</StyledTableCell>
                     <StyledTableCell>Téléphone</StyledTableCell>
                     <StyledTableCell>Nationalité</StyledTableCell>
                     <StyledTableCell>Diplômes</StyledTableCell>
                     <StyledTableCell style={{minWidth:200}}>Expériences</StyledTableCell>
                     <StyledTableCell>Capital détenu</StyledTableCell>
-                    <StyledTableCell style={{ maxWidth: 60 }}>Action</StyledTableCell>
+                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -234,242 +293,228 @@ const Chapitreone = () => {
                           <TableCell>............</TableCell>
                           <TableCell>............</TableCell>
                           <TableCell>............</TableCell>
-                          <TableCell>.......</TableCell>
-                    </TableRow>
-                    <TableRow hover role="checkbox" tabIndex={-1}>
                           <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
-                          <TableCell>......</TableCell>
                     </TableRow>
                 </TableBody>
               </Table>
             </TableContainer>
           </Paper>
         </div>
-       )}
+      )}
 
-      <div className="chapitretwo-title">
-        <p>Promoteurs </p>
-      </div>
-      <div className="plus">
-        {!show && (
-          <Button className="plus-icon" onClick={() => setShow(!show)}>
-            Ajouter
-          </Button>
-        )}
-      </div>
-      <div>
-        { idDoc ? (
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={editPromoteur}
-        >
-          <div className="input">
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="accosie"
-              label="accosie accomplies"
-              name="accosie"
-              autoComplete="accosie"
-              autoFocus
-              multiline
-              rowsMin={4}
-              value={credentital.accosie}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="telephone"
-              label="telephones"
-              name="telephone"
-              autoFocus
-              multiline
-              value={credentital.telephone}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="nationalite"
-              label="nationalite"
-              name="nationalite"
-              autoFocus
-              value={credentital.nationalite}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="diplome"
-              label="diplome"
-              name="diplome"
-              autoFocus
-              value={credentital.diplome}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="experience"
-              label="experience"
-              name="experience"
-              autoFocus
-              value={credentital.experience}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="capital"
-              label="capital"
-              name="capital"
-              type="number"
-              autoFocus
-              value={credentital.capital}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
-            >
-              Modifier
-            </Button>
-          </div>
-        </form>
-          
-        ): (
-
-        <form
-          noValidate
-          className={`${!show && "show"}`}
-          onSubmit={handleSubmit}
-        >
-          <div className="input">
-            
-            <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="accosie"
-                label="accosie accomplies"
-                name="accosie"
-                autoComplete="accosie"
-                autoFocus
-                multiline
-                rowsMin={4}
-                value={credentital.accosie}
-                onChange={handleChange}
-                style={{ width: 200, marginRight: 10 }}
-              />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="telephone"
-              label="telephones"
-              name="telephone"
-              autoFocus
-              multiline
-              value={credentital.telephone}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="nationalite"
-              label="nationalite"
-              name="nationalite"
-              autoFocus
-              value={credentital.nationalite}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="diplome"
-              label="diplome"
-              name="diplome"
-              autoFocus
-              value={credentital.diplome}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="experience"
-              label="experience"
-              name="experience"
-              autoFocus
-              value={credentital.experience}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="capital"
-              label="capital"
-              name="capital"
-              type="number"
-              autoFocus
-              value={credentital.capital}
-              onChange={handleChange}
-              style={{ width: 200, marginRight: 10 }}
-            />
-
-            <Button
-              type="submit"
-              className="btn"
-              onClick={() => setShow(!show)}
-            >
+      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): (
+        <>
+        <div className="plus">
+          {!show && (
+            <Button className="plus-icon" 
+              style={{color: 'white', marginTop:10, background:'#18A4F6'}} 
+              onClick={() => setShow(!show)} 
+              endIcon={<Add/>}>
               Ajouter
             </Button>
-          </div>
-        </form>
+          )}
+        </div>
+        </>
         )}
-      </div>
+        { idDoc ? (
+          <>
+        <Card>
+          <CardContent>
+
+            <form
+              noValidate
+              className={`${!show && "show"}`}
+              onSubmit={editEntreprise}
+            >
+              <div className="input">
+                
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  multiline
+                  fullWidth
+                  id="accosie"
+                  label="accosie accomplies"
+                  name="accosie"
+                  autoComplete="accosie"
+                  autoFocus
+                  rows="7"
+                  rowsMax={15}
+                  value={editTable.accosie}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="telephone"
+                  label="telephones"
+                  name="telephone"
+                  rowsMax={10}
+                  value={editTable.telephone}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  multiline
+                  fullWidth
+                  id="nationalite"
+                  label="nationalite"
+                  name="nationalite"
+                  rows="5"
+                  value={editTable.nationalite}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  multiline
+                  fullWidth
+                  id="diplome"
+                  label="diplome"
+                  name="diplome"
+                  rows="7"
+                  value={editTable.diplome}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  multiline
+                  fullWidth
+                  id="experience"
+                  label="experience"
+                  name="experience"
+                  rows="8"
+                  rowsMax={20}
+                  value={editTable.experience}
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="capital"
+                  label="capital"
+                  name="capital"
+                  type="number"
+                  value={editTable.capital}
+                  onChange={handleChange}
+                />
+                <Button
+                  type="submit"
+                  className="plus-icon"
+                  onClick={() => setShow(!show)}
+                  endIcon={<Edit/>}
+                  style={{color: 'white', background:'#18A4F6'}}
+
+                >
+                  Modifier
+                </Button>
+              </div>
+            </form>
+            
+        </CardContent>
+        </Card>
+        </>
+        ): (
+          <>
+          <Card variant="outlined" className={`${!show && "show"}`}>
+            <CardContent>
+               <form onSubmit={onSubmit}>
+                    <div className="input">
+                        
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        multiline
+                        fullWidth
+                        id="accosie"
+                        label="accosie accomplies"
+                        name="accosie"
+                        autoComplete="accosie"
+                        autoFocus
+                        rows="7"
+                        rowsMax={15}
+                        value={editTable.accosie}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        id="telephone"
+                        label="telephones"
+                        name="telephone"
+                        value={editTable.telephone}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        multiline
+                        fullWidth
+                        id="nationalite"
+                        label="nationalite"
+                        name="nationalite"
+                        rows="5"
+                        value={editTable.nationalite}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        multiline
+                        fullWidth
+                        id="diplome"
+                        label="diplome"
+                        name="diplome"
+                        rows="7"
+                        value={editTable.diplome}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        multiline
+                        fullWidth
+                        id="experience"
+                        label="experience"
+                        name="experience"
+                        rows="8"
+                        rowsMax={20}
+                        value={editTable.experience}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        id="capital"
+                        label="capital"
+                        name="capital"
+                        type="number"
+                        value={editTable.capital}
+                        onChange={handleChange}
+                      />
+                        <Button
+                            type="submit"
+                            className="plus-icon"
+                            endIcon={<SaveIcon/>}
+                            style={{color: 'white', background:'#18A4F6'}} 
+                            
+                        >
+                            Enregistrer
+                        </Button>
+                    </div>
+                </form>
+            </CardContent>
+          </Card>
+        </>
+        )}
     </div>
   );
 };
 
-export default Chapitreone;
+export default Chapitreone

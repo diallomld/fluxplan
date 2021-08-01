@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextareaAutosize, TextField } from "@material-ui/core";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
 import "./Chapitreone.css";
@@ -34,8 +34,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
 
 const useStyles = makeStyles({
   root: {
@@ -56,12 +54,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitresixp = () => {
-  const initialvalues = {
-    indicateurs: "",
-    calcul: "",
-    norme: "",
-    appreciation: "",
-  };
   const editObject = {
     indicateurs: "",
     calcul: "",
@@ -75,9 +67,6 @@ const Chapitresixp = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorIndicateurs, setErrorIndicateurs] = React.useState(true);
-  const [errorNorme, setErrorNorme] = React.useState(true);
-  const [errorAppreciation, setErrorAppreciation] = React.useState(true);
 
   const classes = useStyles();
 
@@ -95,38 +84,6 @@ const Chapitresixp = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-      case 'norme':
-          if (value.length >=3) {
-            //console.log("Indicateurs " + value);
-            setErrorNorme(true)
-          } else {
-            //console.error("prevision non valide");
-            setErrorNorme(false)
-          }
-          break;
-          case 'appreciation':
-            if (value.length > 3) {
-              //console.log("montant" + value);
-              setErrorAppreciation(true)
-            } else {
-              //console.error("montant non valide "); 
-              setErrorAppreciation(false)
-          }
-        break;
-          case 'indicateurs':
-            if (value.length > 3) {
-              //console.log("montant" + value);
-              setErrorIndicateurs(true)
-            } else {
-              //console.error("montant non valide "); 
-              setErrorIndicateurs(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(indicateur[index])
@@ -210,26 +167,27 @@ const Chapitresixp = () => {
       .catch((err) => console.log(err));
   };
 
-  const validationSchema = Yup.object().shape({
-    norme: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    appreciation: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    indicateurs: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
- })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("indicateurs")
       .add({
-        indicateurs: values.indicateurs,
-        calcul: values.calcul,
-        norme: values.norme,
-        appreciation: values.appreciation,
+        indicateurs: editTable.indicateurs,
+        calcul: editTable.calcul,
+        norme: editTable.norme,
+        appreciation: editTable.appreciation,
         userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        setEditTable({
+          norme:"",
+          appreciation:"",
+          indicateurs:"",
+          calcul:""
+        })
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -372,23 +330,20 @@ const Chapitresixp = () => {
             >
               <div className="input">
                 
-                <TextField
+                <TextareaAutosize
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="indicateurs"
                   label="Indicateur"
                   name="indicateurs"
                   autoFocus
                   multiline
-                  rows="5"
+                  rows="8"
+                  rowsMax={15}
                   value={editTable.indicateurs}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorIndicateurs? false: true}
-                  helperText={!errorIndicateurs? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -400,47 +355,38 @@ const Chapitresixp = () => {
                   rows="5"
                   value={editTable.calcul}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
                 />
-                <TextField
-                  variant="outlined"
+                  <TextField variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="norme"
                   label="Norme"
                   name="norme"
                   multiline
-                  rows="5"
+                  rows="8"
+                  rowsMax={15}
                   value={editTable.norme}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorNorme? false: true}
-                  helperText={!errorNorme? 'Le champ doit étre remplit avec 3 caractére minimum':''}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="appreciation"
                   label="Les appreciation du projet"
                   name="appreciation"
                   multiline
-                  rows="5"
+                  rows="8"
+                  rowsMax={15}
                   value={editTable.appreciation}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorAppreciation? false: true}
-                  helperText={!errorAppreciation? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <Button
                   type="submit"
                   className="plus-icon"
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorNorme || errorAppreciation ? false: true}
 
                 >
                   Modifier
@@ -455,29 +401,25 @@ const Chapitresixp = () => {
             <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-            >
-            {(props) => (
-                <Form>
-                <div className="input">
-                  
-                    <Field as={TextField}
+              
+                <form onSubmit={onSubmit}>
+                  <div className="input">
+                      
+                    <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
-                      autoFocus
                       id="indicateurs"
                       label="Indicateur"
                       name="indicateurs"
+                      autoFocus
                       multiline
-                      rows="5"
-                      style={{ width: 200, marginRight: 10 }} 
-                      helperText={<ErrorMessage name="indicateurs" />}
-                      error={props.errors.indicateurs&&props.touched.indicateurs?true:false}
-                    />
-                    <Field as={TextField}
+                      rows="8"
+                      rowsMax={15}
+                      value={editTable.indicateurs}
+                      onChange={handleChange}
+                      />
+                    <TextField
                       variant="outlined"
                       margin="normal"
                       fullWidth
@@ -486,52 +428,45 @@ const Chapitresixp = () => {
                       name="calcul"
                       multiline
                       rows="5"
-                      style={{ width: 200, marginRight: 10 }}
+                      value={editTable.calcul}
+                      onChange={handleChange}
                     />
-                    <Field as={TextField}
-                      variant="outlined"
+                      <TextField variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="norme"
                       label="Norme"
                       name="norme"
                       multiline
-                      rows="5"
-                      style={{ width: 200, marginRight: 10 }}
-                      helperText={<ErrorMessage name="norme" />}
-                      error={props.errors.norme&&props.touched.norme}
-                   />
-                    <Field as={TextField}
+                      rows="8"
+                      rowsMax={15}
+                      value={editTable.norme}
+                      onChange={handleChange}
+                    />
+                    <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="appreciation"
                       label="Les appreciation du projet"
                       name="appreciation"
                       multiline
-                      rows="5"
-                      style={{ width: 200, marginRight: 10 }}
-                      helperText={<ErrorMessage name="appreciation" />}
-                      error={props.errors.appreciation&&props.touched.appreciation}
-                    />
-
+                      rows="8"
+                      rowsMax={15}
+                      value={editTable.appreciation}
+                      onChange={handleChange}
+                      />
+                    
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.appreciation|| props.errors.norme || props.errors.indicateurs ? true: false}
-                    
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

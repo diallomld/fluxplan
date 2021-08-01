@@ -62,9 +62,6 @@ const Chapitreseven = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorAction, setErrorAction] = React.useState(true);
-  const [errorResponsable, setErrorResponsable] = React.useState(true);
-  const [errorDate, setErrorDate] = React.useState(true);
 
   const classes = useStyles();
 
@@ -358,7 +355,6 @@ const Chapitreseven = () => {
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorDate || errorResponsable || errorAction ? false: true}
                 >
                   Modifier
                 </Button>
@@ -372,7 +368,7 @@ const Chapitreseven = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-              <form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
                   
                   <TextField

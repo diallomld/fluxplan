@@ -322,6 +322,7 @@ const Chapitrefour = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="nom"
                   label="Nom Concurrent"
                   name="nom"
@@ -337,6 +338,7 @@ const Chapitrefour = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="localisation"
                   label="Localisation"
                   name="localisation"
@@ -349,6 +351,7 @@ const Chapitrefour = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="force"
                   label="Forces "
                   name="force"
@@ -361,6 +364,7 @@ const Chapitrefour = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="faiblesse"
                   label="Faiblesses"
                   name="faiblesse"
@@ -395,6 +399,7 @@ const Chapitrefour = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="nom"
                           label="Nom Concurrent"
                           name="nom"
@@ -410,6 +415,7 @@ const Chapitrefour = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="localisation"
                           label="Localisation"
                           name="localisation"
@@ -422,6 +428,7 @@ const Chapitrefour = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="force"
                           label="Forces "
                           name="force"
@@ -434,6 +441,7 @@ const Chapitrefour = () => {
                           variant="outlined"
                           margin="normal"
                           fullWidth
+                          multiline
                           id="faiblesse"
                           label="Faiblesses"
                           name="faiblesse"

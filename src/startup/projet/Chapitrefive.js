@@ -62,9 +62,6 @@ const Chapitrefive = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorMission, setErrorMission] = React.useState(true);
-  const [errorVision, setErrorVision] = React.useState(true);
-  const [errorObjectif, setErrorObjectif] = React.useState(true);
 
   const classes = useStyles();
 

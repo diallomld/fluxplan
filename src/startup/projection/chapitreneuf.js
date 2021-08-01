@@ -490,7 +490,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="ca1"
                   label="Chiffre d'affaires (CA) Année 1"
@@ -507,7 +506,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="ca2"
                   label="Chiffre d'affaires (CA) Année 2"
@@ -523,7 +521,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="ca3"
                   label="Chiffre d'affaires (CA) Année 3"
@@ -539,7 +536,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="cv1"
                   label="Charges variables (CV) Année 1"
@@ -555,7 +551,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="cv2"
                   label="Charges variables (CV) Année 2"
@@ -571,7 +566,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="cv3"
                   label="Charges variables (CV) Année 3"
@@ -587,7 +581,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="cf1"
                   label="Charges fixes (CF) Année 1"
@@ -603,7 +596,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="cf2"
                   label="Charges fixes (CF) Année 2"
@@ -619,7 +611,6 @@ const Chapitreneuf = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="cf3"
                   label="Charges fixes (CF) Année 3"
@@ -661,7 +652,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="ca1"
                     label="Chiffre d'affaires (CA) Année 1"
@@ -676,7 +666,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="ca2"
                     label="Chiffre d'affaires (CA) Année 2"
@@ -690,7 +679,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="ca3"
                     label="Chiffre d'affaires (CA) Année 3"
@@ -704,7 +692,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="cv1"
                     label="Charges variables (CV) Année 1"
@@ -718,7 +705,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="cv2"
                     label="Charges variables (CV) Année 2"
@@ -732,7 +718,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="cv3"
                     label="Charges variables (CV) Année 3"
@@ -746,7 +731,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="cf1"
                     label="Charges fixes (CF) Année 1"
@@ -760,7 +744,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="cf2"
                     label="Charges fixes (CF) Année 2"
@@ -774,7 +757,6 @@ const Chapitreneuf = () => {
                   <Field as={TextField}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="cf3"
                     label="Charges fixes (CF) Année 3"

@@ -61,8 +61,6 @@ const Chapitretwo = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorNom, setErrorNom] = React.useState(true);
-  const [errorDesc, setErrorDesc] = React.useState(true);
 
   const classes = useStyles();
 
@@ -306,7 +304,6 @@ const Chapitretwo = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="nom"
                   label="Nom du produit/service"
@@ -321,7 +318,6 @@ const Chapitretwo = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="description"
                   label="Description du produit/service"

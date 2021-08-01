@@ -32,8 +32,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
 
 const useStyles = makeStyles({
   root: {
@@ -66,10 +64,6 @@ const Chapitrethree = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorProduit, setErrorProduit] = React.useState(true);
-  const [errorRevenu, setErrorRevenu] = React.useState(true);
-  const [errorModel, setErrorModel] = React.useState(true);
-  const [errorDesc, setErrorDesc] = React.useState(true);
 
   const classes = useStyles();
 

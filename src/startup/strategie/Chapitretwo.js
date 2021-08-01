@@ -322,6 +322,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="prix"
                   label="Politique de prix"
                   name="prix"
@@ -337,6 +338,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="produit"
                   label="Politique de produit"
                   name="produit"
@@ -350,6 +352,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="distribution"
                   label="Politique de distribution"
                   name="distribution"
@@ -362,6 +365,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="communication"
                   label="ploitique decommunication"
                   name="communication"
@@ -397,6 +401,7 @@ const Chapitretwo = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="prix"
                       label="Politique de prix"
                       name="prix"
@@ -412,6 +417,7 @@ const Chapitretwo = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="produit"
                       label="Politique de produit"
                       name="produit"
@@ -425,6 +431,7 @@ const Chapitretwo = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="distribution"
                       label="Politique de distribution"
                       name="distribution"
@@ -437,6 +444,7 @@ const Chapitretwo = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="communication"
                       label="ploitique decommunication"
                       name="communication"

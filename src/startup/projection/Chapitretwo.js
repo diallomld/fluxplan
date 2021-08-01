@@ -60,11 +60,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitretwop = () => {
-  const initialvalues = {
-    elements: "",
-    montant: "",
-    typeFinancement: "",
-  };
   const editObject = {
     elements: "",
     montant: "",
@@ -78,9 +73,6 @@ const Chapitretwop = () => {
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
   const [total, setTotal] = React.useState(0);
-  const [errorMontant, seterrorMontant] = React.useState(true);
-  const [errorElements, seterrorElements] = React.useState(true);
-  const [errorTypeFinancement, seterrorTypeFinancement] = React.useState(true);
   let test = 0;
 
   const classes = useStyles();
@@ -99,39 +91,6 @@ const Chapitretwop = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-      case 'elements':
-          if (value.length >=3) {
-            //console.log("elements " + value);
-            seterrorElements(true)
-          } else {
-            //console.error("elements non valide");
-            seterrorElements(false)
-          }
-          break;
-          
-          case 'montant':
-            if (value.match(/^[0-9\b]{3,10}$/)) {
-              //console.log("montant" + value);
-              seterrorMontant(true)
-            } else {
-              //console.error("montant non valide "); 
-              seterrorMontant(false)
-          }
-        break;
-          case 'typeFinancement':
-            if (value.match(/^(interne|exterieur)$/)) {
-              console.log("type " + value);
-              seterrorTypeFinancement(true)
-            } else {
-              console.error("type non valide " +value); 
-              seterrorTypeFinancement(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(finance[index])
@@ -214,25 +173,24 @@ const Chapitretwop = () => {
       .catch((err) => console.log(err));
   };
 
-  const validationSchema = Yup.object().shape({
-    elements: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    montant: Yup.string().required("Entrer un montant valide").matches(/^[0-9\b]{3,10}$/,"Entrer un montant valide"),
-    typeFinancement: Yup.string().required('Veuillez selectionner ce champ').matches(/^(interne|exterieur)$/,"Faite un choix sur la liste deroulante")
-  })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("financement")
       .add({
-          elements: values.elements,
-          montant: values.montant,
-          typeFinancement: values.typeFinancement,
+          elements: editTable.elements,
+          montant: editTable.montant,
+          typeFinancement: editTable.typeFinancement,
           userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        setEditTable({
+          elements:"",
+          montant:"",
+        })
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -294,7 +252,7 @@ const Chapitretwop = () => {
                     <TableCell></TableCell>
                   </TableRow>
                   {finance.map((item, index) => {
-                      if (item.typeFinancement=="interne") {
+                      if (item.typeFinancement==="interne") {
                         
                         return (
                           <TableRow hover role="checkbox" tabIndex={-1} key={index}>
@@ -323,7 +281,7 @@ const Chapitretwop = () => {
                     <TableCell></TableCell>
                   </TableRow>
                   {finance.map((item, index) => {
-                      if (item.typeFinancement=="exterieur" || item.typeFinancement=="externe") {
+                      if (item.typeFinancement==="exterieur" || item.typeFinancement==="externe") {
                         
                         return (
                           <TableRow hover role="checkbox" tabIndex={-1} key={index}>
@@ -438,7 +396,6 @@ const Chapitretwop = () => {
                   variant="outlined"
                   margin="normal"
                   select
-                  required
                   fullWidth
                   id="typefinance"
                   label="Type finance"
@@ -446,8 +403,6 @@ const Chapitretwop = () => {
                   value={editTable.typeFinancement}
                   onChange={handleChange}
                   style={{ width: 200, marginRight: 10 }}
-                  error={errorTypeFinancement? false: true}
-                  helperText={!errorTypeFinancement? 'Selectionner le champ':''}
                 >
                   <MenuItem value="interne">Financement Interne</MenuItem>
                   <MenuItem value="exterieur">Financement Extérieur</MenuItem>
@@ -455,24 +410,20 @@ const Chapitretwop = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="elements"
                   label="elements"
                   name="elements"
                   autoFocus
                   multiline
-                  rows="5"
+                  rows="8"
+                  rowsMax={15}
                   value={editTable.elements}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorElements? false: true}
-                  helperText={!errorElements? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="montant"
                   label="montant"
@@ -487,8 +438,6 @@ const Chapitretwop = () => {
                   InputProps={{
                     startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
                   }}
-                  error={errorMontant? false: true}
-                  helperText={!errorMontant? 'Entrer un montant valide':''}
                 />
                 <Button
                   type="submit"
@@ -496,7 +445,6 @@ const Chapitretwop = () => {
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorMontant|| errorElements ? false: true}
 
                 >
                   Modifier
@@ -511,78 +459,65 @@ const Chapitretwop = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-          >
-            {(props) => (
-              <Form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
-                <Field as={TextField}
-                  variant="outlined"
-                  margin="normal"
-                  select
-                  required
-                  id="typefinance"
-                  label="Quel Type de financement ?"
-                  name="typeFinancement"
-                  style={{ width: 200, marginRight: 10 }}
-                  helperText={<ErrorMessage name="typeFinancement" />}
-                  error={props.errors.typeFinancement&&props.touched.typeFinancement}
-                >
-                  <MenuItem value="interne">Selectionner Financement Interne</MenuItem>
-                  <MenuItem value="exterieur">Selectionner Financement Extérieur</MenuItem>
-                </Field>
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="elements"
-                    label="elements"
-                    name="elements"
-                    autoFocus
-                    multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="elements" />}
-                    error={props.errors.elements&&props.touched.elements}
-                  />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="montant"
-                    label="montant"
-                    name="montant"
-                    autoComplete="montant"
-                    type="number"
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                    }}
-                    InputLabelProps= {{
-                      shrink: true,
-                    }}
-                    //onChange={handleChange}
-                    style={{ width: 200, margin: 30 }}
-                    helperText={<ErrorMessage name="montant" />}
-                    error={props.errors.montant&&props.touched.elements}
-                  />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      select
+                      fullWidth
+                      id="typefinance"
+                      label="Type finance"
+                      name="typeFinancement"
+                      value={editTable.typeFinancement}
+                      onChange={handleChange}
+                      style={{ width: 200, marginRight: 10 }}
+                    >
+                      <MenuItem value="interne">Financement Interne</MenuItem>
+                      <MenuItem value="exterieur">Financement Extérieur</MenuItem>
+                    </TextField>
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="elements"
+                      label="elements"
+                      name="elements"
+                      autoFocus
+                      multiline
+                      rows="8"
+                      rowsMax={15}
+                      value={editTable.elements}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="montant"
+                      label="montant"
+                      name="montant"
+                      autoComplete="montant"
+                      InputLabelProps= {{
+                        shrink: true,
+                      }}
+                      value={editTable.montant}
+                      onChange={handleChange}
+                      style={{ width: 200, margin: 30 }}
+                      InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                    />
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.montant|| props.errors.elements || props.errors.typeFinancement ? true: false}
-                    
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

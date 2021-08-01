@@ -79,10 +79,6 @@ const Chapitrefivep = () => {
   const [idDoc, setIdDoc] = React.useState("");
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
-  const [errorElements, setErrorElements] = React.useState(true);
-  const [errorAnnee1, setErrorAnnee1] = React.useState(true);
-  const [errorAnnee2, setErrorAnnee2] = React.useState(true);
-  const [errorAnnee3, setErrorAnnee3] = React.useState(true);
   
   const [Totala1, setTotala1] = React.useState(0);
   const [Totala2, setTotala2] = React.useState(0);
@@ -97,6 +93,14 @@ const Chapitrefivep = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const initForm = () => {
+    setEditTable({
+      elements: "",
+      annee1: "",
+      annee2: "",
+      annee3: "",
+    })
+  };
   
   const handleChange = (e) => {
     var { name, value } = e.target;
@@ -104,47 +108,6 @@ const Chapitrefivep = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-      case 'elements':
-          if (value.length >=3) {
-            //console.log("elements " + value);
-            setErrorElements(true)
-          } else {
-            //console.error("prevision non valide");
-            setErrorElements(false)
-          }
-          break;
-          case 'annee1':
-            if (value.match(/^[0-9\b]{3,}$/)) {
-              //console.log("montant" + value);
-              setErrorAnnee1(true)
-            } else {
-              //console.error("montant non valide "); 
-              setErrorAnnee1(false)
-          }
-        break;
-          case 'annee2':
-            if (value.match(/^[0-9\b]{3,}$/)) {
-              //console.log("montant" + value);
-              setErrorAnnee2(true)
-            } else {
-              //console.error("montant non valide "); 
-              setErrorAnnee2(false)
-          }
-        break;
-          case 'annee3':
-            if (value.match(/^[0-9\b]{3,}$/)) {
-              //console.log("montant" + value);
-              setErrorAnnee3(true)
-            } else {
-              //console.error("montant non valide "); 
-              setErrorAnnee3(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(prevision[index])
@@ -176,12 +139,7 @@ const Chapitrefivep = () => {
       .then((data) => {
         console.log("data" + data);
         //setLoad(false)
-        setEditTable({
-          elements:"",
-          annee1:"",
-          annee2:"",
-          annee3:"",
-        })
+        initForm()
         setOpen(true)
       })
       .catch((err) => console.error(err));
@@ -238,27 +196,22 @@ const Chapitrefivep = () => {
       .catch((err) => console.log(err));
   };
 
-  const validationSchema = Yup.object().shape({
-    elements: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    annee1: Yup.string().required("Entrer un montant valide").matches(/^[0-9\b]{3,15}$/,"Entrer un montant valide"),
-    annee2: Yup.string().required("Entrer un montant valide").matches(/^[0-9\b]{3,15}$/,"Entrer un montant valide"),
-    annee3: Yup.string().required("Entrer un montant valide").matches(/^[0-9\b]{3,15}$/,"Entrer un montant valide"),
-   })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("prevision-annne3")
       .add({
-          elements: values.elements,
-          annee1: values.annee1,
-          annee2: values.annee2,
-          annee3: values.annee3,
+          elements: editTable.elements,
+          annee1: editTable.annee1,
+          annee2: editTable.annee2,
+          annee3: editTable.annee3,
           userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        initForm()
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -414,7 +367,6 @@ const Chapitrefivep = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="elements"
                   label="Les elements"
@@ -424,59 +376,43 @@ const Chapitrefivep = () => {
                   rows="5"
                   value={editTable.elements}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorElements? false: true}
-                  helperText={!errorElements? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="annee1"
                   label="Chiffre d'affaires Annee 1"
                   name="annee1"
                   value={editTable.annee1}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorAnnee1? false: true}
-                  helperText={!errorAnnee1? 'Veuillez entrer un montant valide':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="annee2"
                   label="Chiffre d'affaires Annee 2"
                   name="annee2"
                   value={editTable.annee2}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorAnnee2? false: true}
-                  helperText={!errorAnnee2? 'Veuillez entrer un montant valide':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="annee3"
                   label="Chiffre d'affaires Annee 3"
                   name="annee3"
                   value={editTable.annee3}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorAnnee3? false: true}
-                  helperText={!errorAnnee3? 'Veuillez entrer un montant valide':''}
-                />
+                  />
                 <Button
                   type="submit"
                   className="plus-icon"
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorAnnee1 || errorAnnee2 || errorAnnee3 ? false: true}
 
                 >
                   Modifier
@@ -491,87 +427,63 @@ const Chapitrefivep = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-          >
-            {(props) => (
-              <Form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="elements"
-                    label="Les elements"
-                    name="elements"
-                    autoFocus
-                    multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="elements" />}
-                    error={props.errors.elements&&props.touched.elements}
-                  />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="annee1"
-                    label="Chiffre d'affaires Annee 1"
-                    name="annee1"
-                    autoFocus
-                    multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="annee1" />}
-                    error={props.errors.annee1&&props.touched.annee1}
-                  />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="annee2"
-                    label="Chiffre d'affaires Annee 2"
-                    name="annee2"
-                    autoFocus
-                    multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="annee2" />}
-                    error={props.errors.annee2&&props.touched.annee2}
-                  />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="annee3"
-                    label="Chiffre d'affaires Annee 3"
-                    name="annee3"
-                    autoFocus
-                    multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="annee3" />}
-                    error={props.errors.annee3&&props.touched.annee3}
-                  />
+                  
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="elements"
+                      label="Les elements"
+                      name="elements"
+                      autoFocus
+                      multiline
+                      rows="5"
+                      value={editTable.elements}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="annee1"
+                      label="Chiffre d'affaires Annee 1"
+                      name="annee1"
+                      value={editTable.annee1}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="annee2"
+                      label="Chiffre d'affaires Annee 2"
+                      name="annee2"
+                      value={editTable.annee2}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="annee3"
+                      label="Chiffre d'affaires Annee 3"
+                      name="annee3"
+                      value={editTable.annee3}
+                      onChange={handleChange}
+                    />
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
                     style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.annee1|| props.errors.elements|| props.errors.annee2|| props.errors.annee3 ? true: false}
                     
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

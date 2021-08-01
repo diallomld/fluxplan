@@ -332,7 +332,6 @@ const EquipeDirigeantesommaire = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="nom"
                   label="Nom et prénoms"
@@ -340,14 +339,13 @@ const EquipeDirigeantesommaire = () => {
                   autoFocus
                   multiline
                   rowsMax={10}
-                  rows="7"
+                  rows="4"
                   value={editTable.nom}
                   onChange={handleChange}
                 />
                  <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="poste"
                   label="Poste"
@@ -361,35 +359,32 @@ const EquipeDirigeantesommaire = () => {
                  <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="capital"
                   label="% Capital"
                   name="capital"
                   multiline
                   rowsMax={10}
-                  rows="5"
+                  rows="4"
                   value={editTable.capital}
                   onChange={handleChange}
                 />
                  <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="diplome"
                   label="Diplômes"
                   name="diplome"
                   multiline
                   rowsMax={10}
-                  rows="7"
+                  rows="4"
                   value={editTable.diplome}
                   onChange={handleChange}
                 />
                  <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="experience"
                   label="Expériences"
@@ -426,7 +421,6 @@ const EquipeDirigeantesommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="nom"
                         label="Nom et prénoms"
@@ -434,14 +428,13 @@ const EquipeDirigeantesommaire = () => {
                         autoFocus
                         multiline
                         rowsMax={10}
-                        rows="7"
+                        rows="4"
                         value={editTable.nom}
                         onChange={handleChange}
                         />
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="poste"
                         label="Poste"
@@ -455,21 +448,19 @@ const EquipeDirigeantesommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="capital"
                         label="% Capital"
                         name="capital"
                         multiline
                         rowsMax={10}
-                        rows="5"
+                        rows="4"
                         value={editTable.capital}
                         onChange={handleChange}
                         />
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="diplome"
                         label="Diplômes"
@@ -483,7 +474,6 @@ const EquipeDirigeantesommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
                         fullWidth
                         id="experience"
                         label="Expériences"
@@ -497,7 +487,6 @@ const EquipeDirigeantesommaire = () => {
                         <Button
                             type="submit"
                             className="plus-icon"
-                            style={{ width: 300}}
                             endIcon={<SaveIcon/>}
                             style={{color: 'white', background:'#18A4F6'}} 
                             

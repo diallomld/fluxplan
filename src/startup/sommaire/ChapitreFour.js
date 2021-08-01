@@ -303,7 +303,6 @@ const ChapitreFoursommaire = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="concurrence"
                   label="concurrence"
@@ -318,7 +317,6 @@ const ChapitreFoursommaire = () => {
                  <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="avantage"
                   label="avantage"
@@ -355,8 +353,7 @@ const ChapitreFoursommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
-                        fullWidth
+                              fullWidth
                         id="concurrence"
                         label="concurrence"
                         name="concurrence"
@@ -370,8 +367,7 @@ const ChapitreFoursommaire = () => {
                         <TextField
                         variant="outlined"
                         margin="normal"
-                        required
-                        fullWidth
+                              fullWidth
                         id="avantage"
                         label="avantage"
                         name="avantage"

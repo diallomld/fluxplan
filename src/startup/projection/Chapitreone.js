@@ -38,8 +38,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
 
 const useStyles = makeStyles({
   root: {
@@ -60,10 +58,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitreonep = () => {
-  const initialvalues = {
-    elements: "",
-    montant: "",
-  };
   const editObject = {
     elements: "",
     montant: "",
@@ -76,8 +70,6 @@ const Chapitreonep = () => {
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
   const [total, setTotal] = React.useState(0);
-  const [errorMontant, seterrorMontant] = React.useState(true);
-  const [errorElements, seterrorElements] = React.useState(true);
   let test = 0;
 
   const classes = useStyles();
@@ -96,30 +88,6 @@ const Chapitreonep = () => {
       ...editTable,
       [name]: value,
     });
-    switch (name) {
-      case 'elements':
-          if (value.length >=3) {
-            //console.log("elements " + value);
-            seterrorElements(true)
-          } else {
-            //console.error("elements non valide");
-            seterrorElements(false)
-          }
-          break;
-          
-          case 'montant':
-            if (value.match(/^[0-9\b]{3,10}$/)) {
-              //console.log("montant" + value);
-              seterrorMontant(true)
-            } else {
-              //console.error("montant non valide "); 
-              seterrorMontant(false)
-          }
-        break;
-    
-      default:
-        break;
-    }
   };
   const handleModif = (id,index) => {
     setEditTable(cout[index])
@@ -200,23 +168,23 @@ const Chapitreonep = () => {
       .catch((err) => console.log(err));
   };
 
-  const validationSchema = Yup.object().shape({
-    elements: Yup.string().min(3,'minimum 3 caracteres').required("veuillez saisir ce champ"),
-    montant: Yup.string().required("Entrer un montant valide").matches(/^[0-9\b]{3,10}$/,"Entrer un montant valide"),
-  })
-  const onSubmit = (values, props) => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     setShow(!show)
     setLoad(true)
     firebasee
       .firestore()
       .collection("cout-projet")
       .add({
-          elements: values.elements,
-          montant: values.montant,
+          elements: editTable.elements,
+          montant: editTable.montant,
           userId: userId,
       })
       .then(() => {
-        props.resetForm()
+        setEditTable({
+          elements:"",
+          montant:"",
+        })
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -360,24 +328,20 @@ const Chapitreonep = () => {
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="elements"
                   label="elements"
                   name="elements"
                   autoFocus
                   multiline
-                  rows="5"
+                  rows="8"
+                  rowsMax={15}
                   value={editTable.elements}
                   onChange={handleChange}
-                  style={{ width: 200, marginRight: 10 }}
-                  error={errorElements? false: true}
-                  helperText={!errorElements? 'Le champ doit étre remplit avec 3 caractére minimum':''}
-                />
+                  />
                 <TextField
                   variant="outlined"
                   margin="normal"
-                  required
                   fullWidth
                   id="montant"
                   label="montant"
@@ -392,8 +356,6 @@ const Chapitreonep = () => {
                   InputProps={{
                     startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
                   }}
-                  error={errorMontant? false: true}
-                  helperText={!errorMontant? 'Entrer un montant valide':''}
                 />
                 <Button
                   type="submit"
@@ -401,7 +363,6 @@ const Chapitreonep = () => {
                   onClick={() => setShow(!show)}
                   endIcon={<Edit/>}
                   style={{color: 'white', background:'#18A4F6'}}
-                  disabled ={errorMontant|| errorElements ? false: true}
 
                 >
                   Modifier
@@ -416,63 +377,51 @@ const Chapitreonep = () => {
           <>
           <Card variant="outlined" className={`${!show && "show"}`}>
             <CardContent>
-               <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}
-            
-          >
-            {(props) => (
-              <Form>
+              <form onSubmit={onSubmit}>
                 <div className="input">
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    required
-                    id="elements"
-                    label="elements"
-                    name="elements"
-                    autoFocus
-                    multiline
-                    rowsMax={4}
-                    style={{ width: 200, marginRight: 10 }}
-                    helperText={<ErrorMessage name="elements" />}
-                    error={props.errors.elements&&props.touched.elements}
-                  />
-                  <Field as={TextField}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="montant"
-                    label="montant"
-                    name="montant"
-                    autoComplete="montant"
-                    type="number"
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
-                    }}
-                    InputLabelProps= {{
-                      shrink: true,
-                    }}
-                    //onChange={handleChange}
-                    style={{ width: 200, margin: 30 }}
-                    helperText={<ErrorMessage name="montant" />}
-                    error={props.errors.montant&&props.touched.elements}
-                  />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="elements"
+                      label="elements"
+                      name="elements"
+                      autoFocus
+                      multiline
+                      rows="8"
+                      rowsMax={15}
+                      value={editTable.elements}
+                      onChange={handleChange}
+                      />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      id="montant"
+                      label="montant"
+                      name="montant"
+                      autoComplete="montant"
+                      InputLabelProps= {{
+                        shrink: true,
+                      }}
+                      value={editTable.montant}
+                      onChange={handleChange}
+                      style={{ width: 200, margin: 30 }}
+                      InputProps={{
+                        startAdornment: <InputAdornment position="start">FCFA</InputAdornment>,
+                      }}
+                    />
                    <Button
                     type="submit"
                     className="plus-icon"
-                    style={{ width: 300}}
                     endIcon={<SaveIcon/>}
-                    style={{color: 'white', background:'#18A4F6'}} 
-                    disabled ={props.errors.montant|| props.errors.elements ? true: false}
+                    style={{color: 'white', background:'#18A4F6'}}
                     
                   >
                     Enregistrer
                 </Button>
                 </div>
-              </Form>
-              )}
-          </Formik>
+              </form>
             </CardContent>
           </Card>
         </>

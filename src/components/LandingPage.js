@@ -59,6 +59,7 @@ import ModeFiancement from "./pdf/financement/ModeFinancement";
 import EtatAvancementPlaning from "./pdf/planning/EtatAvancement";
 import PlanningProjet from "./pdf/planning/PlaningProjet";
 import AchatPrevision from "./pdf/projection/AchatPrevision";
+import Emprunt from "./pdf/financement/Emprunt";
 
 const  LandingPage = () => {
 
@@ -357,8 +358,12 @@ const  LandingPage = () => {
                     <hr/>
                 </div>
                 <div className="desc">
-                    <b>Mode de financement</b><br/><br/>
+                    <b>. Mode de financement</b><br/><br/>
                     <ModeFiancement/><br/><br/>
+                </div>
+                <div className="desc">
+                    <b>. Caractéristiques de l’emprunt</b><br/><br/>
+                    <Emprunt/><br/><br/>
                 </div>
                 {/* fin fiancement*/}
                 <div className="title">

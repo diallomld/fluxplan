@@ -312,6 +312,7 @@ const Chapitreone = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="segmentation"
                   label="Segmentation"
                   name="segmentation"
@@ -327,6 +328,7 @@ const Chapitreone = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="ciblage"
                   label="Ciblage"
                   name="ciblage"
@@ -339,6 +341,7 @@ const Chapitreone = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="positionnement"
                   label="Positionnement"
                   name="positionnement"
@@ -373,6 +376,7 @@ const Chapitreone = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="segmentation"
                       label="Segmentation"
                       name="segmentation"
@@ -388,6 +392,7 @@ const Chapitreone = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="ciblage"
                       label="Ciblage"
                       name="ciblage"
@@ -400,6 +405,7 @@ const Chapitreone = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
+                      multiline
                       id="positionnement"
                       label="Positionnement"
                       name="positionnement"

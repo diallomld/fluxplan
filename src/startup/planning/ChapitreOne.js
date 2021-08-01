@@ -311,6 +311,7 @@ const ChapitreOnePlaning = () => {
                 variant="outlined"
                 margin="normal"
                 fullWidth
+                multiline
                 id="action"
                 label="Actions déjà accomplies"
                 name="action"
@@ -325,6 +326,7 @@ const ChapitreOnePlaning = () => {
                 margin="normal"
                 type="date"
                 fullWidth
+                multiline
                 id="date"
                 label="Date"
                 name="date"
@@ -361,6 +363,7 @@ const ChapitreOnePlaning = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="action"
                         label="Actions déjà accomplies"
                         name="action"
@@ -375,6 +378,7 @@ const ChapitreOnePlaning = () => {
                         margin="normal"
                         type="date"
                         fullWidth
+                        multiline
                         id="date"
                         label="Date"
                         name="date"

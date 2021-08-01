@@ -66,9 +66,6 @@ const Chapitretwo = () => {
   const [load, setLoad] = React.useState(false);
   const [editTable, setEditTable] = React.useState(editObject);
 
-  const [totalMensuel, setTotalMensuel] = React.useState(0)
-  const [totalAnuel, setTotalAnuel] = React.useState(0)
-
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -183,7 +180,7 @@ const Chapitretwo = () => {
           mode: editTable.mode,
           userId: userId,
       })
-      .then(() => {
+      .then((data) => {
         setOpen(true)
       })
       .catch((err) => console.log(err));
@@ -225,7 +222,7 @@ const Chapitretwo = () => {
           <Paper className={classes.root}>
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:30}}>Moyens humains</caption>
+                <caption style={{color: 'black', fontSize:30}}>Segments Clients</caption>
                 <TableHead>
                   <TableRow>
                     <StyledTableCell style={{}}>Client cible</StyledTableCell>
@@ -342,6 +339,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="cible"
                   label="Client cible"
                   name="cible"
@@ -356,6 +354,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="description"
                   label="Description "
                   name="description"
@@ -368,6 +367,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="localisation"
                   label="Localisation"
                   name="localisation"
@@ -380,6 +380,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="produit"
                   label="Produits / Services"
                   name="produit"
@@ -392,6 +393,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="mode"
                   label="Mode de règlement"
                   name="mode"
@@ -404,6 +406,7 @@ const Chapitretwo = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
+                  multiline
                   id="delai"
                   label="Délais de règlement"
                   name="delai"
@@ -439,6 +442,7 @@ const Chapitretwo = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="cible"
                         label="Client cible"
                         name="cible"
@@ -453,6 +457,7 @@ const Chapitretwo = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="description"
                         label="Description "
                         name="description"
@@ -465,6 +470,7 @@ const Chapitretwo = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="localisation"
                         label="Localisation"
                         name="localisation"
@@ -477,6 +483,7 @@ const Chapitretwo = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="produit"
                         label="Produits / Services"
                         name="produit"
@@ -489,6 +496,7 @@ const Chapitretwo = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="mode"
                         label="Mode de règlement"
                         name="mode"
@@ -501,6 +509,7 @@ const Chapitretwo = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
+                        multiline
                         id="delai"
                         label="Délais de règlement"
                         name="delai"
