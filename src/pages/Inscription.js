@@ -251,7 +251,7 @@ const Inscription = () => {
         </form>
         <p className="lien"><Link to="/" style={{fontSize : 20+"px"}}>{"Vous avez deja un compte? Se connecter"}</Link></p>
       </div>
-      <Box mt={2}>
+      <Box mt={2} style={{textAlign:"center"}}>
         <Copyright />
       </Box>
     </div>
