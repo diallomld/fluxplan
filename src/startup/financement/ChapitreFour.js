@@ -187,23 +187,23 @@ const ChapitreFourFinancement = () => {
           techeance1 = tamort1+tinteret1
           setecheance1(techeance1)
           /**ANNEE 2 */
-          tcapital2 = capital1-amort1
+          tcapital2 = capital1-tamort1
           setCapital2(tcapital2)
-          tamort2 = (capital2/Number(doc.data().duree))*12
+          tamort2 = (tcapital2/Number(doc.data().duree))*12
           setAmort2(tamort2)
 
           tinteret2 = tcapital2*tauxpercent
           setinteret2(tinteret2)
-          techeance2 = amort2+interet2
+          techeance2 = tamort2+tinteret2
           setecheance2(techeance2)
 
           /**ANNEE 3 */
-          tcapital3 = capital2-amort2
+          tcapital3 = tcapital2-tamort2
           setCapital3(tcapital3)
-          tamort3 = (capital3/Number(doc.data().duree))*12
+          tamort3 = (tcapital3/Number(doc.data().duree))*12
           setAmort3(tamort3)
 
-          tinteret3 = capital3*tauxpercent
+          tinteret3 = tcapital3*tauxpercent
           setinteret3(tinteret3)
           techeance3 = tamort3+tinteret3
           setecheance3(techeance3)
@@ -238,16 +238,18 @@ const ChapitreFourFinancement = () => {
   }
 
   const getEmprunt = () => {
+    setLoad(true)
     return firebasee
       .firestore()
       .collection("mode-financement-projet")
       .where("userId", "==", userId)
       .get()
       .then((data) => {
+        let captal = 0
         data.forEach((doc) => {
           
-            setCapital1(Number(doc.data().emprunt))
-          
+            captal = Number(doc.data().emprunt)
+            setCapital1(captal)
         });
       })
       .catch((err) => console.log(err));
