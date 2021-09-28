@@ -1,32 +1,10 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@material-ui/core";
 import { useGlobalContext } from "../../context/context";
 import { firebasee } from "../../context/firebase";
 import "./Chapitreone.css";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-
-import SaveIcon from '@material-ui/icons/Save';
-import Edit from '@material-ui/icons/Edit';
-import Add from '@material-ui/icons/Add';
-import CheckCircle from "@material-ui/icons/CheckCircle";
-import VerifiedUserRoundedIcon from '@material-ui/icons/VerifiedUserRounded';
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-
-
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -35,11 +13,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from 'yup';
 
 const useStyles = makeStyles({
   root: {
@@ -60,9 +35,8 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const Chapitredix = () => {
-  const [plan, setPlan] = React.useState([]);
+  const { userId } = useGlobalContext();
   const [toggle, setToggle] = React.useState(false);
-  const [load, setLoad] = React.useState(false);
   /** debut Encaissement */
 
   //pour le Ca
@@ -85,7 +59,10 @@ const Chapitredix = () => {
   const [autreMensuel, setAutreMensuel] = React.useState(0);
 
   // total Encaissement
-  const [tatalEnc, setTotalEnc] = useState(0)
+  const [totalEnc, setTotalEnc] = useState(0)
+  const [AV, setAV] = useState(0)
+  const [ESA, setESA] = useState(0)
+  const [TCA, setTCA] = useState(0)
     /** FIN Encaissement */
 
     /**
@@ -148,10 +125,8 @@ const Chapitredix = () => {
 
   const classes = useStyles();
 
-  const theme = useTheme();
 
   const getEcheance = () => {
-    setLoad(true)
     return firebasee
       .firestore()
       .collection("caracteristique-emprunt")
@@ -171,19 +146,19 @@ const Chapitredix = () => {
           tamort = (emprunt/Number(doc.data().duree))*12
           tinteret = emprunt*tauxpercent
 
-          techeance = tamort1+tinteret1
+          techeance = tamort+tinteret
           techeanceM = Math.round(techeance/12)
 
           setRembourseEmpruntM(techeanceM)
           
         });
-        setLoad(false)
       })
       .catch((err) => console.log(err));
+
+      setToggle(!toggle)
   };
   
   const getChargeExploit = () => {
-    setLoad(true)
     return firebasee
       .firestore()
       .collection("charge-exploitation")
@@ -222,9 +197,9 @@ const Chapitredix = () => {
 
 
         });
-        setLoad(false)
       })
       .catch((err) => console.log(err));
+      setToggle(!toggle)
   };
 
   const getIncorp = () => {
@@ -244,6 +219,7 @@ const Chapitredix = () => {
         });
       })
       .catch((err) => console.log(err));
+      setToggle(!toggle)
   };
   const getCorp = () => {
     
@@ -264,6 +240,7 @@ const Chapitredix = () => {
         
       })
       .catch((err) => console.log(err));
+      setToggle(!toggle)
   };
   const getFinance = () => {
     
@@ -279,15 +256,14 @@ const Chapitredix = () => {
             totalmontant =Number(doc.data().localmontant)+Number(doc.data().electricitemontant)+Number(doc.data().eaumontant)+Number(doc.data().telephonemontant)+Number(doc.data().autremontant)
           
             setotalIf(totalmontant)
-
         });
         
       })
       .catch((err) => console.log(err));
+      setToggle(!toggle)
   };
 
   const getBesoinFinancement = () => {
-    setLoad(true)
     return firebasee
       .firestore()
       .collection("besoin-financement-projet")
@@ -310,20 +286,24 @@ const Chapitredix = () => {
         tapportM = Math.round(tapport/12)
         tversementM = Math.round(tversement/12)
 
-        total = tapportM + tversementM + tatalEnc
+        total = tapportM + tversementM
 
-        setTotalEnc(total)
+        setAV(total)
+
+        console.error("encaissement 2 "+ total)
+
+        //setTotalEnc(total)
 
         setApport(tapport)
         setVersement(tversement)
         setApportMensuel(tapportM)
         setVersementMensuel(tversementM)
-        setLoad(false)
       })
       .catch((err) => console.log(err));
+
+    setToggle(!toggle)
   };
   const getModeFinancement = () => {
-    setLoad(true)
     return firebasee
       .firestore()
       .collection("mode-financement-projet")
@@ -351,9 +331,12 @@ const Chapitredix = () => {
         tsubventionM = Math.round(tsubvention/12)
         tautresM = Math.round(tautres/12)
 
-        total = tempruntM + tsubventionM + tautresM + tatalEnc
+        total = tempruntM + tsubventionM + tautresM
+        setESA(total)
 
-        setTotalEnc(total)
+        console.error("encaissement 1 "+ total)
+
+        //setTotalEnc(total)
 
         setEmprunt(temprunt)
         setSubvention(tsubvention)
@@ -363,13 +346,12 @@ const Chapitredix = () => {
         setSubventionMensuel(tsubventionM)
         setAutreMensuel(tautresM)
 
-        setLoad(false)
       })
       .catch((err) => console.log(err));
+      setToggle(!toggle)
   };
 
   const getTotalCa = () => {
-    setLoad(true)
     return firebasee
       .firestore()
       .collection("prevision-annne1")
@@ -393,15 +375,15 @@ const Chapitredix = () => {
         setCA(tCa)
         setCaMensuel(tCaMensuel)
 
-        setTotalEnc(tCaMensuel)
-
-        setLoad(false)
+        //setTotalEnc(tCaMensuel)
+        setTCA(tCaMensuel)
       })
       .catch((err) => console.log(err));
+
+    setToggle(!toggle)
   };
 
   const getQte = () => {
-    setLoad(true)
     return firebasee
       .firestore()
       .collection("prevision-annne1")
@@ -430,13 +412,14 @@ const Chapitredix = () => {
 
         setTotalQm(tabQte)
         //console.table(prevision)
-        setLoad(false)
       })
       .catch((err) => console.log(err));
+
+    setToggle(!toggle)
   };
 
   const getTotalAchat = () => {
-    setLoad(true)
+    getQte()
     return firebasee
       .firestore()
       .collection("achat-prevision-annne1")
@@ -445,7 +428,7 @@ const Chapitredix = () => {
       .then((data) => {
         //let tabQte = [];
         let tabCa = [];
-        let tcaachatM = O
+        let tcaachatM = 0
         data.forEach((doc) => {
           let som = 0;
 
@@ -460,9 +443,9 @@ const Chapitredix = () => {
         setTotalCaAchat(tCa)
         tcaachatM = Math.round(tCa/12)
         setTotalCaAchatMensuel(tcaachatM)
-        setLoad(false)
       })
       .catch((err) => console.log(err));
+    setToggle(!toggle)
   };
   
   React.useEffect(() => {
@@ -472,46 +455,177 @@ const Chapitredix = () => {
     getFinance()
     getIncorp()
     getCorp()
-    getQte()
     getTotalAchat()
     getChargeExploit()
     getEcheance()
     //setTotal(0)
-  }, [load]);
+  }, [toggle]);
   //console.log("pro");
   //console.log(mission);
   return (
     <div className="chapitretwo">
-      {plan.length > 0 ? (
         <div className="tab">
-          {plan.map((item, index) => {
-                return (
-                <>
-                <Paper className={classes.root}>
-                    <TableContainer className={classes.container}>
-                        <Table stickyHeader aria-label="sticky table">
-                            <caption style={{color: 'black', fontSize:20}}>Plan de trésorerie de la première année </caption>
-                            <TableHead>
+            <Paper className={classes.root}>
+                <TableContainer className={classes.container}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <caption style={{color: 'black', fontSize:20}}>Plan de trésorerie de la première année </caption>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell style={{ minWidth: 300}}></TableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 1</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 2</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 3</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 4</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 5</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 6</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 7</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 8</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 9</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 10</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 11</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 150}}>Mois 12</StyledTableCell>
+                                <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow style={{backgroundColor:'#18A4F6'}}>
+                                <TableCell><b>Solde de debut de mois</b></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                
+                            </TableRow>
+                            <TableRow style={{backgroundColor:'#18A4F6'}}>
+                                <TableCell><b>Encaissements </b></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell><b> Chiffre d’affaires TTC</b></TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                                <TableCell>{caMensuel}</TableCell>
+                            </TableRow>
+                        
                                 <TableRow>
-                                    <TableCell style={{ minWidth: 300}}></TableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 1</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 2</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 3</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 4</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 5</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 6</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 7</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 8</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 9</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 10</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 11</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 150}}>Mois 12</StyledTableCell>
-                                    <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
+                                    <TableCell> Apport en Capital </TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
+                                    <TableCell>{apportMensuel}</TableCell>
                                 </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                <TableRow style={{backgroundColor:'#18A4F6'}}>
-                                    <TableCell><b>Solde de debut de mois</b></TableCell>
+                                <TableRow>
+                                    <TableCell> Versement en compte courant associé </TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                    <TableCell>{versementMensuel}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Emprunts  </TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                    <TableCell>{empruntMensuel}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Subventions   </TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                    <TableCell>{subventionMensuel}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Autre </TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                    <TableCell>{autreMensuel}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> <b> Total encaissements </b> </TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                    <TableCell>{AV+ESA+TCA}</TableCell>
+                                </TableRow>
+                                <TableRow>
                                     <TableCell></TableCell>
                                     <TableCell></TableCell>
                                     <TableCell></TableCell>
@@ -524,418 +638,195 @@ const Chapitredix = () => {
                                     <TableCell></TableCell>
                                     <TableCell></TableCell>
                                     <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> <b> Décaissements  </b> </TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Investissements </TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
+                                    <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
                                     
                                 </TableRow>
-                                <TableRow style={{backgroundColor:'#18A4F6'}}>
-                                    <TableCell><b>Encaissements </b></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
+                                <TableRow>
+                                    <TableCell> Achats marchandises/mat. Premières TTC </TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
+                                    <TableCell>{totalCaAchatMensuel}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell><b> Chiffre d’affaires TTC</b></TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
-                                    <TableCell>{caMensuel}</TableCell>
+                                    <TableCell> Autres Achats </TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
+                                    <TableCell>{autreAchatM}</TableCell>
                                 </TableRow>
-                            
-                                    <TableRow>
-                                        <TableCell> Apport en Capital </TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                        <TableCell>{apportMensuel}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Versement en compte courant associé </TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                        <TableCell>{versementMensuel}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Emprunts  </TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                        <TableCell>{empruntMensuel}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Subventions   </TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                        <TableCell>{subventionMensuel}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Autre </TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                        <TableCell>{autreMensuel}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> <b> Total encaissements </b> </TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                        <TableCell>{totalEnc}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> <b> Décaissements  </b> </TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                        <TableCell></TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Investissements </TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        <TableCell>{Math.round((totalIincpor+totalIcorp+totalIf)/12)}</TableCell>
-                                        
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Achats marchandises/mat. Premières TTC </TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                        <TableCell>{totalCaAchatMensuel}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Autres Achats </TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                        <TableCell>{autreAchatM}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Transports </TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                        <TableCell>{transportM}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Services extérieurs </TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                        <TableCell>{serviceExterieurM}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Autres charges </TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                        <TableCell>{autreChargeM}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Impôts et taxes </TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                        <TableCell>{impotTaxeM}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell> Charges du personnel </TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                        <TableCell>{chargePersonnelM}</TableCell>
-                                    </TableRow>
-                                    <TableRow style={{backgroundColor:"#87bfad"}}>
-                                        <TableCell> <b>Charges d’exploitation</b> </TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                        <TableCell><b>{chargeExploitM}</b></TableCell>
-                                    </TableRow>
-                                    <TableRow style={{backgroundColor:"#87bfad"}}>
-                                        <TableCell> <b>Remboursement emprunt</b> </TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{rembourseEmpruntM}</b></TableCell>
-                                    </TableRow>
-                                    <TableRow style={{backgroundColor:"#18A4F6"}}>
-                                        <TableCell> <b> Total décaissements </b> </TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                        <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
-                                    </TableRow>
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Paper>
-                </>
-                );
-            })}
-          
+                                <TableRow>
+                                    <TableCell> Transports </TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                    <TableCell>{transportM}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Services extérieurs </TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                    <TableCell>{serviceExterieurM}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Autres charges </TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                    <TableCell>{autreChargeM}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Impôts et taxes </TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                    <TableCell>{impotTaxeM}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell> Charges du personnel </TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                    <TableCell>{chargePersonnelM}</TableCell>
+                                </TableRow>
+                                <TableRow style={{backgroundColor:"#87bfad"}}>
+                                    <TableCell> <b>Charges d’exploitation</b> </TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                    <TableCell><b>{chargeExploitM}</b></TableCell>
+                                </TableRow>
+                                <TableRow style={{backgroundColor:"#87bfad"}}>
+                                    <TableCell> <b>Remboursement emprunt</b> </TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{rembourseEmpruntM}</b></TableCell>
+                                </TableRow>
+                                <TableRow style={{backgroundColor:"#18A4F6"}}>
+                                    <TableCell> <b> Total décaissements </b> </TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                    <TableCell><b>{Math.round((totalIincpor+totalIcorp+totalIf)/12)+totalCaAchatMensuel+chargeExploitM+rembourseEmpruntM}</b></TableCell>
+                                </TableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper>
         </div>
-      ) : (
-        <div className="tab">
-          <Paper className={classes.root}>
-            <TableContainer className={classes.container}>
-              <Table stickyHeader aria-label="sticky table">
-                <caption style={{color: 'black', fontSize:30}} >Cette partie n'a pas encore été remplit</caption>
-                <TableHead>
-                    <TableRow>
-                        <TableCell style={{ minWidth: 300}}></TableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 1</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 2</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 3</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 4</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 5</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 6</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 7</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 8</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 9</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 10</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 11</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 150}}>Mois 12</StyledTableCell>
-                        <StyledTableCell style={{ minWidth: 100 }}>Action</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow hover role="checkbox" tabIndex={-1}>
-                      
-                          <TableCell>............</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>......Action......</TableCell>
-                    </TableRow>
-                    <TableRow hover role="checkbox" tabIndex={-1}>
-                      
-                          <TableCell>............</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>......Action......</TableCell>
-                    </TableRow>
-                    <TableRow hover role="checkbox" tabIndex={-1}>
-                      
-                          <TableCell>............</TableCell>
-                          <TableCell>............</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>...........</TableCell>
-                          <TableCell>......Action......</TableCell>
-                    </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
-        </div>
-      )}
 
-      {load ? (<CircularProgress variant="indeterminate" style={{marginTop:10}}/>): ''}
     </div>
   );
 };

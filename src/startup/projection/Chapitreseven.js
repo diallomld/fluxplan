@@ -528,6 +528,7 @@ const Chapitresevenp = () => {
         let totalamort = 0
         data.forEach((doc) => {
           totalamort = Math.round(Number(doc.data().fraismontant)/Number(doc.data().fraisduree)+Number(doc.data().brevetmontant)/Number(doc.data().brevetduree)+Number(doc.data().licencemontant)/Number(doc.data().licenceduree)+Number(doc.data().logicielmontant)/Number(doc.data().logicielduree)+Number(doc.data().sitemontant)/Number(doc.data().siteduree)+Number(doc.data().marquemontant)/Number(doc.data().marqueduree)+Number(doc.data().droitmontant)/Number(doc.data().droitduree)+Number(doc.data().autremontant)/Number(doc.data().autreduree))
+          //setG(totalamort)
           setAmort(totalamort)
         });
       })
@@ -542,9 +543,11 @@ const Chapitresevenp = () => {
       .get()
       .then((data) => {
         let totalamort = 0
+        let tg = 0
         data.forEach((doc) => {
           totalamort =Math.round(Number(doc.data().batimentmontant)/Number(doc.data().batimentduree)+Number(doc.data().amenagementmontant)/Number(doc.data().amenagementduree)+Number(doc.data().splitmontant)/Number(doc.data().splitduree)+Number(doc.data().ordibureaumontant)/Number(doc.data().ordibureauduree)+Number(doc.data().ordiportablemontant)/Number(doc.data().ordiportableduree)+Number(doc.data().ondulairemontant)/Number(doc.data().ondulaireduree)+Number(doc.data().imprimantemontant)/Number(doc.data().imprimanteduree)+Number(doc.data().photocopiemontant)/Number(doc.data().photocopieduree)+Number(doc.data().videomontant)/Number(doc.data().videoduree)+Number(doc.data().stabilisateurmontant)/Number(doc.data().stabilisateurduree)+Number(doc.data().voituremontant)/Number(doc.data().voitureduree)+Number(doc.data().tricyclemontant)/Number(doc.data().tricycleduree)+Number(doc.data().motomontant)/Number(doc.data().motoduree)+Number(doc.data().bureaumontant)/Number(doc.data().bureauduree)+Number(doc.data().placardmontant)/Number(doc.data().placardduree)+Number(doc.data().tablemontant)/Number(doc.data().tableduree)+Number(doc.data().fauteuilmontant)/Number(doc.data().fauteuilduree)+Number(doc.data().chaisemontant)/Number(doc.data().chaiseduree)+Number(doc.data().autremontant)/Number(doc.data().autreduree)+Number(doc.data().materieletmobiliermontant)/Number(doc.data().materieletmobilierduree))
         });
+        
         setAmortCorp(totalamort)
       })
       .catch((err) => console.log(err));
@@ -634,9 +637,9 @@ const Chapitresevenp = () => {
     getTotalCa()
     getIncorp()
     getCorp()
-    setG(tamort+tamortCorp)
     getEmprunt()
     getFraisFinancier()
+    setG(tamort+ tamortCorp)
     getDate()
     //setTotal(0)
   }, [toggle])
