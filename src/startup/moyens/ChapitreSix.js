@@ -115,6 +115,12 @@ const ChapitreSixMoyen = () => {
     receptionmnt:0,
     missionnbre:0,
     missionmnt:0,
+    personnelnbre:0,
+    personnelmnt:0,
+    diversesnbre:0,
+    diversesmnt:0,
+    impotsnbre:0,
+    impotsmnt:0,
   };
   const { userId } = useGlobalContext();
   const [show, setShow] = React.useState(false);
@@ -127,6 +133,12 @@ const ChapitreSixMoyen = () => {
   const [tachat, setAchat] = React.useState(0)
   const [ttransport, setTransport] = React.useState(0)
   const [tservice, setService] = React.useState(0)
+  const [totalCharge, setTotalCharge] = React.useState(0)
+
+  const [tachatAnnuelle, setAchatAnnuelle] = React.useState(0)
+  const [ttransportAnnuelle, setTransportAnnuelle] = React.useState(0)
+  const [tserviceAnnuelle, setServiceAnnuelle] = React.useState(0)
+  const [totalChargeAnnuelle, setTotalChargeAnnuelle] = React.useState(0)
 
   const classes = useStyles();
 
@@ -202,6 +214,12 @@ const ChapitreSixMoyen = () => {
         receptionmnt:0,
         missionnbre:0,
         missionmnt:0,
+        personnelnbre:0,
+        personnelmnt:0,
+        diversesnbre:0,
+        diversesmnt:0,
+        impotsnbre:0,
+        impotsmnt:0,
     })
   };
   
@@ -296,6 +314,12 @@ const ChapitreSixMoyen = () => {
             receptionmnt:editTable.receptionmnt,
             missionnbre:editTable.missionnbre,
             missionmnt:editTable.missionmnt,
+            personnelnbre:editTable.personnelnbre,
+            personnelmnt:editTable.personnelmnt,
+            diversesnbre:editTable.diversesnbre,
+            diversesmnt:editTable.diversesmnt,
+            impotsnbre:editTable.impotsnbre,
+            impotsmnt:editTable.impotsmnt,
             userId: userId,
         },
         { merge: true }
@@ -337,6 +361,11 @@ const ChapitreSixMoyen = () => {
         let totalachat = 0
         let totaltransport = 0
         let totalservice = 0
+        let tcharge = 0
+        let totalachatAnnuelle = 0
+        let totaltransportAnnuelle = 0
+        let totalserviceAnnuelle = 0
+        let tchargeAnnuelle = 0
         data.forEach((doc) => {
           dat.push({
             mcnbre:doc.data().mcnbre,
@@ -403,16 +432,38 @@ const ChapitreSixMoyen = () => {
             receptionmnt:doc.data().receptionmnt,
             missionnbre:doc.data().missionnbre,
             missionmnt:doc.data().missionmnt,
+            personnelnbre:doc.data().personnelnbre,
+            personnelmnt:doc.data().personnelmnt,
+            diversesnbre:doc.data().diversesnbre,
+            diversesmnt:doc.data().diversesmnt,
+            impotsnbre:doc.data().impotsnbre,
+            impotsmnt:doc.data().impotsmnt,
             id: doc.data().userId,
             docIdd: doc.id,
           });
           
+          //tatal montant mensuel
           totalachat = (Number(doc.data().mcmnt)*Number(doc.data().mcnbre))+(Number(doc.data().carburantmnt)*Number(doc.data().carburantnbre))+(Number(doc.data().pemnt)*Number(doc.data().penbre))+(Number(doc.data().fournituremnt)*Number(doc.data().fourniturenbre))+(Number(doc.data().eaumnt)*Number(doc.data().eaunbre))+(Number(doc.data().electricitemnt)*Number(doc.data().electricitenbre))+(Number(doc.data().pmomnt)*Number(doc.data().pmonbre))+(Number(doc.data().epsmnt)*Number(doc.data().epsnbre))+(Number(doc.data().tmemnt)*Number(doc.data().tmenbre))+(Number(doc.data().emballagemnt)*Number(doc.data().emballagenbre))
           totaltransport = (Number(doc.data().tavmnt)*Number(doc.data().tavnbre))+(Number(doc.data().tpmnt)*Number(doc.data().tpnbre))+(Number(doc.data().tplismnt)*Number(doc.data().tplisnbre))+(Number(doc.data().voyagemnt)*Number(doc.data().voyagenbre))+(Number(doc.data().tamnt)*Number(doc.data().tanbre))
           totalservice = (Number(doc.data().traitancemnt)*Number(doc.data().traitancenbre))+(Number(doc.data().locationmnt)*Number(doc.data().locationnbre))+(Number(doc.data().entretienmnt)*Number(doc.data().entretiennbre))+(Number(doc.data().maintenancemnt)*Number(doc.data().maintenancenbre))+(Number(doc.data().assurancemnt)*Number(doc.data().assurancenbre))+(Number(doc.data().etudemnt)*Number(doc.data().etudenbre))+(Number(doc.data().docmnt)*Number(doc.data().docnbre))+(Number(doc.data().pubmnt)*Number(doc.data().pubnbre))+(Number(doc.data().telmnt)*Number(doc.data().telnbre))+(Number(doc.data().internetmnt)*Number(doc.data().internetnbre))+(Number(doc.data().fraismnt)*Number(doc.data().fraisnbre))+(Number(doc.data().commissionmnt)*Number(doc.data().commissionnbre))+(Number(doc.data().honorairemnt)*Number(doc.data().honorairenbre))+(Number(doc.data().formationmnt)*Number(doc.data().formationnbre))+(Number(doc.data().redevancemnt)*Number(doc.data().redevancenbre))+(Number(doc.data().receptionmnt)*Number(doc.data().receptionnbre))+(Number(doc.data().missionmnt)*Number(doc.data().missionnbre))
+          tcharge = totalachat+totaltransport+totalservice+Number(doc.data().personnelmnt*Number(doc.data().personnelnbre))+Number(doc.data().diversesmnt*Number(doc.data().diversesnbre))+Number(doc.data().impotsmnt*Number(doc.data().impotsnbre))
+          
+          //tatal montant annuel
+          totalachatAnnuelle = totalachat*12
+          totaltransportAnnuelle = totaltransport*12
+          totalserviceAnnuelle = totalservice*12
+          tchargeAnnuelle = tcharge*12
+
+          setTotalChargeAnnuelle(tchargeAnnuelle)
+          setServiceAnnuelle(totalserviceAnnuelle)
+          setAchatAnnuelle(totalachatAnnuelle)
+          setTransportAnnuelle(totaltransportAnnuelle)
+
           setAchat(totalachat)
           setService(totalservice)
           setTransport(totaltransport)
+          setTotalCharge(tcharge)
+
 
         });
         setCharge(dat);
@@ -492,6 +543,12 @@ const ChapitreSixMoyen = () => {
             receptionmnt:editTable.receptionmnt,
             missionnbre:editTable.missionnbre,
             missionmnt:editTable.missionmnt,
+            personnelnbre:editTable.personnelnbre,
+            personnelmnt:editTable.personnelmnt,
+            diversesnbre:editTable.diversesnbre,
+            diversesmnt:editTable.diversesmnt,
+            impotsnbre:editTable.impotsnbre,
+            impotsmnt:editTable.impotsmnt,
             userId: userId,
       })
       .then(() => {
@@ -564,7 +621,7 @@ const ChapitreSixMoyen = () => {
                               <TableCell></TableCell>
                               <TableCell></TableCell>
                               <TableCell><b>{tachat}</b></TableCell>
-                              <TableCell></TableCell>
+                              <TableCell><b>{tachatAnnuelle}</b></TableCell>
                               <TableCell rowSpan="39">
                                 <div className="delete">
                                   <div className="edit">
@@ -651,7 +708,7 @@ const ChapitreSixMoyen = () => {
                               <TableCell></TableCell>
                               <TableCell></TableCell>
                               <TableCell><b>{ttransport}</b></TableCell>
-                              <TableCell></TableCell>
+                              <TableCell><b>{ttransportAnnuelle}</b></TableCell>
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                             <TableCell>Transports sur achats/ventes</TableCell>
@@ -693,7 +750,7 @@ const ChapitreSixMoyen = () => {
                               <TableCell></TableCell>
                               <TableCell></TableCell>
                               <TableCell><b>{tservice}</b></TableCell>
-                              <TableCell></TableCell>
+                              <TableCell><b>{tserviceAnnuelle}</b></TableCell>
                         </TableRow>
                         <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                             <TableCell>Sous-traitance</TableCell>
@@ -814,6 +871,27 @@ const ChapitreSixMoyen = () => {
                             <TableCell>{item.missionnbre*item.missionmnt}</TableCell>
                             <TableCell>{item.missionmnt*12}</TableCell>
                         </TableRow>
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                            <TableCell><b>Charges de personnels</b></TableCell>
+                            <TableCell>{item.personnelnbre}</TableCell>
+                            <TableCell>{item.personnelmnt}</TableCell>
+                            <TableCell>{item.personnelmnt*item.personnelnbre}</TableCell>
+                            <TableCell>{item.personnelmnt*12}</TableCell>
+                        </TableRow>
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                            <TableCell><b>Charges diverses</b></TableCell>
+                            <TableCell>{item.diversesnbre}</TableCell>
+                            <TableCell>{item.diversesmnt}</TableCell>
+                            <TableCell>{item.diversesnbre*item.diversesmnt}</TableCell>
+                            <TableCell>{item.diversesmnt*12}</TableCell>
+                        </TableRow>
+                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                            <TableCell><b>Impôts et taxes</b></TableCell>
+                            <TableCell>{item.impotsnbre}</TableCell>
+                            <TableCell>{item.impotsmnt}</TableCell>
+                            <TableCell>{item.impotsnbre*item.impotsmnt}</TableCell>
+                            <TableCell>{item.impotsmnt*12}</TableCell>
+                        </TableRow>
                         
                         </>
                       );
@@ -822,8 +900,8 @@ const ChapitreSixMoyen = () => {
                         <TableCell><b>Total charges d’exploitation</b> </TableCell>
                         <TableCell></TableCell>
                         <TableCell></TableCell>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
+                        <TableCell><b>{totalCharge}</b></TableCell>
+                        <TableCell><b>{totalChargeAnnuelle}</b></TableCell>
                     </TableRow>
                 </TableBody>
               </Table>
@@ -1668,6 +1746,78 @@ const ChapitreSixMoyen = () => {
                 value={editTable.missionmnt}
                 onChange={handleChange}
                 />
+                <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="personnelnbre"
+                label="Nombre mois besoin(Personnels)"
+                name="personnelnbre"
+                rowsMax={10}
+                rows="5"
+                value={editTable.personnelnbre}
+                onChange={handleChange}
+                />
+                <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="personnelmnt"
+                label="Montant mensuel(Personnels)"
+                name="personnelmnt"
+                rowsMax={10}
+                rows="5"
+                value={editTable.personnelmnt}
+                onChange={handleChange}
+                />
+                <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="diversesnbre"
+                label="Nombre mois besoin(diversess)"
+                name="diversesnbre"
+                rowsMax={10}
+                rows="5"
+                value={editTable.diversesnbre}
+                onChange={handleChange}
+                />
+                <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="diversesmnt"
+                label="Montant mensuel(diversess)"
+                name="diversesmnt"
+                rowsMax={10}
+                rows="5"
+                value={editTable.diversesmnt}
+                onChange={handleChange}
+                />
+                <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="impotsnbre"
+                label="Nombre mois besoin(impotss)"
+                name="impotsnbre"
+                rowsMax={10}
+                rows="5"
+                value={editTable.impotsnbre}
+                onChange={handleChange}
+                />
+                <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="impotsmnt"
+                label="Montant mensuel(impotss)"
+                name="impotsmnt"
+                rowsMax={10}
+                rows="5"
+                value={editTable.impotsmnt}
+                onChange={handleChange}
+                />
                     
                 
                 <Button
@@ -2463,6 +2613,78 @@ const ChapitreSixMoyen = () => {
                         value={editTable.missionmnt}
                         onChange={handleChange}
                         />
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          id="personnelnbre"
+                          label="Nombre mois besoin(Personnels)"
+                          name="personnelnbre"
+                          rowsMax={10}
+                          rows="5"
+                          value={editTable.personnelnbre}
+                          onChange={handleChange}
+                          />
+                          <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          id="personnelmnt"
+                          label="Montant mensuel(Personnels)"
+                          name="personnelmnt"
+                          rowsMax={10}
+                          rows="5"
+                          value={editTable.personnelmnt}
+                          onChange={handleChange}
+                          />
+                          <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          id="diversesnbre"
+                          label="Nombre mois besoin(diversess)"
+                          name="diversesnbre"
+                          rowsMax={10}
+                          rows="5"
+                          value={editTable.diversesnbre}
+                          onChange={handleChange}
+                          />
+                          <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          id="diversesmnt"
+                          label="Montant mensuel(diversess)"
+                          name="diversesmnt"
+                          rowsMax={10}
+                          rows="5"
+                          value={editTable.diversesmnt}
+                          onChange={handleChange}
+                          />
+                          <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          id="impotsnbre"
+                          label="Nombre mois besoin(impotss)"
+                          name="impotsnbre"
+                          rowsMax={10}
+                          rows="5"
+                          value={editTable.impotsnbre}
+                          onChange={handleChange}
+                          />
+                          <TextField
+                          variant="outlined"
+                          margin="normal"
+                          fullWidth
+                          id="impotsmnt"
+                          label="Montant mensuel(impotss)"
+                          name="impotsmnt"
+                          rowsMax={10}
+                          rows="5"
+                          value={editTable.impotsmnt}
+                          onChange={handleChange}
+                          />
                             
                         <Button
                             type="submit"

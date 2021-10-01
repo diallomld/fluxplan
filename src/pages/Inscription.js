@@ -23,7 +23,7 @@ function Copyright() {
         Flux Plan
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'} Tous droit réservés | Design et Developpement par Amanou Tech
+      {'.'} Tous droit réservés | Design et Développement par <a href="amanou.tech" target="blank">Amanou Tech</a>.
     </Typography>
   );
 }

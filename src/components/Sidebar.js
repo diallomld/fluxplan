@@ -172,7 +172,7 @@ function Sidebar(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" style={{backgroundColor:'#14abc3'}} className={classes.appBar}>
+      <AppBar position="fixed" style={{backgroundColor:'#18A4F6'}} className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -184,7 +184,7 @@ function Sidebar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            AppFluxPlan
+            Application Flux Plan
           </Typography>
         </Toolbar>
       </AppBar>

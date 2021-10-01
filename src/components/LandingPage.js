@@ -82,7 +82,7 @@ const  LandingPage = () => {
             <div className="chapitretwo-title">
                 <h3>Télécharge le business plan pour start-up</h3><br/>
                 <div>    
-                    <img src={pdf} width="150" />
+                    <img src={pdf} width="150" alt="logo" />
                 </div>
             </div>
             <button onClick={jsPDFform} className="bouton">download</button>

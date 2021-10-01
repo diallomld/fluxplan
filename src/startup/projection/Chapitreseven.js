@@ -83,7 +83,7 @@ const Chapitresevenp = () => {
   // Achat marchandise
   const [A, setA] = React.useState(0)
   const [A2, setA2] = React.useState(0)
-  const [A2, setA2] = React.useState(0)
+  const [A3, setA3] = React.useState(0)
 
   // Marge brute
   const [MB, setMB] = React.useState(0)
@@ -101,6 +101,10 @@ const Chapitresevenp = () => {
   const [D2, setD2] = React.useState(0)
   const [D3, setD3] = React.useState(0)
 
+  // Valeur ajoutee
+  const [VA, setVA] = React.useState(0)
+  const [VA2, setVA2] = React.useState(0)
+  const [VA3, setVA3] = React.useState(0)
 
 
 
@@ -194,6 +198,9 @@ const Chapitresevenp = () => {
         let c3 = 0
         let d2 = 0
         let d3 = 0
+        let va = 0
+        let va2 = 0
+        let va3 = 0
         data.forEach((doc) => {
           dat.push({
             taux: doc.data().taux,
@@ -240,6 +247,14 @@ const Chapitresevenp = () => {
           d3 = d2+ d2*(doc.data().taux/100)
           setD3(d3)
 
+          /*Valeur Ajoutee */
+
+          va = MB-(A+B+C+D)
+          va2 = va + va*(doc.data().taux/100)
+          va3 = va2 + va2*(doc.data().taux/100)
+          setVA(va)
+          setVA2(va2)
+          setVA3(va3)
 
 
         })
@@ -397,12 +412,12 @@ const Chapitresevenp = () => {
                         </TableRow>
                         <TableRow>
                             <TableCell>Achats marchandises/matières premières</TableCell>
-                            <TableCell>{0}</TableCell>
+                            <TableCell>{A}</TableCell>
                             <TableCell>{item.taux}</TableCell>
-                            <TableCell>{0}</TableCell>
+                            <TableCell>{A2}</TableCell>
                             <TableCell>{item.taux}</TableCell>
-                            <TableCell>{0}</TableCell>
-                            <TableCell>{Number(0)}</TableCell>
+                            <TableCell>{A3}</TableCell>
+                            <TableCell>{Number(A2+A3)}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell><b>Marge Brute (MB)</b></TableCell>
@@ -451,179 +466,13 @@ const Chapitresevenp = () => {
                         </TableRow>
                         <TableRow>
                             <TableCell><b>Valeur Ajoutée (VA)</b></TableCell>
-                            <TableCell>{}</TableCell>
-                            <TableCell>{Number(item.ca2)+Number(item.autreproduit2)}</TableCell>
-                            <TableCell>{Number(item.ca3)+Number(item.autreproduit3)}</TableCell>
-                            <TableCell>{totalProduit}</TableCell>
+                            <TableCell>{VA}</TableCell>
+                            <TableCell>{item.taux}</TableCell>
+                            <TableCell>{VA2}</TableCell>
+                            <TableCell>{item.taux}</TableCell>
+                            <TableCell>{VA3}</TableCell>
                         </TableRow>
-                        <TableRow>
-                            <TableCell>Achats marchandises & Matières premières</TableCell>
-                            <TableCell>{item.am1}</TableCell>
-                            <TableCell>{item.am2}</TableCell>
-                            <TableCell>{item.am3}</TableCell>
-                            <TableCell>{Number(item.am1)+Number(item.am2)+Number(item.am3)}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Achats produits accessoires</TableCell>
-                            <TableCell>{item.ap1}</TableCell>
-                            <TableCell>{item.ap2}</TableCell>
-                            <TableCell>{item.ap3}</TableCell>
-                            <TableCell>{Number(item.ap1)+Number(item.ap2)+Number(item.ap3)}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>MARGE BRUTE</b></TableCell>
-                            <TableCell>{totalBrut1}</TableCell>
-                            <TableCell>{totalBrut2}</TableCell>
-                            <TableCell>{totalBrut3}</TableCell>
-                            <TableCell>{totalBrut}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Autres achats</TableCell>
-                            <TableCell>{item.autreAchat1}</TableCell>
-                            <TableCell>{item.autreAchat2}</TableCell>
-                            <TableCell>{item.autreAchat3}</TableCell>
-                            <TableCell>{Number(item.autreAchat1)+Number(item.autreAchat2)+Number(item.autreAchat3)}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Transport</TableCell>
-                            <TableCell>{item.transport1}</TableCell>
-                            <TableCell>{item.transport2}</TableCell>
-                            <TableCell>{item.transport3}</TableCell>
-                            <TableCell>{Number(item.transport1)+Number(item.transport2)+Number(item.transport3)}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Services extérieurs</TableCell>
-                            <TableCell>{item.se1}</TableCell>
-                            <TableCell>{item.se2}</TableCell>
-                            <TableCell>{item.se3}</TableCell>
-                            <TableCell>{Number(item.se1)+Number(item.se2)+Number(item.se3)}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>Total Consommations Intermédiaires</b></TableCell>
-                            <TableCell>{totalConsomable1}</TableCell>
-                            <TableCell>{totalConsomable2}</TableCell>
-                            <TableCell>{totalConsomable3}</TableCell>
-                            <TableCell>{totalConsomable}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>VALEUR AJOUTEE (VA)</b></TableCell>
-                            <TableCell>{Number(totalBrut1)-Number(totalConsomable1)}</TableCell>
-                            <TableCell>{Number(totalBrut2)-Number(totalConsomable2)}</TableCell>
-                            <TableCell>{Number(totalBrut3)-Number(totalConsomable3)}</TableCell>
-                            <TableCell>{totalBrut-totalConsomable}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Impôts et taxes</TableCell>
-                            <TableCell>{item.impot1}</TableCell>
-                            <TableCell>{item.impot2}</TableCell>
-                            <TableCell>{item.impot3}</TableCell>
-                            <TableCell>{totalImpot}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Frais de personnel</TableCell>
-                            <TableCell>{item.fraisp1}</TableCell>
-                            <TableCell>{item.fraisp2}</TableCell>
-                            <TableCell>{item.fraisp3}</TableCell>
-                            <TableCell>{totalFrais}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>EXCEDENT BRUT D'EXPLOITATION (EBE)</b></TableCell>
-                            <TableCell>{totalExedent1}</TableCell>
-                            <TableCell>{totalExedent2}</TableCell>
-                            <TableCell>{totalExedent3}</TableCell>
-                            <TableCell>{totalExedent}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Reprise sur Provisions</TableCell>
-                            <TableCell>{item.reprise1}</TableCell>
-                            <TableCell>{item.reprise2}</TableCell>
-                            <TableCell>{item.reprise3}</TableCell>
-                            <TableCell>{totalReprise}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Dotation aux Amortissements</TableCell>
-                            <TableCell>{item.dotation1}</TableCell>
-                            <TableCell>{item.dotation2}</TableCell>
-                            <TableCell>{item.dotation3}</TableCell>
-                            <TableCell>{totalDotation}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>RESULTAT D'EXPLOITATION</b></TableCell>
-                            <TableCell>{totalExploit1}</TableCell>
-                            <TableCell>{totalExploit2}</TableCell>
-                            <TableCell>{totalExploit3}</TableCell>
-                            <TableCell>{totalExploit}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Produits Financiers</TableCell>
-                            <TableCell>{item.p1}</TableCell>
-                            <TableCell>{item.p2}</TableCell>
-                            <TableCell>{item.p3}</TableCell>
-                            <TableCell>{totalP}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Frais Financiers</TableCell>
-                            <TableCell>{item.frais1}</TableCell>
-                            <TableCell>{item.frais2}</TableCell>
-                            <TableCell>{item.frais3}</TableCell>
-                            <TableCell>{totalFraisf}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>RESULTAT FINANCIER</b></TableCell>
-                            <TableCell>{totalFinancier1}</TableCell>
-                            <TableCell>{totalFinancier2}</TableCell>
-                            <TableCell>{totalFinancier3}</TableCell>
-                            <TableCell>{totalFinancier}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Produits HAO</TableCell>
-                            <TableCell>{item.phao1}</TableCell>
-                            <TableCell>{item.phao2}</TableCell>
-                            <TableCell>{item.phao3}</TableCell>
-                            <TableCell>{Number(item.phao1)+Number(item.phao2)+Number(item.phao3)}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Charges HAO</TableCell>
-                            <TableCell>{item.chargehao1}</TableCell>
-                            <TableCell>{item.chargehao2}</TableCell>
-                            <TableCell>{item.chargehao3}</TableCell>
-                            <TableCell>{Number(item.chargehao1)+Number(item.chargehao2)+Number(item.chargehao3)}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>RESULTAT HORS ACTIVITES ORDINAIRES</b></TableCell>
-                            <TableCell>{(Number(item.phao1))-(Number(item.chargehao1))}</TableCell>
-                            <TableCell>{(Number(item.phao2))-(Number(item.chargehao2))}</TableCell>
-                            <TableCell>{(Number(item.phao3))-(Number(item.chargehao3))}</TableCell>
-                            <TableCell>{totalOrdinaire}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b> RESULTAT BRUT</b></TableCell>
-                            <TableCell>{totalResultatBrut1}</TableCell>
-                            <TableCell>{totalResultatBrut2}</TableCell>
-                            <TableCell>{totalResultatBrut3}</TableCell>
-                            <TableCell>{totalResultatBrut}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Impôt BIC</TableCell>
-                            <TableCell>{item.impot1}</TableCell>
-                            <TableCell>{item.impot2}</TableCell>
-                            <TableCell>{item.impot3}</TableCell>
-                            <TableCell>{totalBic}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b> RESULTAT NET</b></TableCell>
-                            <TableCell>{totalResultatBrut1-item.impot1}</TableCell>
-                            <TableCell>{totalResultatBrut2-item.impot2}</TableCell>
-                            <TableCell>{totalResultatBrut3-item.impot3}</TableCell>
-                            <TableCell>{totalResultatBrut-totalBic}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>CASH Flow</b></TableCell>
-                            <TableCell>{(totalResultatBrut1-item.impot1)+item.dotation1}</TableCell>
-                            <TableCell>{(totalResultatBrut2-item.impot2)+item.dotation2}</TableCell>
-                            <TableCell>{(totalResultatBrut3-item.impot3)+item.dotation3}</TableCell>
-                            <TableCell>{(totalResultatBrut-totalBic)+totalDotation}</TableCell>
-                        </TableRow>
+                        
                              
                         </>
                       );

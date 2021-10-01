@@ -4,6 +4,9 @@
 .makeStyles-avatar-2{
     margin-right: 58px !important;
 }
+.MuiTypography-alignCenter{
+    text-align: inherit !important;
+}
 
 @media screen and (min-width: 900px) {
     .MuiAvatar-circle{
