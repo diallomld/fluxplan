@@ -127,8 +127,8 @@ const Chapitreneuf = () => {
         data.forEach((doc) => {
 
           //le chiffre d'affaires
-          //ca = CA
-          tmnta2 = CA+ CA*(doc.data().taux/100)
+          ca = CA
+          tmnta2 = ca+ ca*(doc.data().taux/100)
           setCA2(tmnta2)
           tmnta3 = tmnta2+ tmnta2*(doc.data().taux/100)
           setCA3(tmnta3)
@@ -151,7 +151,7 @@ const Chapitreneuf = () => {
           b3 = b2+ b2*(doc.data().taux/100)
           setCF3(b3)
 
-          tmvc = CA-a
+          tmvc = ca-a
           tmvc2 = tmnta2-a2
           tmvc3 = tmnta3-a3
 
@@ -160,8 +160,8 @@ const Chapitreneuf = () => {
           setMCV2(tmvc2)
           setMCV3(tmvc3)
           
+          ttmvc = Math.round(tmvc/ca)
           
-          ttmvc = Math.round(tmvc/CA)
           ttmvc2 = Math.round(tmvc2/tmnta2)
           ttmvc3 = Math.round(tmvc3/tmnta3)
 
@@ -191,9 +191,9 @@ const Chapitreneuf = () => {
           
         })
         setLoad(false)
+        setToggle(!toggle);
         })
         .catch((err) => console.log(err));
-      setToggle(!toggle);
   };
   const getTotalCa = () => {
     setLoad(true)
@@ -217,9 +217,9 @@ const Chapitreneuf = () => {
         })
         setCA(tCa)
         setLoad(false)
+        setToggle(!toggle)
       })
       .catch((err) => console.log(err));
-      setToggle(!toggle)
   };
 
   const getChargeExploit = () => {
@@ -238,6 +238,8 @@ const Chapitreneuf = () => {
           setCF(totalachat)
 
         });
+        setLoad(false)
+        setToggle(!toggle)
       })
       .catch((err) => console.log(err));
   };
@@ -264,7 +266,6 @@ const Chapitreneuf = () => {
                     <StyledTableCell style={{ maxWidth: 150 }}>Année 1</StyledTableCell>
                     <StyledTableCell style={{ maxWidth: 150 }}>Année 2</StyledTableCell>
                     <StyledTableCell style={{ maxWidth: 150 }}>Année 3</StyledTableCell>
-                    <StyledTableCell style={{ maxWidth: 100 }}>Action</StyledTableCell> 
                   </TableRow>
                 </TableHead>
                 <TableBody>
